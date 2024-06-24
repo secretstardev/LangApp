@@ -1,0 +1,8 @@
+<div *ngIf="errors.length > 0" class="message-error">
+  <div *ngFor="let err of errors; let i = index" class="message-box">
+    <span>{{ err.message }}</span>
+    <button (click)="close(i)">
+      <app-icon class="close" [icon]="'close-default'" size="small"></app-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.payment-registration {
+  &-description {
+    color: var(--grayscale-body);
+    max-width: 512px;
+  }
+
+  b {
+    color: var(--primary-tulip-500-base);
+    font-weight: 700;
+  }
+
+  .back-button {
+    color: var(--grayscale-body);
+  }
+}

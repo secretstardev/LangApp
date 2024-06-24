@@ -1,0 +1,11 @@
+<app-payment-settings
+  [transactionRows]="transactionRows | async"
+  [paymentMethods]="paymentMethods"
+  [user]="user"
+  [tryingToProlong]="tryingToProlong"
+  (updateRows)="getRows($event)"
+  (updatePaymentMethods)="updatePaymentMethods($event)"
+  (pauseSubscription)="pauseSubscription($event)"
+  (prolongSubscription)="prolongSubscription()"
+  (removePaymentMethod)="removePaymentMethod($event)">
+</app-payment-settings>

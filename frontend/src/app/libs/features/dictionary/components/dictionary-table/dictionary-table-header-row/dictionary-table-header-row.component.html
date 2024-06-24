@@ -1,0 +1,6 @@
+<th [attr.colspan]="colspanCount">
+    <div class="header-checkbox">
+        <p-checkbox [ngModel]="selectAll" [binary]="true" (onChange)="selectAllChange.emit($event.checked)"></p-checkbox>
+        <p class="label">{{ 'SelectAll' | translate }}</p>
+    </div>
+</th>

@@ -1,0 +1,37 @@
+<p-multiSelect
+  #multiSelect
+  class="filter-multiselect"
+  panelStyleClass="filter-multiselect"
+  [appendTo]="appendTo"
+  [panelStyle]="{'display': hidePanelDisplay ? 'none' : ''}"
+  [formControl]="control"
+  [styleClass]="styleClass"
+  [optionLabel]="optionLabel"
+  [optionValue]="optionValue"
+  [placeholder]="placeHolder | translate"
+  [options]="options"
+  [showClear]="showClear"
+  [filter]="false"
+  (onPanelShow)="panelDisplayHandler()"
+  (click)="processControlExpansion($event, multiSelect)">
+  <ng-template let-selectedValues pTemplate="selectedItems">
+    <localized-multi-select
+      [valueField]="optionValue"
+      [displayField]="optionLabel"
+      [emptyMessage]="placeHolder"
+      [items]="options"
+      [selectedValues]="selectedValues">
+    </localized-multi-select>
+  </ng-template>
+  <ng-template let-item pTemplate="item">
+    {{ item?.label | translate }}
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <button class="filter-multiselect-header" (click)="selectAll(options)">{{'Select All' | translate}}</button>
+  </ng-template>
+
+  <ng-template pTemplate="dropdownicon">
+    <app-icon icon="arrow-down" class="filter-multiselect__icon"></app-icon>
+  </ng-template>
+</p-multiSelect>

@@ -1,0 +1,11 @@
+<div class="flex flex-col" *ngIf="recommendations?.length > 0">
+  <span class="material-recommendations-list-title">{{'Material.View.Recommended' | translate}}</span>
+  <div class="material-recommendations-list-items">
+    <app-materials-list-item
+      *ngFor="let item of recommendations"
+      [item]="item"
+      [config]="buttons"
+      (removeItem)="removeFromFeed.emit($event)">
+    </app-materials-list-item>
+  </div>
+</div>

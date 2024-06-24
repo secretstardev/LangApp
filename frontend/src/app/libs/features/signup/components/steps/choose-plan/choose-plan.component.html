@@ -1,0 +1,44 @@
+<div class="choose-plan">
+  <app-step-header [title]="'ChoosePlan.Title' | translate" [allowBack]="false"></app-step-header>
+  <div class="grid auto-rows-fr grid-cols-1 pt-[12px] gap-5 lg:grid-cols-3 max-w-[1130px]">
+    <input [formControl]="control" type="text" class="hidden"/>
+    <div *ngFor="let plan of plans; index as i"
+         [ngClass]="{ 'border-color-primary border-2 row-start-1 lg:col-start-2': i === 1, 'border-gray-200': i !== 1 }"
+         class="plan-box flex flex-col w-full bg-white border rounded-xl py-[32px] px-[16px]">
+      <h5
+        [ngClass]="{ 'inline-block text-transparent bg-clip-text text-gradient': i === 1, 'text-gray-800': i !== 1 }"
+        class="text-[28px] leading-[38px] m-0 w-full text-center">{{ plan.title | translate }}</h5>
+      <p *ngIf="plan.fragment" [ngClass]="{ 'color-primary': i === 1 }"
+         class="m-0 text-[16px] leading-[24px] font-normal text-center">{{ plan.fragment | translate }}</p>
+      <ul role="list" class="mb-4 mt-6 h-full flex flex-col" [ngClass]="{ 'mt-6': i === 1, 'mt-11': i !== 1 }">
+        <li class="flex py-2 last-of-type:mt-auto" *ngFor="let benefit of plan.benefits; let j = index"
+            [ngStyle]="benefit.style">
+          <p-skeleton *ngIf="plan.totalPrice.price === -1" class="w-full" height="60px"></p-skeleton>
+          <ng-container *ngIf="plan.totalPrice.price >= 0" >
+            <ic-icon *ngIf="benefit.icon" class="br-50 flex-shrink-0 w-5 h-5 text-green-500"
+                     [icon]="icons[benefit.icon]" [inline]="true" width="24" height="24"></ic-icon>
+            <span class="text-[16px] ml-[10px] leading-normal text-gray-500">{{ benefit.label | translate: {value: plan.totalPrice.price >= 0 ? ((plan.totalPrice.price || 3) | currency: currencyValue : 'symbol' : '1.0-0') : ('Unavailable' | translate) } }}</span>
+          </ng-container>
+        </li>
+        <li class="price-block flex py-2" [ngStyle]="plan.totalPrice.style">
+          <span></span>
+          <p-skeleton *ngIf="plan.totalPrice.price === -1" class="mb-2 w-full" height="40px"></p-skeleton>
+          <h4 *ngIf="plan.totalPrice.price >= 0" [ngClass]="{ 'mb-2': i === 1, 'mb-8': i !== 1 }"
+              class="pr-2 text-[32px] text-gray-800 flex items-center justify-center w-full text-center">
+            {{ plan.totalPrice.price ? (plan.totalPrice.price | currency: currencyValue : 'symbol' : '1.0-0') :  ('Free' | translate) | uppercase}}
+            <span class="ml-2 text-[16px] font-normal leading-tight text-gray-400" *ngIf="plan.totalPrice.period">{{ plan.totalPrice.period | translate }}</span>
+          </h4>
+          <p class="text-[16px] font-normal text-gray-800 pr-2"
+             *ngIf="plan.totalPrice.note">{{ plan.totalPrice.note | translate }}</p>
+        </li>
+      </ul>
+      <button
+        pButton
+        class="plan-select-button p-button-wide flex-shrink-0 w-full"
+        [label]="plan.label | translate"
+        [disabled]="plan.totalPrice.price === -1"
+        (click)="completeStep(i)"></button>
+    </div>
+  </div>
+</div>
+

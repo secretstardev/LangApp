@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  header {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .word {
+    font-size: 2.25rem;
+    font-weight: 500;
+  }
+
+
+  .card-word {
+    border-bottom: 1px solid var(--grayscale-stroke-line);
+    margin-bottom: 1.5rem;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}

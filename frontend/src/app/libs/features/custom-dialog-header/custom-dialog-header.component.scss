@@ -1,0 +1,41 @@
+.custom-dialog-header {
+  display: flex;
+  padding: 0 0 24px 0;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--grayscale-title);
+
+  &__wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__text {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  &__close {
+    cursor: pointer;
+
+    &:hover {
+      border-color: transparent;
+      background: rgba(232, 241, 248, 0.7);
+      border-radius: 99px;
+    }
+  }
+
+  .big {
+    font-size: 32px;
+  }
+
+  .normal {
+    font-size: 18px;
+  }
+
+  app-icon {
+    color: var(--primary-tulip-500-base);
+  }
+}

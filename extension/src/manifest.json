@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "LangApp Extension",
+  "version": "0.0.0",
+  "description": "This extension is your ultimate tool for mastering Japanese. \n\nWith a simple click, it allows you to translate any word on any website, providing its reading, translation, and other useful details. \n\nEffortlessly add words to your custom list for later study. This feature makes vocabulary building easy and convenient. \n\nThe extension integrates perfectly with the LangApp Japanese service. This seamless integration enables you to review your saved words through effective and interactive drills. \n\nExperience a new dimension of language learning. This extension transforms the internet into a vast, immersive Japanese study resource. Immerse yourself in the language like never before.",
+  "homepage_url": "https://langapp.net/",
+  "short_name": "LangApp",
+
+  "icons": {
+    "16": "assets/icons/favicon-16.png",
+    "32": "assets/icons/favicon-32.png",
+    "48": "assets/icons/favicon-48.png",
+    "128": "assets/icons/favicon-128.png"
+  },
+
+  "permissions": [
+    "activeTab",
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
+
+  "action": {
+    "default_icon": {
+      "16": "assets/icons/favicon-16.png",
+      "32": "assets/icons/favicon-32.png",
+      "48": "assets/icons/favicon-48.png",
+      "128": "assets/icons/favicon-128.png"
+    },
+    "default_title": "LangApp"
+  },
+
+  "background": {
+    "service_worker": "js/serviceWorker.bundle.js"
+  },
+
+  "content_scripts": [{
+    "matches": [
+      "http://*/*",
+      "https://*/*"
+    ],
+    "js": [
+      "js/contentScript.bundle.js"
+    ]
+  }]
+}

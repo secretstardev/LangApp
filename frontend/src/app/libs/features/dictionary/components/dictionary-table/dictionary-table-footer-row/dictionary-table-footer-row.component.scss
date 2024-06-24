@@ -1,0 +1,46 @@
+:host {
+  .footer-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .words-counter {
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .footer-wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .footer-wrapper {
+      position: relative;
+    }
+
+    .actions {
+      width: 100%;
+    }
+
+    .btn-item {
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    .button-menu {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}

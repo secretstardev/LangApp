@@ -1,0 +1,15 @@
+.square-form {
+  &-button {
+    padding: 12px 32px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 480px) {
+  .square-form {
+    &-button {
+      width: fit-content;
+      max-width: 260px;
+    }
+  }
+}

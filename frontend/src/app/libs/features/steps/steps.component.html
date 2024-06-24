@@ -1,0 +1,3 @@
+<div class="mr-[12px] pt-[12px] flex">
+  <div *ngFor="let step of stepsArray; let i = index" class="h-[4px] w-[63px] mr-[12px]" [ngClass]="i <= currentStep ? 'bg-[#FF8289]' : 'bg-neutral-200'"></div>
+</div>

@@ -1,0 +1,9 @@
+<form #form="ngForm">
+  <intl-tel-input
+    #phoneNumberField
+    [cssClass]="cssClass"
+    [labelCssClass]="labelCssClass"
+    [required]="required"
+    [options]="options"
+    (E164PhoneNumberChange)="onPhoneNumberUpdate($event)"></intl-tel-input>
+</form>

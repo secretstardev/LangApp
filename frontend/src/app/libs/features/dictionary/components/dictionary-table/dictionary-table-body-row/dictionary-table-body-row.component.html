@@ -1,0 +1,14 @@
+<ng-container *ngIf="dictionary">
+  <td style="max-width: 2.875rem; width: 2.875rem">
+    <p-checkbox [ngModel]="dictionary | isSelectionRow : selectionIds" [binary]="true" (onChange)="selectionChange.emit($event.checked)"></p-checkbox>
+  </td>
+  <td>
+    <div class="words">
+      <span class="origin">{{ dictionary.original_word }}</span>
+      <span class="translate">{{ dictionary.translate_word }}</span>
+    </div>
+  </td>
+  <td style="max-width: 3.375rem; width: 3.375rem">
+    <app-progress-bar [value]="dictionary.drill_progress" [tooltip]="'progressStudy' | translate"></app-progress-bar>
+  </td>
+</ng-container>

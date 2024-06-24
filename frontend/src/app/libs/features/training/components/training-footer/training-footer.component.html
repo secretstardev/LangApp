@@ -1,0 +1,4 @@
+<p class="label-continue f-grayscale-label">{{ 'TrainingContinueBtnLabel' | translate }}</p>
+
+<button *ngIf="isAnswered || !hasAnswer" pButton class="btn-continue big" label="{{ 'Continue' | translate }}" (click)="clickContinue.emit()"></button>
+<button *ngIf="!isAnswered && hasAnswer" pButton class="btn-continue big" label="{{ 'DontRemember' | translate }}" (click)="clickDontRemember.emit()"></button>

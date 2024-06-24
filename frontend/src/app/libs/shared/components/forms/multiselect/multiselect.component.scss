@@ -1,0 +1,115 @@
+.filter-multiselect {
+  &-header {
+    display: flex;
+    width: 100%;
+    color: var(--grayscale-title);
+  }
+
+  &__icon {
+    color: var(--grayscale-title);
+  }
+
+  .p-multiselect {
+    box-shadow: none !important;
+    border-radius: 4px;
+
+    &:not(.p-disabled):hover {
+      border: 1px solid var(--grayscale-label);
+      box-shadow: none;
+    }
+
+    &-clear-icon {
+      right: 2.357rem;
+      color: #657380;
+    }
+
+    &-label {
+      color: var(--grayscale-title);
+    }
+
+    &-item {
+      border-bottom: 0 !important;
+    }
+
+    &-close {
+      display: none;
+    }
+
+    &-items {
+      padding: 0 !important;
+      color: var(--grayscale-title);
+
+      &-wrapper {
+        max-height: calc(100vh - 260px) !important;
+        margin: 0;
+        border: 0;
+        border-top: 1px solid var(--grayscale-stroke-line);
+        border-radius: 0 0 4px 4px;
+        box-shadow: none;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+          border-left: 1px solid var(--grayscale-stroke-line);
+        }
+
+        &::-webkit-scrollbar-thumb {
+          width: 4px;
+          background: var(--grayscale-label);
+          border-radius: 16px;
+        }
+      }
+    }
+  }
+
+  &.p-multiselect-panel {
+    border-radius: 4px;
+    border: 1px solid var(--grayscale-stroke-line);
+    margin: 4px 0;
+    box-shadow: 0 4px 16px 0 rgba(60, 72, 83, 0.12);
+    background: white;
+
+    .p-multiselect-header {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      background: none;
+
+      &:not(.p-disabled):hover {
+        background: var(--grayscale-placeholder);
+      }
+    }
+
+    .p-multiselect-items {
+      .p-multiselect-item {
+        white-space: normal;
+        color: var(--grayscale-title);
+
+        &.p-highlight {
+          background: transparent;
+          color: var(--grayscale-title);
+        }
+
+        &:not(.p-disabled):hover {
+          background: var(--grayscale-placeholder);
+          color: var(--grayscale-title);
+        }
+      }
+    }
+  }
+
+  .p-checkbox .p-checkbox-box {
+    border: 2px solid var(--grayscale-label);
+
+    &.p-highlight {
+      border-color: var(--primary-tulip-500-base) !important;
+    }
+  }
+
+  .p-placeholder {
+    color: var(--grayscale-label) !important;
+  }
+
+  p-multiselectitem:last-of-type .p-multiselect-item {
+    border-bottom: 0 !important;
+  }
+}

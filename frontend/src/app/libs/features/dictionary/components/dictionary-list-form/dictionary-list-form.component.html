@@ -1,0 +1,25 @@
+<form [class.short]="type === 'short'" [formGroup]="mainForm" (ngSubmit)="submitClick()">
+  <div class="name-field p-field g-field">
+    <label for="field-name">{{ 'ListForm.NameLabel' | translate }}</label>
+    <input
+      id="field-name"
+      formControlName="name"
+      pInputText
+      type="text"
+      [appInvalidControl]="mainForm.controls.name"
+      [placeholder]="'ListForm.NamePlaceholder' | translate"
+      [maxlength]="formConfig.nameMaxLength"
+    />
+  </div>
+
+  <p-checkbox *ngIf="type === 'full'" formControlName="importWords" [binary]="true" [label]="'ListForm.ImportCheckbox' | translate"></p-checkbox>
+
+  <div *ngIf="mainForm.controls.importWords.value" class="p-field g-field">
+    <label for="field-description">{{ 'ListForm.DescriptionLabel' | translate }}</label>
+    <textarea id="field-description" formControlName="wordsList" pInputTextarea [placeholder]="'ListForm.DescriptionPlaceholder' | translate" [rows]="7" [cols]="40"></textarea>
+  </div>
+
+  <p-checkbox class="default-checkbox" formControlName="isDefault" [binary]="true" [label]="'ListForm.MakeDefaultCheckbox' | translate"></p-checkbox>
+
+  <button class="mt-9 btn-save {{ type }}" pButton type="submit">{{ 'ListForm.Save' | translate }}</button>
+</form>

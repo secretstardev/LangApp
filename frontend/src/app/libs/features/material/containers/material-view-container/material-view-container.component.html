@@ -1,0 +1,7 @@
+<app-material-view
+  [content]="content"
+  [languageLevels]="languageLevels | async"
+  (updateAttribute)="setContentAttributes($event)"
+  (removeFromFeed)="removeFromFeed($event)"
+  (submitReport)="sendReport($event)">
+</app-material-view>

@@ -1,0 +1,23 @@
+<section class="left">
+  <app-training-card-question-word [card]="card" [isAnswered]="currentAnswerIndex !== null" (clickPlay)="clickPlay.emit($event)" (clickMore)="clickMore.emit($event)"></app-training-card-question-word>
+  <button
+    *ngIf="card.cardType | trainingByTypeAvailable : ['selectWordForAudio', 'selectAudioForWord']"
+    pButton
+    class="btn-question p-button-outlined p-button-secondary"
+    (click)="disableAudioQuestion.emit(card.cardType)"
+  >
+    {{ 'DisableAudioQuestion' | translate }}
+  </button>
+  <p class="info-txt f-grayscale-label">{{ 'ExplanationReadingKanji' | translate }}</p>
+</section>
+
+<section class="right">
+  <app-training-card-question-answer
+    [card]="card"
+    [drill]="drill"
+    [currentAnswerIndex]="currentAnswerIndex"
+    (clickPlay)="clickPlay.emit($event)"
+    (checkAnswer)="checkAnswer.emit($event); currentAnswerIndex = $event"
+    (nextQuestion)="nextQuestion.emit(); currentAnswerIndex = null"
+  ></app-training-card-question-answer>
+</section>

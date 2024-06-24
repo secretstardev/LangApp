@@ -1,0 +1,24 @@
+<div class="confirm-dialog">
+  <app-custom-dialog-header [title]="title | translate" [ref]="ref" [icon]="icon"></app-custom-dialog-header>
+  <span class="confirm-dialog-message f-grayscale">{{message}}</span>
+  <div class="confirm-dialog-buttons">
+    <button
+      *ngIf="denyVisible"
+      pButton
+      class="confirm-dialog-buttons__deny"
+      type="button"
+      [label]="denyLabel | translate"
+      (click)="confirm(false)">
+      <app-icon icon="close-default"></app-icon>
+    </button>
+    <button
+      *ngIf="acceptVisible"
+      pButton
+      class="confirm-dialog-buttons__accept"
+      type="button"
+      [label]="acceptLabel | translate"
+      (click)="confirm(true)">
+      <app-icon icon="check"></app-icon>
+    </button>
+  </div>
+</div>

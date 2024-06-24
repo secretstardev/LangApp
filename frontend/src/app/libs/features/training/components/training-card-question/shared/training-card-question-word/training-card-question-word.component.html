@@ -1,0 +1,22 @@
+<div *ngIf="!isAnswered && card.cardType === 'selectWordForAudio'" class="big-audio">
+  <button pButton class="p-icon-button p-button-text btn-volume" (click)="clickPlay.emit(card?.audioUrls?.[0])"><app-icon icon="volume high" size="custom"></app-icon></button>
+</div>
+<div *ngIf="isAnswered || card.cardType !== 'selectWordForAudio'" class="main-card" [class.question-mode]="!isAnswered">
+  <button *ngIf="isAnswered && card?.audioUrls?.[0]" pButton class="p-icon-button p-button-text btn-volume" (click)="clickPlay.emit(card?.audioUrls?.[0])"><app-icon icon="volume high"></app-icon></button>
+  <p
+    [innerHTML]="isAnswered || !card?.question?.furiganaHtml ? card?.furiganaHtml : card?.question?.furiganaHtml"
+    class="drill-word-furigana"
+    [class.mark-on-question]="!isAnswered && !card?.question?.furiganaHtml"
+  ></p>
+</div>
+<div *ngIf="isAnswered || !card?.question?.meanings ? card?.meanings : card?.question?.meanings" class="additional-info">
+  <ng-container *ngIf="!isAnswered && ['selectWordForTranslation'].includes(card.cardType)">
+    <p class="translate f-grayscale-body">{{ card?.question?.meanings || card?.meanings | join : ', ' }}</p>
+  </ng-container>
+
+  <ng-container *ngIf="isAnswered">
+    <p class="translate f-grayscale-body">{{ card?.question?.meanings || card?.meanings | join : ', ' }}</p>
+  </ng-container>
+
+  <app-button-more *ngIf="isAnswered" (btnClick)="clickMore.emit(card.infoCard)"></app-button-more>
+</div>

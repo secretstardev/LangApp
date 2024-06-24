@@ -1,0 +1,10 @@
+<div class="custom-dialog" [ngStyle]="{'padding': contentPadding}">
+  <app-custom-dialog-header
+    *ngIf="showHeader"
+    [title]="title | translate"
+    [ref]="ref"
+    [icon]="headerIcon"
+    [titleSize]="titleSize">
+  </app-custom-dialog-header>
+  <ng-container #dynamicComponentContainer></ng-container>
+</div>

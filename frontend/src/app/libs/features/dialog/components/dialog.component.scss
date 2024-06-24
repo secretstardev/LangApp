@@ -1,0 +1,14 @@
+.custom-dialog {
+  display: flex;
+  flex-direction: column;
+
+  &-content {
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  &.p-dialog, .p-dialog-content {
+    border-radius: 4px;
+    padding: 0;
+  }
+}

@@ -1,0 +1,23 @@
+<button pButton
+        class="volume-control"
+        title="{{'Volume' | translate}}"
+        type="button"
+        style="background: none; border: none; color: white"
+        (mouseover)="showSlider()"
+        (mouseleave)="hideSlider()">
+  <div>
+    <app-icon *ngIf="currentVolume >= 50" icon="volume-high" (click)="volumeToggle()"></app-icon>
+    <app-icon *ngIf="currentVolume > 0 && currentVolume < 50" icon="volume-low" (click)="volumeToggle()"></app-icon>
+    <app-icon *ngIf="currentVolume === 0" icon="volume-cross" (click)="volumeToggle()"></app-icon>
+  </div>
+
+  <div #volumePanel class="volume-control-panel" (click)="adjustVolume($event)" (mousedown)="slider.onMouseDown($event)">
+    <p-slider
+      #slider
+      class="volume-control-slider"
+      [(ngModel)]="currentVolume"
+      (onChange)="onVolumeChange()"
+      (onSlideEnd)="onVolumeSet()">
+    </p-slider>
+  </div>
+</button>

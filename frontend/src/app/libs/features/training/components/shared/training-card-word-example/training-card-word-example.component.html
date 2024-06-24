@@ -1,0 +1,16 @@
+<ng-container *ngIf="kanji || sentence">
+  <div class="left">
+    <button pButton class="p-icon-button p-button-text btn-volume" (click)="clickPlay.emit(kanji?.audioUrls[0] || sentence?.audioUrls[0])"><app-icon icon="volume high"></app-icon></button>
+    <app-progress-bar *ngIf="kanji" [value]="kanji.frequencyRank" [tp]="'frequency-rank-tooltip-kanji' | translate : { value: kanji.frequencyRank | number : '1.0-0' }"></app-progress-bar>
+  </div>
+  <div class="center">
+    <span *ngIf="kanji" class="word-main f-xlarge" [class.showTranslate]="showTranslate" [innerHTML]="kanji.furiganaHtml"></span>
+    <span *ngIf="sentence" class="word-main f-xlarge" [class.showTranslate]="showTranslate" [innerHTML]="sentence.furiganaHtml" onclickTranslation></span>
+
+    <span *ngIf="showTranslate && kanji" class="word-translate f-small">{{ kanji.meanings | join : ', ' }}</span>
+    <span *ngIf="showTranslate && sentence" class="word-translate f-small" [innerHTML]="sentence.translationHtml"></span>
+  </div>
+  <div class="right">
+    <app-button-more *ngIf="showMore" class="btn-more" (btnClick)="clickMore.emit(kanji.infoCard)"></app-button-more>
+  </div>
+</ng-container>

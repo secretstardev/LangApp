@@ -1,0 +1,28 @@
+<div class="pt-[14px] pb-[24px] md:pb-[48px]">
+  <app-step-header [title]="'TopicSelectionTitle' | translate" (goBack)="goToPreviousStep()"></app-step-header>
+  <p translate class="text-[16px] leading-6 mt-1 text-[#64697D]">TopicsCondition</p>
+  <div
+    class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-x-[16px] gap-y-[12px] md:gap-4 category-list">
+    <button *ngFor="let category of categories; trackBy: trackByFn"
+            pButton type="button"
+            class="button-text-left p-button-spaced-tight md:h-20"
+            [ngClass]="{ 'p-button-outlined': control?.value.indexOf(category.id) === -1 }"
+            (click)="clickedOnCategory(category)">
+      <div class="shrink-0 w-[40px] md:w-[48px] h-[40px] md:h-[48px] relative">
+        <div
+          class="w-[40px] md:w-[48px] h-[40px] md:h-[48px] left-0 top-0 absolute bg-neutral-100 rounded-full"></div>
+        <div class="w-[24px] md:w-[32px] h-[24px] md:h-[32px] left-[8px] top-[8px] absolute">
+          <app-svg-icon [icon]="category.icon" width="24" height="24"></app-svg-icon>
+        </div>
+      </div>
+      <span class="p-button-label">{{category.title | translate}}</span>
+    </button>
+  </div>
+</div>
+
+<div
+  class="card md:shadow-none layout-content-cancel sticky md:static bottom-0 bg-white border-t md:border-0 md:pt-0 border-neutral-100">
+  <button pButton label="{{ 'Continue' | translate }}"
+          [disabled]="control?.value?.length < 3" class="p-button-wide"
+          (click)="completeStep()"></button>
+</div>

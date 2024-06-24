@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+
+  .btn {
+    max-width: 17rem;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  @media (max-width: 1280px) {
+    .btn {
+      min-width: 17rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .btn {
+      width: 100%;
+      max-width: none;
+    }
+  }
+}

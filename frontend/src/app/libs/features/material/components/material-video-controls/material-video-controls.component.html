@@ -1,0 +1,131 @@
+<div class="video-controls" xmlns="http://www.w3.org/1999/html">
+  <p-slider
+    #seeker
+    class="video-controls-progress"
+    [(ngModel)]="videoProgress"
+    (onChange)="changeVideoProgress()">
+  </p-slider>
+  <div class="video-controls-wrapper">
+    <div class="left-controls">
+      <button pButton title="{{'RepeatSentence' | translate}}" type="button"
+              style="background: none; border: none; color: white" class="control pl-0 repeat-button"
+              (click)="repeatSentence.emit()">
+        <app-icon icon="repeat"></app-icon>
+      </button>
+      <div class="expandable-block">
+        <app-volume-control [volume]="currentVolume" (volumeChanged)="setVolume($event)"></app-volume-control>
+        <span class="video-timer">{{(getDurationSeconds(_currentTime) || 0) | formatDuration}}
+          / {{(getDurationSeconds(totalDuration) || 0) | formatDuration}}</span>
+      </div>
+
+    </div>
+    <div class="center-controls">
+      <app-playback-control [isPlaying]="isPlaying"
+                            (togglePlay)="togglePlay.emit($event)"
+                            (goToNext)="goToNext.emit()"
+                            (goToPrevious)="goToPrevious.emit()">
+      </app-playback-control>
+    </div>
+    <div class="right-controls">
+      <button pButton
+              title="{{'Speed' | translate}}"
+              class="control playback-speed-button"
+              type="button"
+              style="background: none; border: none; color: white"
+              tpTrigger="click"
+              [tp]="speedControlPopover"
+              [tpOffset]="[0,10]"
+              [tpVariation]="'stickyArrow'"
+              [tpPlacement]="'top-start'">
+        <span class="speed-controls">
+          <app-icon icon="flash-circle"></app-icon>
+          <span>{{currentSpeed}}</span>
+        </span>
+      </button>
+      <button pButton title="{{'FullScreen' | translate}}" type="button"
+              style="background: none; border: none; color: white" class="control fullscreen-button"
+              (click)="fullScreenToggle.emit()">
+        <app-icon icon="maximize"></app-icon>
+      </button>
+      <button pButton
+              title="{{'ShowMore' | translate}}"
+              type="button"
+              style="background: none; border: none; color: white"
+              class="control more-button"
+              tpTrigger="click"
+              [tp]="showMoreControlPopover"
+              (tpVisible)="resetOverlayMenuState($event)"
+              [tpVariation]="'stickyArrow'"
+              [tpPlacement]="'top-end'">
+        <app-icon icon="more"></app-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template let-hide #speedControlPopover>
+  <div class="video-controls-overlay video-controls-overlay__wrapper-list">
+    <button
+      *ngFor="let key of objectKeys(speedVariants)"
+      pButton
+      type="button"
+      class="p-button-text p-0 video-controls-overlay-button-check"
+      [ngClass]="{'video-controls-overlay-button-check-active': key === currentSpeed}"
+      (click)="setSpeed(speedVariants[key])">
+      <app-icon icon="check"></app-icon>
+      <span>{{key | translate}}</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #showMoreControlPopover let-hide>
+  <ng-container *ngTemplateOutlet="activePopoverTemplate ?? showMoreContentPopover; context: {hide}"></ng-container>
+</ng-template>
+<ng-template #showMoreContentPopover let-hide="hide">
+  <div class="video-controls-overlay__wrapper-general">
+    <button
+      class="video-controls-overlay__item repeat-music"
+      (click)="setIsRepeating()">
+      <app-icon icon="repeate-music"></app-icon>
+      <span>{{'RepeatVideo' | translate}}</span>
+      <p-inputSwitch [(ngModel)]="isRepeating" (onChange)="setIsRepeating()"></p-inputSwitch>
+    </button>
+    <button
+      class="video-controls-overlay__item justify-between"
+      (click)="activePopoverTemplate = fontsTemplate">
+      <div class="video-controls-overlay__item">
+        <app-icon icon="smallcaps"></app-icon>
+        <span>{{'FontSize' | translate}}</span>
+      </div>
+      <app-icon icon="arrow-right"></app-icon>
+    </button>
+    <button class="video-controls-overlay__item"
+            (click)="displayShortcuts();hide()">
+      <app-icon icon="keyboard"></app-icon>
+      <span>{{'Shortcuts' | translate}}</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #fontsTemplate>
+  <div class="video-controls-overlay video-controls-overlay__wrapper-list">
+    <button
+      pButton
+      type="button"
+      class="p-button-text p-0 video-controls-overlay-button"
+      (click)="activePopoverTemplate = showMoreContentPopover">
+      <app-icon icon="arrow-left-1"></app-icon>
+      <span>{{'Return' | translate}}</span>
+    </button>
+
+    <button
+      *ngFor="let fontSize of fontSizes; let i = index"
+      pButton
+      type="button"
+      class="p-button-text p-0 video-controls-overlay-button-check"
+      [ngClass]="{'video-controls-overlay-button-check-active': currentFontIndex === i}"
+      (click)="setFontSize(i)">
+      <app-icon icon="check"></app-icon>
+      {{fontSize.label}}
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,3 @@
+<ng-container *ngIf="lang$ | async as currentLang">
+  {{ date | date: format : '' : currentLang }}
+</ng-container>

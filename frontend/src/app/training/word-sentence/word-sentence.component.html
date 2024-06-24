@@ -1,0 +1,29 @@
+<div class="card w-full p-0">
+  <div class="flex flex-wrap md:flex-nowrap">
+    <div class="basis-full md:basis-1/2 p-8 pb-0">
+      <div class="grid grid-cols-[2.5rem_auto] gap-y-1 items-center justify-start pt-4 example-sentence">
+        <div class="w-10 flex items-center justify-start">
+          <i *ngIf="getAudioUrl()" class="pi pi-volume-up play-audio-button text-2xl leading-none" (click)="audioService.play(getAudioUrl())"></i>
+        </div>
+        <div class="text-black text-[24px]" onclickTranslation [innerHTML]="state.isAnswered ? card?.question?.sentence?.furiganaHtml : card?.question?.questionHtml"></div>
+        <div class="col-start-2 text-black text-[18px]" *ngIf="state.isAnswered && card?.question?.sentence?.translationHtml" [innerHTML]="card?.question?.sentence?.translationHtml"></div>
+      </div>
+      <div class="pt-8">
+        <app-drill-word [card]="card" [isAnswered]="state.isAnswered" [centerOnDesktop]="false" *ngIf="state.isAnswered"></app-drill-word>
+      </div>
+    </div>
+    <div class="basis-full md:basis-1/2 p-8 pb-0">
+      <app-drill-answer-buttons [card]="card" [(isAnswered)]="state.isAnswered" [(answeredIndex)]="state.answeredIndex" [(isAnsweredCorrectly)]="state.isAnsweredCorrectly"></app-drill-answer-buttons>
+    </div>
+  </div>
+  <div class="w-full" style="margin: 0; padding: 12px 16px">
+    <div class="flex items-center justify-start">
+      <button style="height: 35px; font-size: 15px" pButton type="button" label="{{ 'Disable questions with audio for 1 hour' | translate }}" class="ellipsis-btn" (click)="cardsService.disableAudioQuestionsFor1Hour()"></button>
+    </div>
+  </div>
+  <div class="w-full" style="margin: 0; padding: 12px 16px">
+    <div class="flex items-center justify-start">
+      <p style="color: #a0b0c4; font-size: 14px">{{ 'Explanation: fill empty space with word from audio.' }}</p>
+    </div>
+  </div>
+</div>

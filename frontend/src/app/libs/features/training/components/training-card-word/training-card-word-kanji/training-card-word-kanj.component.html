@@ -1,0 +1,19 @@
+<ng-container *ngIf="item">
+  <ul class="kanji-readings">
+    <li *ngFor="let kanjiReading of item.readings; let i = index">
+      <app-progress-bar
+        [value]="kanjiReading.frequencyPercent"
+        [fillColor]="kanjiReading.isCurrent ? 'success' : 'disabled'"
+        [tp]="'frequency-rank-tooltip-kanji' | translate : { value: kanjiReading.frequencyPercent | number : '1.0-0' }"
+      ></app-progress-bar>
+      <span class="f-small" [class.f-grayscale-label]="!kanjiReading.isCurrent">
+        {{ kanjiReading?.value }}
+      </span>
+    </li>
+  </ul>
+  <div class="kanji">
+    <span class="kanji-value f-xlarge">{{ item.value }}</span>
+    <span>{{ item.meanings | join : ', ' }}</span>
+    <app-button-more class="btn-more" (btnClick)="clickMore.emit(item.infoCard)"></app-button-more>
+  </div>
+</ng-container>

@@ -1,0 +1,26 @@
+<span [ngClass]="styleClass ? styleClass : 'w-full'" class="search-field">
+  <div class="p-inputgroup">
+    <span *ngIf="iconSide === 'left'" class="search-field-icon p-inputgroup-addon">
+      <i class="search-field-icon"><app-icon icon="search"></app-icon></i>
+    </span>
+    <span class="p-input-icon-right w-full">
+      <input type="text"
+             pInputText
+             [class]="inputStyleClass"
+             [formControl]="control"
+             [class.search-field-border__right]="!outlined && iconSide === 'right'"
+             [class.search-field-border__left]="!outlined && iconSide === 'left'"
+             [placeholder]="placeHolder | translate">
+        <i *ngIf="control?.value?.length > 0"
+           class="search-field-clear"
+           (click)="clearInput()">
+            <app-icon icon="close-default"></app-icon>
+        </i>
+    </span>
+    <span *ngIf="iconSide === 'right'"
+          class="search-field-icon p-inputgroup-addon"
+          (click)="submitValue()">
+      <i class="search-field-icon"><app-icon icon="search"></app-icon></i>
+    </span>
+  </div>
+</span>

@@ -1,0 +1,55 @@
+:host {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+
+  &.isRect {
+    width: 100%;
+    height: 0.5rem;
+  }
+
+  .circle {
+    width: 100%;
+    height: 100%;
+  }
+
+  .circle-fill {
+    stroke: var(--states-success-500-base);
+
+    &.primary {
+      stroke: var(--primary-tulip-500-base);
+    }
+
+    &.disabled {
+      stroke: var(--grayscale-label);
+    }
+  }
+
+  .rect {
+    height: 100%;
+    width: 100%;
+    background: var(--grayscale-placeholder);
+    padding: 1px;
+    display: flex;
+    border-radius: 0.25rem;
+  }
+
+  .rect-fill {
+    &.primary {
+      background-color: var(--primary-tulip-500-base);
+    }
+
+    &.success {
+      background-color: var(--states-success-500-base);
+    }
+
+    &.disabled {
+      background-color: var(--grayscale-label);
+    }
+
+    display: flex;
+    height: 100%;
+    border-radius: inherit;
+  }
+}
+

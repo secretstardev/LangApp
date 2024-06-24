@@ -1,0 +1,11 @@
+<app-icon class="icon-heart f-primary-base" icon="heart-circle" size="custom"></app-icon>
+<h2>{{ 'TrainingComplete.Title' | translate }}</h2>
+<p class="desc-complete f-grayscale-body">{{ 'TrainingComplete.Description' | translate }}</p>
+<p class="what-next f-large f-semibold f-grayscale-body">{{ 'TrainingComplete.WhatsNext' | translate }}</p>
+<ul>
+  <li *ngFor="let item of trainingCompleteWhatNext; trackBy: trackByFn">
+    <app-icon class="f-primary-base icon-arrow" icon="arrow-right-1"></app-icon>
+    <span *ngIf="!item.isLink" class="f-grayscale-title">{{ item.text | translate }}</span>
+    <a *ngIf="item.isLink" (click)="linkClick.emit(item.id)">{{ item.text | translate }}</a>
+  </li>
+</ul>

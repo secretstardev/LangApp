@@ -1,0 +1,8 @@
+<app-dictionary-list
+  [entities]="(dictionaryListStore.entities$ | async) | dictionaryListEntityFilter: hideAll : hideIds"
+  [enabledRemove]="enabledRemove"
+  [selectable]="selectable"
+  [selectedId]="selectedId"
+  (entityClick)="entityClick.emit($event)"
+  (entityDelete)="entityDelete($event)"
+></app-dictionary-list>

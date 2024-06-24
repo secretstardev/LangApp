@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .create-btn {
+    height: 3rem;
+    width: 20.5rem;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  @media (max-width: 600px) {
+    .create-btn {
+      width: 100%;
+    }
+  }
+}

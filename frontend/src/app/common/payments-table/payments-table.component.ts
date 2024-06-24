@@ -1,0 +1,122 @@
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { ApiService } from '@app/services/api.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SessionService } from '@app/services/session.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UserService } from '@app/services/user.service';
+import { TablePaginatorComponent } from '@app/libs/features/table-paginator/table-paginator.component';
+import { MatTableDataSource } from "@angular/material/table";
+
+@UntilDestroy()
+@Component({
+  selector: 'app-payments-table',
+  templateUrl: './payments-table.component.html',
+  styleUrls: ['./payments-table.component.scss'],
+})
+export class PaymentsTableComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() isPaginator = false;
+
+  private _isShowComment;
+
+  get isShowComment(): boolean {
+    return this._isShowComment;
+  }
+
+  @Input() set isShowComment(val: boolean) {
+    this._isShowComment = val;
+    if (val) {
+      this.columns.push('comment');
+    } else {
+      this.columns.pop();
+    }
+  }
+
+  private _isShowId;
+
+  get isShowId(): boolean {
+    return this._isShowId;
+  }
+
+  @Input() set isShowId(val: boolean) {
+    this._isShowId = val;
+    if (val) {
+      this.columns.unshift('id');
+    } else {
+      this.columns.shift();
+    }
+  }
+
+  private _isShowPartnerEarn: boolean;
+
+  get isShowPartnerEarn(): boolean {
+    return this._isShowPartnerEarn;
+  }
+
+  set isShowPartnerEarn(val: boolean) {
+    this._isShowPartnerEarn = val;
+    if (val) {
+      this.columns.pop();
+      this.columns.push('partnerEarned');
+    } else {
+      this.columns.pop();
+      this.columns.push('money');
+    }
+  }
+
+  columns: string[] = ['addedDateTime', 'money'];
+
+  @ViewChild(TablePaginatorComponent) paginator;
+  @ViewChild(MatSort, { static: true }) sort;
+
+  @Input() moneyTitle: any;
+
+  @Input() set rows(data: any[]) {
+    this.isEmptyTable = data ? data.length === 0 : true;
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.sort = this.sort;
+  }
+
+  private _isLoaded = true;
+
+  @Input()
+  set isLoaded(val: boolean) {
+    this._isLoaded = val;
+  }
+
+  get isLoaded(): boolean {
+    return this._isLoaded;
+  }
+
+  @Output() tableEvents: EventEmitter<any> = new EventEmitter<any>();
+
+  dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
+  isEmptyTable = true;
+  @Input()
+  pageSize: any;
+
+  constructor(public session: SessionService, public userService: UserService, private api: ApiService, private translate: TranslateService) {}
+
+  ngOnInit() {
+    this.sort.sortChange.pipe(untilDestroyed(this)).subscribe((data) => {
+      const sort: any = {};
+      if (this.sort.direction !== '') {
+        sort[this.sort.active] = this.sort.direction;
+      }
+      this.tableEvents.emit({ type: 'sort', data: sort });
+    });
+  }
+
+  ngAfterViewInit() {
+    if (this.isPaginator) {
+      this.dataSource.paginator = this.paginator.paginatorComponent;
+    }
+  }
+
+  ngOnDestroy() {}
+
+  onPage(event: PageEvent) {
+    this.tableEvents.emit({ type: 'page', data: event });
+  }
+}

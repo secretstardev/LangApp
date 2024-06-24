@@ -1,0 +1,22 @@
+<p-inplace [active]="isActive">
+  <ng-template pTemplate="display">
+    <button
+      pButton
+      class="mt-2 base-payment-component-buttons__addnew"
+      color="primary"
+      label="{{ 'Add new payment method' | translate }}"
+      icon="pi pi-plus"
+      (click)="activate()">
+    </button>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div *ngIf="enableSquare">
+      <app-square-form [submitCardText]="submitCardText"
+                       (updatedListEvent)="receiveUpdatedPaymentMethods($event)"></app-square-form>
+    </div>
+    <div *ngIf="enableStripe">
+      <app-stripe-form [submitCardText]="submitCardText"
+                       (updatedListEvent)="receiveUpdatedPaymentMethods($event)"></app-stripe-form>
+    </div>
+  </ng-template>
+</p-inplace>

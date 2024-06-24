@@ -1,0 +1,28 @@
+.stripe-form {
+  &-container {
+    display: block;
+    max-width: 343px;
+  }
+
+  &-button, {
+    padding: 12px 32px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .stripe-form {
+    &-container {
+      max-width: 328px;
+    }
+  }
+}
+
+@media (min-width: 480px) {
+  .stripe-form {
+    &-button {
+      width: fit-content;
+      max-width: 260px;
+    }
+  }
+}

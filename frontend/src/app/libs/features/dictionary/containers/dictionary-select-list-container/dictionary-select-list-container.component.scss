@@ -1,0 +1,57 @@
+app-dictionary-select-list-container {
+  display: flex;
+  width: 390px;
+  max-width: 100%;
+  flex-direction: column;
+
+  .search-box {
+    display: flex;
+    width: 390px;
+    max-width: 100%;
+    border: 1px solid var(--grayscale-stroke-line);
+    border-radius: 4px;
+    flex-direction: column;
+  }
+
+  .search {
+    width: 100%;
+
+    input {
+      border-width: 0 0 1px 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      box-shadow: none !important;
+    }
+  }
+
+  .list {
+    display: flex;
+    max-height: 18rem;
+    overflow-y: auto;
+    width: 100%;
+
+    app-dictionary-list {
+      width: 100%;
+    }
+
+    ul {
+      gap: 0 !important;
+      width: 100%;
+    }
+
+    li {
+      border: none !important;
+      border-radius: 0 !important;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .list {
+      li {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+    }
+  }
+}

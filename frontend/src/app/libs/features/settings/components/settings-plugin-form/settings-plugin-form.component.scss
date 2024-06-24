@@ -1,0 +1,18 @@
+:host {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .btn-save {
+    width: 20.5rem;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .p-field {
+    max-width: 21.5rem;
+  }
+}

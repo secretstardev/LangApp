@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .stats-section {
+    display: flex;
+    gap: 5%;
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 1200px) {
+    .stats-section {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+}
+
+.loading {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .loading {
+    max-width: 450px;
+  }
+}

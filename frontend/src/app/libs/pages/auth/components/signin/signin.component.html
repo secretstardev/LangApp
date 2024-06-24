@@ -1,0 +1,54 @@
+<div class="container">
+  <div>
+    <h4 translate class="m-0 text-[26px] md:text-[32px] leading-snug text-gray-900">Sign in</h4>
+    <div translate class="text-[16px] leading-6 mt-1 mb-[12px] text-[#64697D]" translate="">SignInDescription</div>
+  </div>
+  <div *ngIf="isLoaded; else loadingSpinner">
+    <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+      <app-message-error class="p-field g-field error" [errors]="errors"></app-message-error>
+
+      <div class="flex flex-col gap-[16px]">
+        <div class="p-field g-field">
+          <label for="email">{{ 'Email' | translate }}</label>
+          <span class="p-input-icon-left p-input-icon-left-24px">
+            <i><img alt="Email icon" src="assets/svg/email.svg"/></i>
+            <input id="email" formControlName="email" placeholder="{{ 'Enter your email' | translate }}" pInputText
+                   type="text"/>
+          </span>
+          <small class="p-invalid" *ngIf="checkError('email')" [innerHTML]="getErrors('email')"></small>
+        </div>
+
+        <div class="p-field g-field">
+          <label for="password">{{ 'Password' | translate }}</label>
+          <span class="p-input-icon-left p-input-icon-left-24px">
+            <p-password
+              inputId="password"
+              formControlName="password"
+              [placeholder]="'Password' | translate"
+              [feedback]="false"
+              [toggleMask]="true"
+              styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right">
+            </p-password>
+            <i><img alt="password icon" src="assets/svg/lock.svg"/></i>
+          </span>
+          <small class="p-invalid" *ngIf="checkError('password')" [innerHTML]="getErrors('password')"></small>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <a routerLink="/auth/restore" translate class="text-rose-400 font-semibold underline">Forgot password?</a>
+      </div>
+
+      <div class="left-0 bottom-0 p-0 w-full mt-[48px]">
+        <button pButton label="{{ 'Sign in' | translate }}" [disabled]="!signinForm.valid"
+                class="p-button-wide max-w-[350px] sm:max-w-[330px]" (click)="onSubmit()"></button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #loadingSpinner>
+    <div class="p-d-flex p-jc-center">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </ng-template>
+</div>

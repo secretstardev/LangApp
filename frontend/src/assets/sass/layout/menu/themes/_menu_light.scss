@@ -1,0 +1,20 @@
+.layout-menu-light {
+    $menuBgColor:#FDFEFF;
+    $menuShadow:  0 2px 12px 0 rgba(0, 0, 0, 0.06);
+
+    $rootMenuTextColor:#9A9CAA;
+
+    $rootMenuItemTextColor:#515C66;
+    $rootMenuItemHoverBgColor:#e5e9f0;
+    $activeRootMenuItemTextColor:#282E33;
+    $menuItemIconColor:#515C66;
+
+    $submenuItemTextColor:#64697D;
+    $submenuItemHoverBgColor:#FFF2F3;
+    $activeSubmenuItemTextColor:#FF8289;
+
+    $externalSubmenuBgColor:#FDFEFF;
+
+    @import '../_menu_theme';
+}
+

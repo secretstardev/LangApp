@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /app/backend || exit
+php yii user/process-activity-stats --interactive=0

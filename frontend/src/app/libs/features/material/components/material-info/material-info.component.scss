@@ -1,0 +1,246 @@
+.material-info {
+  &-title {
+    &-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 24px 0 12px;
+    }
+
+    &__translated {
+      color: var(--grayscale-label);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+  }
+
+  &-active-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 20px;
+  }
+
+  &-channel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+
+    &__text {
+      color: var(--primary-tulip-500-base);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+
+    &__thumbnail {
+      background: gray;
+      border-radius: 99px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    white-space: nowrap;
+    align-items: center;
+    gap: 4px;
+
+    & &__icons {
+      display: flex;
+      gap: 3px !important;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+
+      color: var(--primary-tulip-500-base);
+      border: none;
+      height: fit-content;
+      border-radius: 24px;
+      padding: 4px 6px !important;
+      align-items: center;
+      background: transparent;
+
+      &.p-button.p-button-text:enabled:hover {
+        background: var(--primary-tulip-50);
+      }
+      &.p-button.p-button-text:enabled:active {
+        background: var(--primary-tulip-100);
+      }
+    }
+
+    & &__outlined {
+      display: flex;
+      height: fit-content;
+      border-radius: 24px;
+      padding: 4px 6px !important;
+      align-items: center;
+      background: var(--primary-tulip-50);
+      border: 1px solid var(--primary-tulip-500-base) !important;
+
+      font-size: 12px;
+      color: var(--primary-tulip-500-base);
+      font-weight: 400;
+      line-height: 16px;
+
+      &.active {
+        color: #ffffff;
+        background: var(--primary-tulip-500-base);
+        &:hover {
+          background: var(--primary-tulip-700);
+        }
+      }
+    }
+  }
+
+  &-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &-block,
+    &-combined {
+      align-items: flex-start;
+      color: var(--grayscale-body);
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+    }
+
+    &-combined {
+      gap: 32px;
+      align-items: center;
+    }
+
+    &-combined &-block {
+      align-items: center;
+    }
+
+    &-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 2px 0;
+
+      &-item {
+        display: flex;
+        padding: 2px 8px;
+        border-radius: 4px;
+        align-items: center;
+        gap: 8px;
+        background: var(--grayscale-placeholder);
+
+        color: var(--grayscale-title);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+
+        &:hover {
+          background: var(--grayscale-stroke-line);
+          color: var(--grayscale-title);
+        }
+      }
+    }
+
+    &-level {
+      display: flex;
+      padding: 2px 12px;
+      align-items: center;
+      gap: 8px;
+      border-radius: 24px;
+      background: var(--primary-tulip-500-base);
+
+      color: var(--grayscale-white);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+
+    &-text {
+      color: var(--grayscale-body);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .p-button-label {
+    font-weight: unset;
+  }
+}
+
+.p-dialog {
+  width: 90%;
+}
+
+@media screen and (min-width: 768px) {
+  .material-info {
+    &-details {
+      max-width: calc(66.6667% - 20px);
+    }
+
+    &-container {
+      padding: 12px 0 32px;
+    }
+
+    &-active-block {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-channel {
+      &__text {
+        font-size: 16px;
+      }
+
+      &__thumbnail {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    &-buttons {
+      gap: 12px;
+
+      & &__icons {
+        font-size: 14px;
+        line-height: 24px;
+        padding: 4px 12px !important;
+        gap: 8px !important;
+      }
+
+      & &__outlined {
+        font-size: 14px;
+        line-height: 24px;
+        padding: 4px 12px !important;
+      }
+    }
+
+    h3 {
+      font-size: 24px;
+    }
+  }
+
+  .p-dialog {
+    width: 50vw;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .material-info {
+    margin-bottom: 37px;
+
+    &-container {
+      padding: 20px 0 37px;
+    }
+  }
+}

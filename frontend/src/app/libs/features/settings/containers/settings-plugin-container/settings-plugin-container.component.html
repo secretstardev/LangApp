@@ -1,0 +1,8 @@
+<ng-container
+  *ngIf="{
+    user: user$ | async
+  } as obs"
+>
+  <app-settings-profile-info [user]="obs.user"></app-settings-profile-info>
+  <app-settings-plugin-form [entity]="obs.user?.extensionSettings" (clickSave)="save(obs.user.id, $event)"></app-settings-plugin-form>
+</ng-container>

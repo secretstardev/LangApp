@@ -1,0 +1,21 @@
+<form [formGroup]="mainForm" [class.mobile-filter-open]="showForMobile">
+  <div class="row">
+    <span class="p-input-icon-right">
+      <input class="search" type="text" pInputText [placeholder]="('Search' | translate) + '...'" [formControlName]="formFields.search" (keyup.enter)="onFilterChange()" />
+      <app-icon class="input-icon" icon="search"></app-icon>
+    </span>
+
+    <button pButton class="filter-button p-button-primary p-icon-button filed" (click)="showForMobile = !showForMobile"><app-icon icon="filter-1"></app-icon></button>
+  </div>
+  <p-dropdown
+    [formControlName]="formFields.type"
+    [options]="wordTypes | keyvalue"
+    class="type"
+    [class.show-for-mobile]="showForMobile"
+    optionLabel="value"
+    optionValue="key"
+    placeholder="{{ 'ListAll' | translate }}"
+    [showClear]="true"
+    (onChange)="onFilterChange()"
+  ></p-dropdown>
+</form>

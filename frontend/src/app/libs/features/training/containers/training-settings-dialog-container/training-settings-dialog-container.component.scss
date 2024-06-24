@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  width: 390px;
+  max-width: 100%;
+  flex-direction: column;
+
+  .options-title {
+    margin-bottom: 0.25rem;
+  }
+
+  ul {
+    display: flex;
+    gap: 0.625rem;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  li {
+    padding: 0.25rem 0;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(90vh - 18rem);
+    overflow-y: auto;
+  }
+}

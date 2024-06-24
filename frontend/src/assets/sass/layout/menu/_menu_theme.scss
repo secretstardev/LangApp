@@ -1,0 +1,119 @@
+.menu-wrapper {
+    background-color: #ffffff;
+    // box-shadow: $menuShadow;
+    border-right: 1px solid #D9DFEB;
+
+
+    .layout-menu-container {
+
+        .layout-menu {
+            > li {
+                > div {
+                    .layout-menuitem-text {
+                        color: $rootMenuTextColor;
+                    }
+                }
+
+                 a {
+                    color: $rootMenuItemTextColor;
+
+                    i {
+                        color: $menuItemIconColor;
+                    }
+
+                    &:hover {
+                        background-color: $rootMenuItemHoverBgColor;
+                    }
+                }
+
+                &.active-menuitem {
+                    > a {
+                        color: $activeRootMenuItemTextColor;
+                    }
+                }
+
+                > ul {
+                    li {
+                        a {
+                            color: $submenuItemTextColor;
+                            font-family: $fontFamily;
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 16px;
+                            line-height: 24px;
+                            height: 48px;
+                            i {
+                                color: $menuItemIconColor;
+                            }
+
+                            &:hover {
+                                background-color: $submenuItemHoverBgColor;
+                                border-radius: 8px;
+                            }
+                        }
+
+                        &.active-menuitem {
+                            > a {
+                                background-color: $submenuItemHoverBgColor;
+                                color: $activeSubmenuItemTextColor;
+                                font-family: $fontFamily;
+                                font-style: normal;
+                                font-weight: 600;
+                                font-size: 16px;
+                                line-height: 24px;
+                                height: 48px;
+                            }
+                        }
+                    }
+
+                    > li {
+                        &.layout-root-menuitem {
+                            &.active-menuitem {
+                                background-color: $rootMenuItemHoverBgColor;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 993px) {
+
+    @mixin extrenalSubmenuitem {
+        li {
+            > a {
+                color: $rootMenuItemTextColor;
+
+                &:hover {
+                    background-color: $submenuItemHoverBgColor;
+                }
+            }
+
+            &.active-menuitem {
+                background-color: $externalSubmenuBgColor;
+                > a {
+                    color: $activeRootMenuItemTextColor;
+                }
+            }
+        }
+    }
+
+    &.layout-horizontal {
+        .menu-wrapper {
+            .layout-menu-container {
+                .layout-menu {
+                    > li {
+                        > ul {
+                            background-color: $externalSubmenuBgColor;
+                            box-shadow: $menuShadow;
+
+                            @include extrenalSubmenuitem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

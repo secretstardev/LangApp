@@ -1,0 +1,69 @@
+<div class="settings-profile-form">
+  <form [formGroup]="mainForm" (ngSubmit)="submitClick()">
+    <div class="p-field">
+      <label for="field-name">{{ 'Name' | translate }}</label>
+      <input id="field-name" formControlName="name" pInputText type="text" [appInvalidControl]="mainForm.controls.name"
+             [placeholder]="'Name' | translate"/>
+    </div>
+
+    <div class="p-field">
+      <label for="field-email">{{ 'Email' | translate }}</label>
+      <input id="field-email" formControlName="email" pInputText type="text" [appInvalidControl]="mainForm.controls.email"
+             [placeholder]="'Email' | translate"/>
+    </div>
+
+    <div class="p-field">
+      <label for="field-timezone">{{ 'Timezone' | translate }}</label>
+      <app-dropdown
+        id="field-timezone"
+        formControlName="timezone"
+        placeholder="Select"
+        [filter]="true"
+        [virtualScroll]="true"
+        [virtualScrollItemSize]="40"
+        [resetFilterOnHide]="true"
+        [optionLabel]="'label'"
+        [options]="timeZones">
+      </app-dropdown>
+    </div>
+
+    <div class="p-field">
+      <label for="field-languages">{{ 'Language level' | translate }}</label>
+      <app-dropdown
+        id="field-languageLevel"
+        formControlName="languageLevel"
+        placeholder="Select"
+        [options]="languageLevels"
+        [itemTemplate]="itemTemplate"
+        [selectedItemTemplate]="selectedItemTemplate">
+        <ng-template #selectedItemTemplate let-selectedItem pTemplate="selectedItem">
+          {{selectedItem?.label | translate | titlecase}}
+        </ng-template>
+        <ng-template #itemTemplate let-level pTemplate="item">
+          <div class="p-multiselect-label">{{level?.label | translate | titlecase}}</div>
+        </ng-template>
+      </app-dropdown>
+    </div>
+
+    <div class="p-field">
+      <label for="field-languages">{{ 'Languages' | translate }}</label>
+      <app-language-draggable
+        id="field-languages"
+        formControlName="languages"
+        [appInvalidControl]="mainForm.controls.languages"
+        [availableLanguages]="languages"
+        [selectedCodes]="entity['languages']">
+      </app-language-draggable>
+    </div>
+
+    <p-checkbox [value]="isChangePassword" [binary]="true" [label]="'Change password' | translate"
+                (onChange)="onPasswordFlagChange($event)"></p-checkbox>
+
+    <ng-container *ngIf="isChangePassword">
+      <app-password-control formControlName="passwordControl" appMarkAllAsTouched></app-password-control>
+    </ng-container>
+
+    <button class="mt-9 btn-save" pButton type="submit" [disabled]="mainForm.invalid">{{ 'Save' | translate }}</button>
+  </form>
+</div>
+

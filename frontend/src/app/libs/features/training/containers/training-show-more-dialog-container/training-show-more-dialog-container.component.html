@@ -1,0 +1,24 @@
+<ng-container *ngIf="dialogStore.currentCard$ | async as card">
+  <header>
+    <button pButton class="back p-icon-button p-button-text p-button-secondary" (click)="clickCancel()"><app-icon icon="arrow-left"></app-icon>{{ 'Back' | translate }}</button>
+    <button pButton class="close p-icon-button p-button-text p-button-secondary" (click)="closeDialog()"><app-icon icon="close-default"></app-icon></button>
+  </header>
+  <div class="body">
+    <ng-container [ngSwitch]="card.cardType">
+      <app-training-card-word
+        *ngSwitchCase="'wordInfo'"
+        class="card-list"
+        [card]="$any(card)"
+        (clickMore)="clickMore($event)"
+        (clickPlay)="clickPlay($event)"
+      ></app-training-card-word>
+      <app-training-card-kanji
+        *ngSwitchCase="'kanjiInfo'"
+        class="card-list"
+        [card]="$any(card)"
+        (clickMore)="clickMore($event)"
+        (clickPlay)="clickPlay($event)"
+      ></app-training-card-kanji>
+    </ng-container>
+  </div>
+</ng-container>

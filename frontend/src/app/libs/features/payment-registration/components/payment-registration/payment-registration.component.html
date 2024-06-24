@@ -1,0 +1,28 @@
+<app-steps [currentStep]="registrationConfig.steps.length - 1" [totalSteps]="registrationConfig.stepperValue"></app-steps>
+<div class="payment-registration pt-[14px] pb-[91px] md:pb-[91px]">
+  <div class="flex items-center mb-2">
+    <h1 translate class="m-0 text-[26px] md:text-[32px] leading-snug text-gray-900">payment.registration.title</h1>
+  </div>
+
+  <div>
+    <div class="mt-6">
+      <span class="payment-registration-description block mb-4"
+            *ngIf="user?.tariff === Tariff.FREE"
+            [innerHTML]="('payment.registration.descriptionFree' | translate : {value: penaltyAmount | currency: currency : 'symbol': '1.0-0'})">
+      </span>
+      <span class="payment-registration-description block mb-4"
+            *ngIf="user?.tariff !== Tariff.FREE"
+            [innerHTML]="('payment.registration.descriptionTemplate' | translate : {value: penaltyAmount | currency: currency : 'symbol': '1.0-0', period: user?.tariffPeriod | penaltyPeriod})">
+      </span>
+      <div class="flex flex-col">
+        <app-base-payment
+          [paymentMethods]="paymentMethods"
+          [user]="user"
+          [submitCardText]="'payment.registration.submit-card'"
+          [allowSaveCardData]="true"
+          (paymentMethodsUpdated)="paymentMethodsUpdated.emit($event)">
+        </app-base-payment>
+      </div>
+    </div>
+  </div>
+</div>

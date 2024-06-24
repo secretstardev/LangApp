@@ -1,0 +1,40 @@
+<div class="p-fluid flex flex-col gap-3">
+  <ng-container *ngFor="let field of fields"
+                [formGroup]="form">
+    <ng-container [ngSwitch]="field.type">
+      <ng-container *ngSwitchCase="'text-input'">
+        <div class="p-field g-field">
+          <label [for]="field.name">{{field.label | translate}}</label>
+          <input [id]="field.name" [formControlName]="field.formControlName" pInputText type="text"/>
+          <small class="p-invalid" *ngIf="checkError(field.name)">{{getError(field.name)}}</small>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'text-area'">
+        <div class="p-field g-field-big">
+          <label [for]="field.name">{{field.label | translate}}</label>
+          <textarea [id]="field.name"
+                    formControlName="body"
+                    pInputTextarea
+                    [autoResize]="true"
+                    [class.p-invalid]="checkError(field.name)"
+                    [rows]="5"
+                    [cols]="30">
+        </textarea>
+          <small class="p-invalid" *ngIf="checkError(field.name)">{{getError(field.name)}}</small>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'recaptcha'">
+        <ngx-recaptcha2
+          #reCaptcha2Component
+          [formControlName]="field.formControlName"
+          [hl]="language"
+          [siteKey]="api.siteKey"
+          [size]="'normal'"
+          [useGlobalDomain]="true"
+          (success)="success()">
+        </ngx-recaptcha2>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+

@@ -1,0 +1,51 @@
+<div class="material-video flex-wrap md:flex-nowrap" id="subControls">
+  <div class="material-video__video-block p-col-12 p-md-8" [style]="isFullScreen ? {padding: '0'} : {}">
+    <div class="left-video no-margin">
+      <app-material-on-screen-controls
+        *ngIf="isMobile"
+        [isPlaying]="isVideoPlaying"
+        [isStarted]="video?.player.hasStarted()"
+        (togglePlay)="$event ? play() : pause()"
+        (goToNext)="nextSubtitle()"
+        (goToPrevious)="previousSubtitle()">
+      </app-material-on-screen-controls>
+      <app-videojs *ngIf="videoOptions" [options]="videoOptions" (playerAvailable)="playerAvailable()"></app-videojs>
+    </div>
+    <div #subtitleWindow class="active-subtitle" onclickTranslation [style]="currentSubtitleStyle">
+      <p *ngFor="let subtitle of selectedSubtitles">
+        <span (mouseover)='subtitleMouseover()' (mouseout)='subtitleMouseout()'>{{subtitle?.text}}</span>
+      </p>
+    </div>
+
+    <app-material-video-controls
+      [isReady]="isReady"
+      [totalDuration]="video?.player?.duration()"
+      [isPlaying]="isVideoPlaying"
+      [isEnded]="isVideoEnded"
+      [isSeeking]="isSeeking"
+      [currentTime]="currentTime"
+      [speedVariants]="config.speedList"
+      [defaults]="config.defaults"
+      [fontSizes]="config.subtitleStyles"
+      [shortcuts]="config.shortcuts"
+      (speedChanged)="setVideoSpeed($event)"
+      (fullScreenToggle)="fullScreen()"
+      (goToNext)="nextSubtitle()"
+      (goToPrevious)="previousSubtitle()"
+      (selectedFontChanged)="setFontSize($event)"
+      (repeatSentence)="repeatSubtitle()"
+      (volumeChanged)="volumeChange($event)"
+      (togglePlay)="$event ? play() : pause()"
+      (progressChange)="updateVideoProgress($event)">
+    </app-material-video-controls>
+  </div>
+  <app-material-subtitles-list
+    [style]="isFullScreen ? {height: '100%'}:{}"
+    class="material-video__subtitles-block"
+    [subtitles]="subtitles"
+    [selectedIndexes]="selectedSubtitleIndexes"
+    [isPlaying]="isVideoPlaying"
+    (pauseSubtitle)="pause()"
+    (selectedSubtitle)="selectSubtitle($event.subtitle, $event.index)">
+  </app-material-subtitles-list>
+</div>

@@ -1,0 +1,54 @@
+<div class="container materials-list-page">
+  <a
+    pButton
+    class="hidden lg:flex filters-button-wrap fixed top-[15%] right-0 flex-col-reverse justify-center"
+    iconPos="right"
+    (click)="filterPanel.updateVisibility()">
+    <app-icon class="sideways-icon" icon="filter" size="normal"></app-icon>
+    <span class="filters-button-text">{{'Filters' | translate}}</span>
+  </a>
+  <app-filter-panel #filterPanel [availableValues]="availableValues" [config]="filterConfig"></app-filter-panel>
+  <div class="materials-filters-block card pl-0 pt-0 pb-4 mb-4 pr-[50px]">
+    <h1 class="title mb-3" translate>Materials</h1>
+      <div class="flex flex-wrap gap-4">
+        <app-filters #filtersBlock class="hidden lg:block gap-4" [availableValues]="availableValues" [config]="filterConfig"></app-filters>
+        <div class="flex lg:hidden gap-2 flex-1">
+          <app-search-field
+            class="flex flex-1"
+            styleClass="h-[40px] items-center flex-1"
+            iconSide="right"
+            [allowClear]="true"
+            [outlined]="true">
+          </app-search-field>
+          <a
+            pButton
+            class="h-[40px] w-[40px] flex justify-center"
+            iconPos="right"
+            (click)="filterPanel.updateVisibility()">
+            <app-icon icon="filter-1" size="normal"></app-icon>
+          </a>
+        </div>
+      </div>
+  </div>
+
+  <div class="container materials-list-page">
+    <cdk-virtual-scroll-viewport
+      #viewPort
+      scrollWindow
+      *ngIf="dataSource$ | async as dataSource"
+      [itemSize]="itemSize"
+      (scrolledIndexChange)="offsetChanged($event)">
+      <div class="grid grid-cols-1 gap-4">
+        <ng-container *cdkVirtualFor="let arr of dataSource; let i = index; trackBy: trackById">
+          <div *ngFor="let item of arr || [undefined]">
+            <app-materials-list-item [locale]="filters?.titleLang" [config]="buttons" [item]="item" (removeItem)="removeFromFeed($event)"></app-materials-list-item>
+          </div>
+        </ng-container>
+      </div>
+    </cdk-virtual-scroll-viewport>
+
+    <div *ngIf="!dataSource || dataSource.length === 0" class="materials-list-page__empty-container">
+      <app-message-with-image size="small" [title]="'NoContent' | translate" [text]="'No content was found, try to change filters' | translate" type="not-found"></app-message-with-image>
+    </div>
+  </div>
+</div>

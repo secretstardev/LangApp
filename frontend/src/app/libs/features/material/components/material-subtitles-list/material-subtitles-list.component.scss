@@ -1,0 +1,73 @@
+.material-subtitles-list {
+  height: 100%;
+  width: 100%;
+  border: 1px solid var(--grayscale-stroke-line);
+  border-radius: 8px;
+  padding: 0;
+
+  &__item {
+    padding: 12px;
+    border-bottom: 1px solid var(--grayscale-stroke-line);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &-text {
+      color: var(--grayscale-title);
+      margin-right: 0.5rem;
+      margin-left: 10px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+  }
+
+  .mat-icon {
+    height: 40px !important;
+    width: 40px !important;
+    color: var(--primary-tulip-500-base);
+  }
+
+  .mat-icon:hover {
+    color: var(--primary-tulip-600);
+  }
+
+  .__active {
+    background: var(--primary-tulip-50);
+  }
+
+  .right-text-parent {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .right-text {
+    flex: 1 1 100px;
+    overflow-y: auto;
+  }
+}
+
+.active-subtitle {
+  padding: 50px;
+  background-color: #607d8b;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}
+
+.active-subtitle p {
+  margin: 0;
+}
+
+.active-subtitle span {
+  padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .material-subtitles-list {
+    &__item {
+      padding: 16px;
+    }
+  }
+}

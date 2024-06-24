@@ -1,0 +1,53 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install kubectl
+        run: |
+          curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+
+      - name: Configure kubectl
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
+          kubectl version
+
+      - name: Install Skaffold
+        run: |
+          curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
+          chmod +x skaffold
+          sudo mv skaffold /usr/local/bin/
+
+      - name: Secrets to config files
+        run: |
+          echo "${{ secrets.BACKEND_CONFIG_INDEX }}" | base64 --decode > backend/web/index-local.php
+          echo "${{ secrets.BACKEND_CONFIG_PARAMS }}" | base64 --decode > backend/config/params-local.php
+          echo "${{ secrets.BACKEND_CONFIG_WEB }}" | base64 --decode > backend/config/web-local.php
+          echo "${{ secrets.DOCKER_CONFIG }}" | base64 --decode > k8s/docker-config.json
+          echo "${{ secrets.ENV_CONFIG }}" | base64 --decode > .env
+
+      - name: Set Environment Variables
+        run: echo "NAMESPACE=langapp-${GITHUB_REF_NAME}" >> $GITHUB_ENV
+
+      - name: Login to GitLab
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
+
+      - name: Run Skaffold
+        run: skaffold run

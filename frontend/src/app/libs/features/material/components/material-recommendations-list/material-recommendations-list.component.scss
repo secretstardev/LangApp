@@ -1,0 +1,30 @@
+.material-recommendations-list {
+  &-title {
+    color: var(--grayscale-body);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+
+    margin-bottom: 12px;
+  }
+
+  &-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .materials-list-item-title {
+      color: var(--grayscale-title) !important;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .material-recommendations-list {
+    &-title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 30px;
+    }
+  }
+}

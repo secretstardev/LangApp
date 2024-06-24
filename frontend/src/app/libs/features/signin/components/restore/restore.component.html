@@ -1,0 +1,68 @@
+<h1 class="m-0 md:text-[32px] leading-snug text-gray-900" translate>Restore password</h1>
+<p class="note" translate [ngSwitch]="_mode">
+  <ng-template [ngSwitchCase]="RestoreModes.MODE_REQUEST" translate>restore.request</ng-template>
+  <ng-template [ngSwitchCase]="RestoreModes.MODE_REQUEST_SENT" translate>restore.request-sent</ng-template>
+  <ng-template [ngSwitchCase]="RestoreModes.MODE_PASSWORD" translate>restore.password</ng-template>
+</p>
+
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-message-error class="p-field g-field max-w-[348px]" [errors]="errors"></app-message-error>
+
+    <div class="pt-[14px] pb-[24px] md:pb-[48px]">
+      <div class="flex flex-col gap-[16px]" *ngIf="_mode === RestoreModes.MODE_PASSWORD">
+        <div class="p-field g-field">
+          <label for="password">{{ 'Password' | translate }}</label>
+          <span class="p-input-icon-left p-input-icon-left-24px">
+              <p-password inputId="password"
+                          formControlName="password"
+                          [placeholder]="'Password' | translate"
+                          [feedback]="false"
+                          [toggleMask]="true"
+                          styleClass="p-password p-component p-inputwrapper p-input-icon-right">
+              </p-password>
+              <i><img alt="password icon" src="assets/svg/lock.svg"/></i>
+            </span>
+          <small class="p-invalid" *ngIf="checkError('password')" [innerHTML]="getErrors('password')"></small>
+        </div>
+
+        <div class="p-field g-field">
+          <label for="passwordRepeat">{{ 'Confirm password' | translate }}</label>
+          <span class="p-input-icon-left p-input-icon-left-24px">
+              <p-password inputId="passwordRepeat"
+                          formControlName="passwordRepeat"
+                          [placeholder]="'Confirm password' | translate"
+                          [feedback]="false"
+                          [toggleMask]="true"
+                          styleClass="p-password p-component p-inputwrapper p-input-icon-right"></p-password>
+              <i><img alt="password icon" src="assets/svg/lock.svg"/></i>
+            </span>
+          <small class="p-invalid" *ngIf="checkError('passwordRepeat')"
+                 [innerHTML]="getErrors('passwordRepeat')"></small>
+          <small class="password-field-step p-invalid"
+                 *ngIf="form.controls.password.dirty && form.controls.passwordRepeat.dirty && form.errors?.passconfirm">
+            {{'validation-error.passconfirm' | translate}}
+          </small>
+        </div>
+      </div>
+
+      <div class="p-field g-field" *ngIf="_mode === RestoreModes.MODE_REQUEST">
+        <label for="email">{{ 'Email' | translate }}</label>
+        <span class="p-input-icon-left p-input-icon-left-24px">
+            <i><img alt="Email icon" src="assets/svg/email.svg"/></i>
+            <input id="email" formControlName="email" placeholder="{{ 'Enter your email' | translate }}" pInputText
+                   type="text"/>
+          </span>
+        <small class="p-invalid" *ngIf="checkError('email')" [innerHTML]="getErrors('email')"></small>
+      </div>
+    </div>
+
+    <div class="left-0 bottom-0 p-0 w-full" *ngIf="_mode !== RestoreModes.MODE_REQUEST_SENT">
+      <button
+        pButton
+        label="{{ 'Send' | translate }}"
+        class="p-button-wide max-w-[350px] sm:max-w-[330px]"
+        [disabled]="!form.valid || loading"></button>
+    </div>
+  </form>
+</div>

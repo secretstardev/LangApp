@@ -1,0 +1,18 @@
+<div class="flex flex-col gap-8">
+  <ngx-stripe-payment
+    *ngIf="elementsOptions?.clientSecret"
+    class="stripe-form-container"
+    [clientSecret]="elementsOptions?.clientSecret"
+    [elementsOptions]="elementsOptions">
+  </ngx-stripe-payment>
+
+  <button
+    pButton
+    class="stripe-form-button"
+    color="primary"
+    label="{{submitCardText | translate}}"
+    [disabled]="!buttonEnabled"
+    (click)="handlePaymentMethodSubmission($event)">
+  </button>
+</div>
+

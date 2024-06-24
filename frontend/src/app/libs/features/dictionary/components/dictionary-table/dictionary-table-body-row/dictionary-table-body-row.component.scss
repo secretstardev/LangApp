@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  width: 100%;
+
+  .words {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .origin,
+  .translate {
+    flex-basis: 0;
+  }
+
+  .origin {
+    flex-grow: 1;
+  }
+
+  .translate {
+    flex-grow: 2;
+  }
+
+  @media (max-width: 600px) {
+    .words {
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+  }
+}

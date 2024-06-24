@@ -1,0 +1,9 @@
+:host {
+  height: calc(100vh - 8.5rem);
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 992px) {
+    height: calc(100vh - 10rem);
+  }
+}

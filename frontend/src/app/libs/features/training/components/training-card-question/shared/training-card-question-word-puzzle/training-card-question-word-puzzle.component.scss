@@ -1,0 +1,47 @@
+:host {
+  ul {
+    display: flex;
+    gap: 1rem;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .input-puzzle {
+    border: 1px solid var(--grayscale-stroke-line);
+    display: flex;
+    align-items: center;
+  }
+
+  .input-puzzle, .btn-puzzle {
+    width: 4rem;
+    height: 4rem;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .answer-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .answer-value {
+    color: var(--states-error-500-base);
+    font-size: 1.5rem;
+    text-align: center;
+
+    &.isCorrect {
+      color: var(--states-success-500-base);
+    }
+  }
+
+  .answer-title {
+    margin-bottom: 0.25rem;
+    text-align: center;
+  }
+}

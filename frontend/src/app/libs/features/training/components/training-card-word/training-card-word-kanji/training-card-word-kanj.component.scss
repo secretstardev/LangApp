@@ -1,0 +1,28 @@
+:host {
+
+  .kanji-readings {
+    display: flex;
+    gap: 1.625rem;
+    margin-bottom: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .kanji-value {
+    margin-right: 1.625rem;
+  }
+
+  .kanji {
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-more {
+    margin-left: auto;
+  }
+}

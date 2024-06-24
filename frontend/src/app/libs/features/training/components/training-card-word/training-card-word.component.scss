@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .card-example {
+    align-items: center;
+    padding: 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .use-in-container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--grayscale-stroke-line);
+    padding-bottom: 0.75rem;
+  }
+
+  .use-in {
+    padding: 0.625rem 0;
+    border-bottom: 1px solid var(--grayscale-stroke-line);
+
+    &:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .btn-show-more {
+    margin-top: 0.875rem;
+    color: var(--grayscale-label) !important;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .word-kanji {
+    border-bottom: 1px solid var(--grayscale-stroke-line);
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 1.5rem;
+  }
+}

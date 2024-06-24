@@ -1,0 +1,58 @@
+<div *ngIf="markers" class="time-markers" [class.isFree]="user.tariff === Tariff.FREE">
+  <div class="step one">
+    <ng-container *ngFor="let marker of markers.one; let i = index; trackBy: trackByFn">
+      <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: marker }"></ng-container>
+    </ng-container>
+    <div *ngIf="user.tariff === Tariff.FREE" class="penalty">
+      <span class="penalty-zone"></span>
+      <span class="penalty-title" translate>PenaltyZone</span>
+    </div>
+  </div>
+
+  <div class="step two">
+    <ng-container *ngFor="let marker of markers.two; let i = index; trackBy: trackByFn">
+      <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: marker }"></ng-container>
+      <div class="pseudo-marker">
+        <p class="marker-txt">{{ marker.value | translate }}</p>
+      </div>
+    </ng-container>
+    <div class="twist"></div>
+  </div>
+
+  <div class="step three">
+    <ng-container *ngFor="let marker of markers.three; let i = index; trackBy: trackByFn">
+      <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: marker }"></ng-container>
+    </ng-container>
+    <div class="twist"></div>
+  </div>
+
+  <div class="step four">
+    <ng-container *ngFor="let marker of markers.four; let i = index; trackBy: trackByFn">
+      <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: marker }"></ng-container>
+      <div class="pseudo-marker">
+        <p class="marker-txt">{{ marker.value | translate }}</p>
+      </div>
+    </ng-container>
+    <div class="twist"></div>
+  </div>
+
+  <div class="step five">
+    <ng-container *ngFor="let marker of markers.five; let i = index; trackBy: trackByFn">
+      <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: marker }"></ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<app-timeline-legend [user]="user"></app-timeline-legend>
+
+<ng-template #markerTemplate let-marker>
+  <div class="marker {{ marker.type || '' }}">
+    <p class="marker-txt">{{ marker.value | translate }}</p>
+  </div>
+  <div *ngIf="marker.description" class="marker-description">
+    <span class="marker-description-txt f-small" [style.border-color]="marker.description.color" translate>
+      {{ marker.description.value }}
+      <i class="marker-description-line" [style.background-color]="marker.description.color"></i>
+    </span>
+  </div>
+</ng-template>

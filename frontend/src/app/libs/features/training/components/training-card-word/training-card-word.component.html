@@ -1,0 +1,21 @@
+<ng-container *ngIf="card">
+  <app-training-card-word-example class="card-example" [kanji]="$any(card)" [showMore]="false" [showTranslate]="false" (clickPlay)="clickPlay.emit(card.audioUrls[0])"></app-training-card-word-example>
+
+  <app-training-card-list leftTitle="Meanings" rightTitle="KanjiInWord">
+    <div class="use-in-container" left>
+      <app-training-card-word-use-in
+        class="use-in"
+        *ngFor="let meaning of card.meanings | slice : 0 : countWordsToShow; trackBy: trackByFn"
+        [translate]="meaning.value"
+        [progress]="meaning.frequencyPmw"
+      ></app-training-card-word-use-in>
+      <button *ngIf="card.meanings?.length > countWordsToShow" pButton class="p-button-outlined p-button-secondary btn-show-more big" (click)="updateCountWordsToShow(3)">
+        {{ 'more-example-words-for' | translate : { value: card.value } }}
+      </button>
+    </div>
+
+    <ng-container right>
+      <app-training-card-word-kanji class="word-kanji" *ngFor="let kanji of card.kanji" [item]="kanji" (clickMore)="clickMore.emit($event)"></app-training-card-word-kanji>
+    </ng-container>
+  </app-training-card-list>
+</ng-container>

@@ -1,0 +1,25 @@
+<div class="pt-[14px] pb-[24px] md:pb-[48px]">
+  <app-step-header [title]="'NameStepTitle' | translate" (goBack)="goToPreviousStep()"></app-step-header>
+  <p translate class="text-[16px] leading-6 mt-1 mb-[12px] text-[#64697D]">NameStepDescription</p>
+
+  <div class="p-field g-field">
+    <label [for]="fieldName">{{ 'Name' | translate }}</label>
+    <span class="p-input-icon-left p-input-icon-left-24px">
+      <i><img alt="name icon" src="assets/svg/user.svg" /></i>
+      <input [id]="fieldName" [formControl]="control" placeholder="{{ 'Enter your name' | translate }}" pInputText type="text" />
+    </span>
+    <small class="p-invalid" *ngIf="checkError(fieldName)" [innerHTML]="getErrors(fieldName)"></small>
+  </div>
+</div>
+
+<div class="left-0 bottom-0 p-0 w-full">
+  <button pButton label="{{ 'Continue' | translate }}" [disabled]="checkError(fieldName, false)" class="p-button-wide max-w-[350px] sm:max-w-[330px]" (click)="completeStep()"></button>
+</div>
+
+<div class="privacy">
+  <span>
+    {{ 'PrivacyTerms.Base' | translate }}
+    <br>
+    <a href="assets/docs/terms-of-use.pdf" target="_blank">{{ 'PrivacyTerms.Terms' | translate }}</a> {{ 'and' | translate }} <a href="assets/docs/privacy-policy.pdf" target="_blank">{{ 'PrivacyTerms.Privacy' | translate }}</a>.
+  </span>
+</div>

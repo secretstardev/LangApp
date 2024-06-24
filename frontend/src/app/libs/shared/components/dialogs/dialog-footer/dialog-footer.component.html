@@ -1,0 +1,8 @@
+<button type="button" pButton class="p-button-text p-confirm-dialog-reject" (click)="clickCancel.emit()">
+  <app-icon class="p-button-icon p-button-icon-left" icon="close-default"></app-icon>
+  <span class="p-button-label">{{ cancelBtnTitle | translate }}</span>
+</button>
+<button type="button" pButton class="p-confirm-dialog-accept" [disabled]="disabledApply" (click)="clickApply.emit()">
+  <app-icon class="p-button-icon p-button-icon-left" icon="check"></app-icon>
+  <span class="p-button-label">{{ applyBtnTitle | translate }}</span>
+</button>

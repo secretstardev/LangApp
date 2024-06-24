@@ -1,0 +1,7 @@
+.p-invalid {
+  color: var(--states-error-500-base);
+}
+
+.error ::ng-deep .message-error {
+  margin-bottom: 12px;
+}

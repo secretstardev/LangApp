@@ -1,0 +1,17 @@
+<ul *ngIf="!isAnswered">
+  <li *ngFor="let button of card.question.buttons; let i = index">
+    <span class="input-puzzle">{{ answer[i] }}</span>
+    <button class="btn-puzzle" pButton [disabled]="answer.includes(button)" (click)="enterAnswer(button)">{{ button }}</button>
+  </li>
+</ul>
+
+<ng-container *ngIf="isAnswered">
+  <div class="answer-row">
+    <p class="answer-title f-xsmall f-grayscale-body">{{ 'YourAnswer' | translate }}</p>
+    <span class="answer-value" [class.isCorrect]="drill.isAnsweredCorrectly">{{ answer?.length ? (answer | join : '' : '') : ('NoAnswer' | translate) }}</span>
+  </div>
+  <div class="answer-row">
+    <p class="answer-title f-xsmall f-grayscale-body">{{ 'CorrectAnswer' | translate }}</p>
+    <span class="answer-value isCorrect">{{ card.question.correctAnswers[0] }}</span>
+  </div>
+</ng-container>

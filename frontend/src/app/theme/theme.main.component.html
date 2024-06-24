@@ -1,0 +1,29 @@
+<div class="layout-wrapper" [ngClass]="{ 'p-input-filled': app.inputStyle === 'filled', 'p-ripple-disabled': !app.ripple, 'layout-static': isStatic(), 'layout-overlay': isOverlay(), 'layout-overlay-active': overlayMenuActive && isOverlay(), 'layout-horizontal': isHorizontal(), 'layout-static-active': !staticMenuDesktopInactive && isStatic(), 'layout-mobile-active': staticMenuMobileActive, 'layout-rtl': app.isRTL, 'layout-rightpanel-active': rightPanelActive }" [class]="'layout-menu-' + app.menuTheme + ' layout-topbar-' + app.topbarTheme">
+  <app-topbar></app-topbar>
+
+  <!--<app-rightpanel></app-rightpanel>-->
+
+  <div class="menu-wrapper" (click)="onMenuClick($event)">
+    <div class="layout-menu-container">
+      <app-menu></app-menu>
+    </div>
+  </div>
+
+  <div class="layout-main" [class.admin-page]="'isAdmin' | rolePermissions" [class.full-page-content]="shouldHideNavBar">
+    <!-- <app-breadcrumb></app-breadcrumb> -->
+
+    <div class="layout-content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- <app-footer></app-footer> -->
+  </div>
+
+  <app-nav-bar-mobile *ngIf="('isUser' | rolePermissions) && !shouldHideNavBar" class="nav-bar-mobile"></app-nav-bar-mobile>
+
+  <div *ngIf="staticMenuMobileActive" class="layout-mask modal-in"></div>
+</div>
+<p-toast></p-toast>
+<!--<p-confirmPopup></p-confirmPopup>-->
+<p-confirmDialog [header]="'Confirmation' | translate" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+<p-progressBar mode="indeterminate" [styleClass]="'global-progressbar'" *ngIf="isProgressBarLoading"></p-progressBar>

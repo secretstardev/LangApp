@@ -1,0 +1,28 @@
+<div class="w-full">
+  <div *ngIf="content; else loadingSpinner">
+    <app-material-video
+      [rawText]="content?.text"
+      [sourceLink]="content?.sourceLink"
+      [isStudied]="content?.contentAttribute?.isStudied"
+      (materialStudied)="updateAttribute.emit({attribute: 'isStudied', value: $event})"></app-material-video>
+  </div>
+  <div *ngIf="content">
+    <app-material-info
+      [content]="content"
+      [languageLevels]="languageLevels"
+      (updateAttribute)="updateAttribute.emit($event)"
+      (submitReport)="submitReport.emit($event)">
+    </app-material-info>
+    <app-material-recommendations-list
+      [class.recommendations]="content?.recommendedVideos?.length > 0"
+      [recommendations]="content?.recommendedVideos"
+      (removeFromFeed)="removeFromFeed.emit($event)">
+    </app-material-recommendations-list>
+  </div>
+</div>
+
+<ng-template #loadingSpinner>
+  <div class="p-d-flex p-jc-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

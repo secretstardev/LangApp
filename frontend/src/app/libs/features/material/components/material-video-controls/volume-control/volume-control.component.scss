@@ -1,0 +1,60 @@
+.volume-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 9px;
+  cursor: unset;
+
+  &-slider {
+    width: 40px;
+    transition: opacity .1s cubic-bezier(0,0,.2,1);
+    opacity: 0;
+  }
+
+  &-panel {
+    display: flex;
+    min-height: 24px;
+    align-items: center;
+    width: 0;
+    transition: width .2s cubic-bezier(.4,0,1,1);
+    &-active {
+      width: 45px;
+      margin-right: 5px;
+      transition: width .2s cubic-bezier(0,0,.2,1),  margin-right .2s cubic-bezier(0,0,.2,1);
+      cursor: pointer;
+    }
+  }
+
+  .show-slider {
+    opacity: 1;
+  }
+
+  .p-slider-handle {
+    height: 12px;
+    width: 12px;
+    background: var(--primary-tulip-500-base);
+    border: 2px solid #FFFFFF;
+    cursor: pointer !important;
+
+    margin-top: -0.4015rem !important;
+    margin-left: -0.34rem !important;
+  }
+
+  .p-slider {
+    background: var(--grayscale-body);
+    cursor: pointer;
+  }
+
+  .p-slider-range {
+    border-radius: 8px;
+    background: #FFFFFF;
+  }
+
+  .p-slider-handle:focus-visible {
+    box-shadow: unset;
+  }
+
+  app-icon {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex-grow: 1;
+
+  .reading {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  .divider {
+    margin: 0.5rem 1.5rem;
+    height: 100%;
+    width: 1px;
+    background: var(--grayscale-stroke-line);
+  }
+
+  .card-section-title {
+    text-align: center;
+    margin-bottom: 1.125rem;
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+
+    .divider {
+      display: none;
+    }
+
+    .reading {
+      flex-grow: initial;
+
+      &:first-of-type {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}

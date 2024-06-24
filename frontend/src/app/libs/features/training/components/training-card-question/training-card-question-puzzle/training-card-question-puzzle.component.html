@@ -1,0 +1,7 @@
+<section class="left">
+  <app-training-card-question-word [card]="card" [isAnswered]="drill.isFinished" (clickPlay)="clickPlay.emit($event)" (clickMore)="clickMore.emit($event)"></app-training-card-question-word>
+</section>
+
+<section class="right">
+  <app-training-card-question-word-puzzle [card]="card" [drill]="drill" [isAnswered]="drill.isFinished" (checkAnswer)="checkAnswer.emit($event)"></app-training-card-question-word-puzzle>
+</section>

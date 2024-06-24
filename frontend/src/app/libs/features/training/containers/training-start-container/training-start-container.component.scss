@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    text-align: center;
+  }
+
+  p {
+    margin-bottom: 0.75rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  a {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-continue {
+    height: 4.5rem;
+  }
+}

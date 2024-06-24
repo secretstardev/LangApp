@@ -1,0 +1,57 @@
+<p-dropdown
+  #dropdown
+  *ngIf="options"
+  class="app-dropdown dropdown"
+  panelStyleClass="app-dropdown-panel"
+  [appendTo]="appendTo"
+  [panelStyle]="{'display': hidePanelDisplay ? 'none' : ''}"
+  [formControl]="control"
+  [styleClass]="styleClass"
+  [scrollHeight]="scrollHeight"
+  [options]="options"
+  [optionLabel]="optionLabel"
+  [optionValue]="optionValue"
+  [virtualScroll]="virtualScroll"
+  [virtualScrollItemSize]="virtualScrollItemSize"
+  [resetFilterOnHide]="resetFilterOnHide"
+  [filter]="filter"
+  [group]="group"
+  [placeholder]="placeholder | translate"
+  [showClear]="showClear"
+  (onChange)="onValueChange($event)"
+  (onShow)="panelDisplayHandler()"
+  (onFilter)="onDDFilter(dropdown)">
+  <ng-template *ngIf="templates?.selectedItem !== 'default'" let-item pTemplate="selectedItem">
+    <ng-container
+      *ngTemplateOutlet="(selectedItemTemplate ?? pTemplates);
+              context: { type: templates?.selectedItem ?? 'item-generic', $implicit: item, item }">
+    </ng-container>
+  </ng-template>
+  <ng-template *ngIf="templates?.itemTemplate !== 'default'" let-item pTemplate="item">
+    <ng-container
+      *ngTemplateOutlet="(itemTemplate ?? pTemplates);
+              context: { type: templates?.itemTemplate ?? 'item-generic', $implicit: item, item }">
+    </ng-container>
+  </ng-template>
+  <ng-template pTemplate="dropdownicon">
+    <app-icon icon="arrow-down" class="app-dropdown__icon"></app-icon>
+  </ng-template>
+</p-dropdown>
+
+<ng-template #pTemplates let-type='type' let-item='item'>
+  <ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="'item-generic'">
+      <div class="flex flex-row items-center gap-5">
+        <div class="p-multiselect-label">{{item?.[optionLabel] | translate}}</div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'title-value'">
+      <div *ngIf="item?.label">
+        <div class="p-multiselect-label">{{(templates?.[optionLabel] ?? placeholder) | translate}}: {{ item?.label | translate }}</div>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+<div *ngIf="pending" class="pending {{size}}">
+  <p-progressSpinner class="spinner"></p-progressSpinner>
+</div>

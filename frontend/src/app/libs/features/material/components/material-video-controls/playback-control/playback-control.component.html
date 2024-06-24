@@ -1,0 +1,40 @@
+<div class="playback-control">
+  <button pButton
+          title="{{'Previous' | translate}}"
+          type="button"
+          style="background: none; border: none; color: white; "
+          class="control p-0  playback-control__previous"
+          (click)="goToPrevious.emit()">
+    <app-icon icon="previous"></app-icon>
+  </button>
+  <button pButton
+          class="control playback-control__play"
+          title="{{'Play' | translate}}"
+          type="button"
+          style="background: none; border: none; color: white"
+          (click)="togglePlay.emit(true)"
+          *ngIf="!isPlaying; else pauseButton">
+    <app-icon icon="playing"></app-icon>
+  </button>
+  <button pButton
+          title="{{'Next' | translate}}"
+          type="button"
+          style="background: none; border: none; color: white; "
+          class="control p-0 playback-control__next"
+          (click)="goToNext.emit()">
+    <app-icon icon="next"></app-icon>
+  </button>
+</div>
+
+
+<ng-template #pauseButton>
+  <button
+    pButton
+    title="{{'Pause' | translate}}"
+    type="button"
+    style="background: none; border: none; color: white"
+    class="control playback-control__play"
+    (click)="togglePlay.emit(false)">
+    <app-icon icon="pause1"></app-icon>
+  </button>
+</ng-template>

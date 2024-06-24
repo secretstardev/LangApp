@@ -1,0 +1,123 @@
+.payment-settings {
+  &-status {
+    &-description {
+      display: flex;
+      flex-direction: column;
+      max-width: 660px;
+      margin-bottom: 8px;
+      gap: 4px;
+
+      & h1 {
+        margin-bottom: 12px;
+      }
+
+      & b {
+        color: var(--primary-tulip-500-base);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px;
+      }
+    }
+  }
+
+  &-billing {
+    &__header {
+      display: block;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+  }
+
+  &-methods {
+    &-card {
+      max-width: 337px;
+
+      &__icon {
+        .mat-icon {
+          width: 40px !important;
+          height: 24px !important;
+        }
+      }
+
+      &__text {
+        color: var(--grayscale-label);
+      }
+    }
+
+    &-delete {
+      &__button {
+        padding: 8px 12px !important;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        background: var(--states-error-500-base);
+        &:enabled:hover {
+          background: var(--states-error-600);
+        }
+        &:enabled:active {
+          background: var(--states-error-700);
+        }
+      }
+    }
+  }
+
+  .p-button-secondary,
+  .p-button-success {
+    padding: 12px 16px;
+  }
+
+  .p-button.p-button-success:enabled {
+    background: var(--states-success-500-base);
+    &:hover {
+      background: var(--states-success-600);
+    }
+    &:active {
+      background: var(--states-success-700);
+    }
+  }
+
+  .p-message {
+    &.p-message-info {
+      color: var(--states-info-500-base);
+      background: var(--states-info-50);
+      border-top: 1px solid var(--states-info-500-base);
+      border-right: 1px solid var(--states-info-500-base);
+      border-bottom: 1px solid var(--states-info-500-base);
+      border-left: 4px solid var(--states-info-500-base);
+    }
+
+    &.p-message-success {
+      color: var(--states-success-500-base);
+      background: var(--states-success-50);
+      border-top: 1px solid var(--states-success-500-base);
+      border-right: 1px solid var(--states-success-500-base);
+      border-bottom: 1px solid var(--states-success-500-base);
+      border-left: 4px solid var(--states-success-500-base);
+    }
+
+    &.p-message-error {
+      color: var(--states-error-500-base);
+      background: var(--states-error-50);
+      border-top: 1px solid var(--states-error-500-base);
+      border-right: 1px solid var(--states-error-500-base);
+      border-bottom: 1px solid var(--states-error-500-base);
+      border-left: 4px solid var(--states-error-500-base);
+    }
+  }
+
+  .p-toolbar {
+    padding: 8px 16px 8px 8px;
+    background: none;
+  }
+
+  .stripe-form-container {
+    max-width: 527px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .payment-settings {
+    padding-right: 48px;
+  }
+}

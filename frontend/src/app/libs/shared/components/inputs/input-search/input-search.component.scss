@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+
+  .p-input-icon-left {
+    width: 100%;
+  }
+
+  .icon-clear {
+    position: absolute;
+    height: 3rem;
+    width: 3rem;
+    color: var(--grayscale-title);
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    padding: 0.75rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,11 @@
+<div class="table-paginator">
+  <span>{{'PaginatorPageOf' | translate: {
+    cur: paginator.pageIndex + 1,
+    total: paginator.getNumberOfPages() || 1
+  } }}</span>
+  <span class="table-paginator-navigation-arrows">
+    <app-icon icon="arrow-left-1" (click)="paginator.previousPage()"></app-icon>
+    <app-icon icon="arrow-right" (click)="paginator.nextPage()"></app-icon>
+  </span>
+</div>
+<mat-paginator #paginator class="hidden" [pageSize]="pageSize" (page)="page.emit($event)"></mat-paginator>

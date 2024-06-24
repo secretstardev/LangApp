@@ -1,0 +1,23 @@
+.level-icon-1 ::ng-deep .path-0,
+.level-icon-2 ::ng-deep .path-0,
+.level-icon-2 ::ng-deep .path-0,
+.level-icon-2 ::ng-deep .path-1,
+.level-icon-3 ::ng-deep .path-0,
+.level-icon-3 ::ng-deep .path-1,
+.level-icon-3 ::ng-deep .path-2,
+.level-icon-4 ::ng-deep .path-0,
+.level-icon-4 ::ng-deep .path-1,
+.level-icon-4 ::ng-deep .path-2,
+.level-icon-4 ::ng-deep .path-3,
+{
+  fill: var(--primary-tulip-500-base);
+}
+
+.skill-level ::ng-deep .mat-icon {
+  height: 48px;
+  width: 48px;
+  color: var(--grayscale-body);
+  background: var(--grayscale-placeholder);
+  border-radius: 200px;
+  padding: 8px;
+}

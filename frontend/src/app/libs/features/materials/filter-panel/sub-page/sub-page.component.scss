@@ -1,0 +1,28 @@
+.sub-page {
+  & &-apply-button {
+    display: flex;
+    justify-content: center;
+    padding: 12px 32px;
+    margin: 7px 16px;
+
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  .p-sidebar-footer {
+    box-shadow: 0 4px 16px 0 rgba(60, 72, 83, 0.12);
+  }
+
+  & h3 {
+    line-height: 34px;
+  }
+
+  .p-checkbox .p-checkbox-box {
+    border: 2px solid var(--grayscale-label);
+
+    &.p-highlight {
+      border-color: var(--primary-tulip-500-base) !important;
+    }
+  }
+}

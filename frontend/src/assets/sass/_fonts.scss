@@ -1,0 +1,26 @@
+@import "~@fontsource/open-sans/300.css";
+@import "~@fontsource/open-sans/300-italic.css";
+@import "~@fontsource/open-sans/400.css";
+@import "~@fontsource/open-sans/400-italic.css";
+@import "~@fontsource/open-sans/600.css";
+@import "~@fontsource/open-sans/600-italic.css";
+@import "~@fontsource/open-sans/700.css";
+@import "~@fontsource/open-sans/700-italic.css";
+@import "~@fontsource/open-sans/800.css";
+@import "~@fontsource/open-sans/800-italic.css";
+
+@font-face {
+  font-family: 'LangAppJapanese';
+  src: local("ヒラギノ角ゴ Pro W3"),
+  local("Hiragino Kaku Gothic Pro"),
+  local(Osaka),
+  local(メイリオ),
+  local(Meiryo),
+  local("ＭＳ Ｐゴシック"),
+  local("MS PGothic"),
+  local("ＭＳ ゴシック"),
+  local("MS Gothic"),
+  local("Noto Sans CJK JP"),
+  local(TakaoPGothic);
+  unicode-range: U+3000-30FF, U+FF00-FFEF, U+4E00-9FAF;
+}

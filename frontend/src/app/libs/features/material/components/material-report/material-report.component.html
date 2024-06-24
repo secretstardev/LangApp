@@ -1,0 +1,15 @@
+<div class="material-report">
+  <textarea
+    pInputTextarea
+    placeholder="{{'REPORT_REASON' | translate}}"
+    [formControl]="reportReason"></textarea>
+  <button
+    pButton
+    type="button"
+    class="material-report-submit"
+    label="{{'SUBMIT_REPORT' | translate}}"
+    icon="pi pi-send"
+    (click)="sendReport()">
+  </button>
+</div>
+

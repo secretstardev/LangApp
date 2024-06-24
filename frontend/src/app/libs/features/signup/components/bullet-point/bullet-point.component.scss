@@ -1,0 +1,15 @@
+.bullet-point {
+  &-icon {
+    color: var(--primary-tulip-500-base);
+    margin-right: 4px;
+  }
+
+  &-text {
+    color: var(--grayscale-body);
+  }
+
+  b {
+    color: var(--primary-tulip-500-base);
+    font-weight: 700;
+  }
+}

@@ -1,0 +1,16 @@
+<app-dictionary-filter (filterChange)="filterChange($event)"></app-dictionary-filter>
+<app-dictionary-table
+  [dictionaries]="state.entities$ | async"
+  [selectionIds]="state.selectionIds$ | async"
+  [pagination]="state.pagination$ | async"
+  [selectAll]="state.selectedAll$ | async"
+  [selectionTotal]="state.selectionTotal$ | async"
+  [isAllList]="isAllList"
+  (selectionChange)="selectionChange($event)"
+  (lazyLoad)="lazyLoad($event)"
+  (moveToEntities)="moveToEntities($event)"
+  (copyToEntities)="copyToEntities($event)"
+  (selectedAllChange)="selectedAllChange($event)"
+  (deleteEntities)="deleteEntities($event)"
+  (importWords)="importWords()"
+></app-dictionary-table>

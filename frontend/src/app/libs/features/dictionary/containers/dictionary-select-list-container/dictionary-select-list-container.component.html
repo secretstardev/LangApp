@@ -1,0 +1,15 @@
+<section class="search-box">
+  <app-input-search placeholder="Search folder" class="search" (onFilterChange)="filterChange($event)"></app-input-search>
+
+  <app-dictionary-list-container
+    class="list"
+    [enabledRemove]="false"
+    [selectable]="true"
+    [selectedId]="selectedId"
+    [hideAll]="dialogConfig.data?.hideAll"
+    [hideIds]="dialogConfig.data?.hideIds"
+    (entityClick)="entityClick($event)"
+  ></app-dictionary-list-container>
+</section>
+
+<app-dialog-footer [disabledApply]="!selectedId" (clickCancel)="clickCancel()" (clickApply)="clickApply()"></app-dialog-footer>

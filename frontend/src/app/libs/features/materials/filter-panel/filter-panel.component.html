@@ -1,0 +1,42 @@
+<p-sidebar
+  #SideBar
+  class="filter-panel"
+  position="right"
+  (onHide)="SideBar.destroyModal()"
+  [closeOnEscape]="false"
+  [showCloseIcon]="false"
+  [blockScroll]="true"
+  [(visible)]="_isVisible">
+  <ng-template pTemplate="header">
+    <div class="w-full">
+      <div *ngIf="_isMobile" class="flex items-center">
+        <app-icon class="mr-3" icon="close-default" (click)="togglePanel()"></app-icon>
+        <h1 class="filter-panel-title text-black">{{'Filters' | translate}}</h1>
+      </div>
+
+      <div *ngIf="!_isMobile" class="flex items-center justify-between">
+        <h1 class="filter-panel-title text-black">{{'Filters' | translate}}</h1>
+        <app-icon icon="close-default" (click)="togglePanel()"></app-icon>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <app-filters
+      #filters
+      [preventFormReInitialization]=true
+      [availableValues]="availableValues"
+      [config]="config"
+      (controlExpanded)="onControlExpanded($event)"
+      [isExpandable]="_isMobile">
+    </app-filters>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <a
+      pButton
+      class="filter-panel-apply-button"
+      (click)="togglePanel()">
+      {{'Apply filters' | translate}}
+    </a>
+  </ng-template>
+  <app-filter-panel-sub-page [(isVisible)]="_isSubPanelVisible" [data]="_expandedData" [filtersGroup]="filters?.mainForm"></app-filter-panel-sub-page>
+</p-sidebar>

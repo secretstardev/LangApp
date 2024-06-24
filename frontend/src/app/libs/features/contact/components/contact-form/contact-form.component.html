@@ -1,0 +1,16 @@
+<form class="flex flex-col"
+      [formGroup]="mainForm">
+  <div>
+    <app-contact-fields #fieldsComponent [fields]="fields" [form]="mainForm"></app-contact-fields>
+  </div>
+
+  <div class="p-mb-3 mt-12">
+    <button class="contact-button"
+            pButton
+            color="primary"
+            label="{{'Send' | translate}}"
+            [disabled]="!mainForm.valid"
+            (click)="onSubmit()">
+    </button>
+  </div>
+</form>

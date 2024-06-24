@@ -1,0 +1,102 @@
+<div class="container">
+  <app-steps [currentStep]="activeStep" [totalSteps]="config.stepperValue"></app-steps>
+
+  <form #f="ngForm" [formGroup]="signupForm" (submit)="nextStep()">
+    <div *ngIf="activeStep == 0" class="pt-[14px]">
+      <app-choose-plan-step
+        [control]="signupForm?.controls?.tariff"
+        [plans]="config.plans"
+        [currencyValue]="currency"
+        (completed)="setPaymentPlan($event)">
+      </app-choose-plan-step>
+    </div>
+    <div *ngIf="activeStep == 1">
+      <app-cost-of-word-step
+        [control]="signupForm?.controls?.penaltyAmount"
+        [minValue]="config.steps[1]?.extendedAttributes?.minValue"
+        [maxValue]="config.steps[1]?.extendedAttributes?.maxValue"
+        [currency]="currency"
+        (completed)="nextStep()"
+        (returnToPreviousStep)="prevStep()">
+      </app-cost-of-word-step>
+    </div>
+    <div *ngIf="activeStep == 2">
+      <app-skill-level-step
+        [control]="signupForm?.controls?.languageLevel"
+        [levels]="config.levels"
+        (returnToPreviousStep)="prevStep()"
+        (completed)="setValue($event?.field, $event?.value)">
+      </app-skill-level-step>
+    </div>
+    <div *ngIf="activeStep == 3">
+      <app-topics-step
+        [control]="signupForm?.controls?.favoriteCategoryId"
+        [categories]="categories"
+        (completed)="nextStep()"
+        (returnToPreviousStep)="prevStep()">
+      </app-topics-step>
+    </div>
+    <div *ngIf="activeStep == 4" class="select-languages">
+      <app-language-preferences-step
+        fieldName="languages"
+        [control]="signupForm?.controls?.languages"
+        [languages]="availableLanguages"
+        [selectedLanguages]="selectedLanguages"
+        [checkError]="checkError.bind(this)"
+        [getErrors]="getErrors.bind(this)"
+        (completed)="nextStep()"
+        (returnToPreviousStep)="prevStep()">
+      </app-language-preferences-step>
+    </div>
+    <div *ngIf="activeStep == 5">
+      <app-email-field-step
+        fieldName="email"
+        [control]="signupForm?.controls?.email"
+        [checkError]="checkError.bind(this)"
+        [getErrors]="getErrors.bind(this)"
+        (completed)="nextStep()"
+        (returnToPreviousStep)="prevStep()">
+      </app-email-field-step>
+    </div>
+    <div *ngIf="activeStep == 6">
+      <app-password-field-step
+        [group]="signupForm"
+        [checkError]="checkError.bind(this)"
+        [getErrors]="getErrors.bind(this)"
+        (completed)="nextStep()"
+        (returnToPreviousStep)="prevStep()">
+      </app-password-field-step>
+    </div>
+    <div *ngIf="activeStep == 7">
+      <app-name-field-step
+        fieldName="name"
+        [control]="signupForm?.controls?.name"
+        [checkError]="checkError.bind(this)"
+        [getErrors]="getErrors.bind(this)"
+        (completed)="nextStep()"
+        (returnToPreviousStep)="prevStep()"
+      ></app-name-field-step>
+    </div>
+    <div *ngIf="activeStep == 8">
+      <app-phone-field-step
+        fieldName="telephone"
+        [control]="signupForm?.controls?.telephone"
+        [country]="country"
+        [checkError]="checkError.bind(this)"
+        [getErrors]="getErrors.bind(this)"
+        (completed)="nextStep()"
+        (returnToPreviousStep)="prevStep()">
+      </app-phone-field-step>
+    </div>
+    <div *ngIf="activeStep == 9">
+      <div class="flex flex-col justify-center mt-10">
+        <div class="flex justify-center">
+          <div class="flex flex-col">
+            <p-progressSpinner></p-progressSpinner>
+            <p translate class="text-[16px] text-center leading-6 mt-6 text-[#64697D]">Loading...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

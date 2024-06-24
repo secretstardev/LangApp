@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .card-window {
+    flex-basis: 0;
+    border: 1px solid var(--grayscale-stroke-line);
+    border-radius: 4px;
+    padding: 1.5rem;
+    flex-grow: 1;
+    overflow-y: auto;
+
+    &.kanjiInfo {
+      border-bottom: none;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+
+  .toolbar {
+    margin-bottom: 0.75rem;
+  }
+
+  .spinner {
+    margin: auto;
+  }
+}

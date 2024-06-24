@@ -1,0 +1,99 @@
+.typography {
+  color: var(--grayscale-title);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  h1 {
+    font-size: 2rem;
+    line-height: 1.31;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    line-height: 1.35;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.41;
+    font-weight: 600;
+  }
+
+  .f-xlarge {
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .f-large {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+
+  .f-small {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+  }
+
+  .f-xsmall {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .f-xxsmall {
+    font-size: 0.625rem;
+    line-height: 0.75rem;
+  }
+
+  .f-regular {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1rem;
+  }
+
+  .f-bold {
+    font-weight: 700;
+  }
+
+  .f-grayscale {
+    color: var(--grayscale-body);
+  }
+
+  .f-semibold {
+    font-weight: 600;
+  }
+
+  .f-grayscale-body {
+    color: var(--grayscale-body);
+  }
+
+  .f-grayscale-label {
+    color: var(--grayscale-label);
+  }
+
+  .f-grayscale-title {
+    color: var(--grayscale-title);
+  }
+
+  .f-primary-base {
+    color: var(--primary-tulip-500-base);
+  }
+
+  .f-success-base {
+    color: var(--states-success-500-base);
+  }
+
+  ruby rt {
+    font-size: 11px;
+    line-height: 12px;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.75rem;
+      line-height: 2.375rem;
+    }
+  }
+}

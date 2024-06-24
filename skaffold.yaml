@@ -1,0 +1,60 @@
+apiVersion: skaffold/v4beta10
+kind: Config
+metadata:
+  name: langapp
+build:
+  platforms: ["linux/amd64"]
+  artifacts:
+    - image: registry.gitlab.com/mangoproject/langapp/langapp-web
+      context: .
+      docker:
+        dockerfile: docker/web/Dockerfile
+        buildArgs:
+          GIT_COMMIT: '{{cmd "git" "rev-parse" "--short" "HEAD"}}'
+        cacheFrom:
+          - registry.gitlab.com/mangoproject/langapp/langapp-web:buildcache
+  local:
+    push: true
+    useBuildkit: true
+    concurrency: 5
+manifests:
+  kustomize:
+    paths:
+      - k8s/
+    buildArgs:
+      - --load-restrictor LoadRestrictionsNone
+  hooks:
+    before:
+      - host:
+          command:
+            - cmd
+            - /C
+            - "(echo - op: replace& echo   path: /spec/rules/0/host& echo   value: %NAMESPACE%.metal1.getinfura.com& echo - op: replace& echo   path: /spec/tls/0/hosts/0& echo   value: %NAMESPACE%.metal1.getinfura.com) > %SKAFFOLD_WORK_DIR%/k8s/ingress-patch.yaml"
+          os:
+            - windows
+      - host:
+          command:
+            - bash
+            - -c
+            - '(echo "- op: replace"; echo "  path: /spec/rules/0/host"; echo "  value: $NAMESPACE.metal1.getinfura.com"; echo "- op: replace"; echo "  path: /spec/tls/0/hosts/0"; echo "  value: $NAMESPACE.metal1.getinfura.com") > $SKAFFOLD_WORK_DIR/k8s/ingress-patch.yaml'
+          os:
+            - linux
+            - darwin
+      - host:
+          command:
+            - cmd
+            - /C
+            - "(echo - op: replace& echo   path: /metadata/name& echo   value: %NAMESPACE%) > %SKAFFOLD_WORK_DIR%/k8s/namespace-patch.yaml"
+          os:
+            - windows
+      - host:
+          command:
+            - bash
+            - -c
+            - '(echo "- op: replace"; echo "  path: /metadata/name"; echo "  value: $NAMESPACE") > $SKAFFOLD_WORK_DIR/k8s/namespace-patch.yaml'
+          os:
+            - linux
+            - darwin
+deploy:
+  kubectl:
+    defaultNamespace: "{{.NAMESPACE}}"

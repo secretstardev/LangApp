@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+
+  .success {
+    color: var(--states-success-500-base);
+  }
+
+  .error {
+    color: var(--states-error-500-base);
+  }
+}

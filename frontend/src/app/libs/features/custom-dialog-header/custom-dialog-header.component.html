@@ -1,0 +1,7 @@
+<div class="custom-dialog-header">
+  <div class="custom-dialog-header__wrap">
+    <app-icon *ngIf="icon" [icon]="icon"></app-icon>
+    <span class="custom-dialog-header__text" [ngClass]="titleSize">{{title}}</span>
+  </div>
+  <app-icon icon="close-default" class="custom-dialog-header__close" (click)="this.ref?.close()"></app-icon>
+</div>

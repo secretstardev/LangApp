@@ -1,0 +1,20 @@
+<div class="wrapper">
+  <h2>{{ 'DrillsStart.Title' | translate }}</h2>
+  <p>{{ 'DrillsStart.Description' | translate }}</p>
+  <ul>
+    <li>
+      <a (click)="optionClick()">
+        <app-icon class="f-primary-base icon-arrow" icon="arrow-right-1"></app-icon>
+        {{ 'DrillsStart.Option1' | translate : { count: 0 } }}
+      </a>
+    </li>
+    <li>
+      <a (click)="optionClick()">
+        <app-icon class="f-primary-base icon-arrow" icon="arrow-right-1"></app-icon>
+        {{ 'DrillsStart.Option2' | translate }}
+      </a>
+    </li>
+  </ul>
+
+  <button pButton class="btn-continue big" label="{{ 'DrillsStart.StartButton' | translate }}" (click)="startTraining()"></button>
+</div>

@@ -1,0 +1,47 @@
+.language-list {
+  .p-input-icon-left i {
+    top: auto;
+    margin-top: 0;
+    left: 18px;
+  }
+
+  .p-input-icon-left .p-inputtext {
+    padding-left: 52px;
+    border-radius: 0;
+  }
+
+  .p-inputtext:enabled:focus,
+  .p-inputtext:enabled:hover {
+    box-shadow: none;
+    border-color: inherit;
+  }
+
+  .lang-name {
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  .p-dialog-header-icon .pi {
+    font-size: 17px;
+  }
+
+  .search-remove {
+    right: 20px;
+    left: initial !important;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 30px;
+    background-color: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #9a9caa;
+    border-radius: 5px;
+  }
+}

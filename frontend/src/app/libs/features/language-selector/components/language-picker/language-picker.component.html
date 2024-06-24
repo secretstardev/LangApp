@@ -1,0 +1,18 @@
+<div class="language-picker flex flex-col gap-1 w-full h-full overflow-hidden">
+  <div class="flex-1 overflow-y-auto custom-scrollbar">
+    <div *ngFor="let langItem of availableLanguages" (click)="onSelectLanguage(langItem.code)"
+         class="language-picker-item px-4 flex items-center w-full py-3 cursor-pointer hover:bg-gray-100">
+      <ic-icon *ngIf="isIconExist(langItem.country)"
+               icon="{{langItem.country ?? langItem.code}}-4x3" [inline]="true" width="20"
+               height="20"></ic-icon>
+      <p class="m-0 mb-0.5 ml-3 text-base text-[#050A1F] lang-name">{{ langItem.titleEnglish | translate }}</p>
+      <i *ngIf="langItem.code !== selectedCode else active" class="pi pi-circle ml-auto text-2xl text-[#9A9CAA]"></i>
+    </div>
+  </div>
+</div>
+
+<ng-template #active>
+  <i class="active pi pi-circle ml-auto text-2xl text-[#9A9CAA] relative">
+    <i class="active-circle pi pi-circle-fill text-[#9A9CAA]"></i>
+  </i>
+</ng-template>

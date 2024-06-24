@@ -1,0 +1,9 @@
+<span *ngIf="kanji" class="word">{{ kanji }}</span>
+<div class="progress">
+  <span
+    class="progress-info f-xsmall"
+    [innerHTML]="(kanji ? 'frequency-percent-tooltip-reading-html' : 'frequency-percent-tooltip-meaning') | translate : { value: progress | number : '1.1-2' }"
+  ></span>
+  <app-progress-bar class="progress-bar" [value]="progress" type="rect"></app-progress-bar>
+</div>
+<span *ngIf="translate" class="translate">{{ translate }}</span>

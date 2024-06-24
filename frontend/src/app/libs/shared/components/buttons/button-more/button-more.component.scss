@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  align-items: center;
+
+  .btn-more {
+    border: 1px solid var(--grayscale-stroke-line) !important;
+    padding: 0;
+    height: 1.5rem;
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--grayscale-body) !important;
+  }
+}

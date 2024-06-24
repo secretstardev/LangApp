@@ -1,0 +1,84 @@
+.card {
+  border-bottom: 1px solid #D9DFEB;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.materials-list-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__empty-container {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  app-filters {
+    .filters {
+      &__dropdown {
+        width: 243px !important;
+        height: 40px !important;
+      }
+
+      &__search {
+        width: 502px !important;
+        height: 40px !important;
+      }
+    }
+  }
+
+  @media(max-width: 768px) {
+    .title {
+      font-size: 28px;
+      margin-top: 16px;
+    }
+
+    .materials-filters-block {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 12px;
+    }
+  }
+
+  @media(max-width: 1023px) {
+    .materials-filters-block {
+      padding-right: 0;
+    }
+  }
+
+  width: 100%;
+  max-width: unset;
+
+  .filters {
+    gap: 16px;
+    max-width: 1200px;
+
+    &-button {
+      &-text {
+        writing-mode: tb-rl;
+        transform: rotate(-180deg);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-weight: 600;
+      }
+
+      &-wrap {
+        width: 50px;
+        min-height: 120px;
+        max-height: 250px;
+        box-shadow: -4px 4px 8px 0px rgba(0, 0, 0, 0.12);
+        padding: 32px 12px 32px 12px;
+        z-index: 100;
+      }
+    }
+  }
+
+  .sideways-icon {
+    transform: rotate(-90deg);
+    margin-top: 5px;
+  }
+}

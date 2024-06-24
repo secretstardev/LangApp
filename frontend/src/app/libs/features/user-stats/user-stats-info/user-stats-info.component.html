@@ -1,0 +1,24 @@
+<table>
+  <tr>
+    <td class="f-small">{{ 'UserStats.TotalSecondsStudied' | translate }}:</td>
+    <td class="f-small f-semibold"
+        *ngIf="userStats else loading">{{ (userStats.totalSecondsStudied / 60) | number: '1.0-0' }} {{ 'UserStats.Minutes' | translate }}</td>
+  </tr>
+  <tr>
+    <td class="f-small">{{ 'UserStats.CountVideoStudied' | translate }}:</td>
+    <td class="f-small f-semibold"
+        *ngIf="userStats else loading">{{ userStats.countVideoStudied | number: '1.0-0' }}</td>
+  </tr>
+  <tr>
+    <td class="f-small">{{ 'UserStats.CountWordsAdded' | translate }}:</td>
+    <td class="f-small f-semibold" *ngIf="userStats else loading">{{ userStats.countWordsAdded | number: '1.0-0' }}</td>
+  </tr>
+  <tr>
+    <td class="f-small">{{ 'UserStats.CountDrillsDone' | translate }}:</td>
+    <td class="f-small f-semibold" *ngIf="userStats else loading">{{ userStats.countDrillsDone | number: '1.0-0' }}</td>
+  </tr>
+</table>
+
+<ng-template #loading>
+  <p-skeleton class="loading" height="24px" width="100%"/>
+</ng-template>

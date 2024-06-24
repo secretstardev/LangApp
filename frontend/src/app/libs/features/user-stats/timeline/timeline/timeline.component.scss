@@ -1,0 +1,354 @@
+@mixin twist-style($size, $borderWidth, $leftPosition, $borderColor: var(--grayscale-placeholder)) {
+  content: "";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $size;
+  height: $size;
+  border: $borderWidth solid $borderColor;
+  border-left-color: transparent;
+  border-radius: 50%;
+  border-top-color: transparent;
+  transform: rotate(-45deg);
+  left: $leftPosition;
+  position: absolute;
+}
+
+:host {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .time-markers {
+    display: flex;
+    margin-bottom: 1.5rem;
+
+    &.isFree {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .step {
+    display: flex;
+
+    &.one {
+      position: relative;
+
+      .marker {
+        &:first-of-type {
+          border-radius: 0.5rem 0 0 0.5rem;
+          border-left-width: 1px;
+        }
+      }
+    }
+
+    &.five {
+      .marker {
+        &:last-of-type {
+          border-radius: 0 0.5rem 0.5rem 0;
+        }
+      }
+    }
+  }
+
+  .marker {
+    height: 2rem;
+    display: flex;
+    width: 3.3vw;
+    max-width: 3rem;
+    min-width: 2rem;
+    align-items: center;
+    justify-content: center;
+    background: var(--grayscale-placeholder);
+    border: 1px solid var(--grayscale-stroke-line);
+    border-left-width: 0;
+    position: relative;
+
+    &.success {
+      background: var(--states-success-50);
+      border: 1px solid var(--states-success-500-base);
+      border-left-width: 0;
+    }
+
+    &.success ~ .twist:before {
+      border-right-color: var(--states-success-500-base) !important;
+      border-bottom-color: var(--states-success-500-base) !important;
+    }
+
+    &.success ~ .twist:after {
+      border-right-color: var(--states-success-50) !important;
+      border-bottom-color: var(--states-success-50) !important;
+    }
+  }
+
+  .marker-description {
+    position: relative;
+    z-index: 2;
+  }
+
+  .marker-description-txt {
+    position: absolute;
+    top: -2.5rem;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    color: var(--grayscale-title);
+    text-align: center;
+    transform: translateX(-50%);
+    width: -moz-fit-content;
+    width: fit-content;
+    border-radius: 0.5rem;
+    padding: 0.1875rem 0.5rem;
+    border-width: 2px;
+    border-style: solid;
+    border-top: transparent;
+  }
+
+  .marker-description-line {
+    display: block;
+    height: 2.5rem;
+    width: 1px;
+    position: absolute;
+    left: -1px;
+    right: 0;
+    margin: 4px auto 0;
+    bottom: auto;
+  }
+
+  .penalty {
+    position: absolute;
+    bottom: -2.5rem;
+  }
+
+  .penalty-zone {
+    display: block;
+    width: 6.6vw;
+    max-width: 6rem;
+    height: 0.25rem;
+    background: var(--error-gradient);
+    margin-bottom: 0.5rem;
+  }
+
+  .penalty-title {
+    color: var(--states-error-500-base);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .pseudo-marker {
+    display: none;
+  }
+
+  @media (max-width: 1100px) and (min-width: 450px) {
+    .time-markers {
+      flex-wrap: wrap;
+      margin-bottom: 1rem !important;
+      max-width: 900px;
+    }
+
+    .penalty-zone {
+      width: 16vw;
+      max-width: 6rem;
+    }
+
+    .five {
+      display: flex;
+      flex-direction: row-reverse;
+      margin-top: -1.875rem;
+    }
+
+    .marker {
+      width: 8vw;
+    }
+
+    .four {
+      position: relative;
+
+      .marker {
+        position: absolute;
+        z-index: 2;
+        left: 0.5rem;
+        top: 0.6rem;
+        transform: rotate(45deg);
+        background: transparent;
+        border: none;
+      }
+
+      .twist:after {
+        @include twist-style(7.875rem, 1.875rem, -3.9375rem);
+        top: 1px;
+      }
+
+      .twist:before {
+        @include twist-style(8rem, 2rem, -4rem, var(--grayscale-stroke-line));
+      }
+    }
+
+    .step.five {
+      position: relative;
+      margin-top: 4rem;
+
+      .marker {
+        &:first-of-type {
+          position: absolute;
+          z-index: 2;
+          right: -3rem;
+          top: -0.5rem;
+          transform: rotate(315deg);
+          background: transparent;
+          border: none;
+        }
+
+        &:last-of-type {
+          border-radius: 0.5rem 0 0 0.5rem;
+          border-left-width: 1px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 450px) {
+    $markerWidth: 13vw;
+
+    .time-markers {
+      flex-wrap: wrap;
+      position: relative;
+      padding-bottom: 1.5rem;
+      margin-bottom: 0 !important;
+      left: 4vw;
+      max-width: 90vw;
+    }
+
+    .penalty-zone {
+      width: 26vw;
+      max-width: none;
+    }
+
+    .marker {
+      width: $markerWidth;
+      max-width: 5rem;
+    }
+
+    .pseudo-marker {
+      display: block;
+      position: absolute;
+      z-index: 2;
+      left: 1rem;
+      top: 5.5rem;
+      transform: rotate(315deg);
+      background: transparent;
+      border: none;
+    }
+
+    .two {
+      position: relative;
+
+      .marker {
+        position: absolute;
+        z-index: 2;
+        left: 0.3rem;
+        top: 0.75rem;
+        transform: rotate(45deg);
+        background: transparent;
+        border: none;
+      }
+
+      .twist:after {
+        @include twist-style(7.875rem, 1.875rem, -3.9375rem);
+        top: 1px;
+      }
+
+      .twist:before {
+        @include twist-style(8rem, 2rem, -4rem, var(--grayscale-stroke-line));
+      }
+    }
+
+    .three {
+      display: flex;
+      flex-direction: row-reverse;
+      margin-top: 4rem;
+      margin-left: $markerWidth;
+      position: relative;
+      z-index: 2;
+
+      .marker-description-txt {
+        top: 2.5rem;
+        border-bottom-width: 0;
+        border-top-style: solid;
+      }
+
+      .marker-description-line {
+        bottom: 1.9rem;
+      }
+
+      .marker {
+        &:nth-of-type(5) {
+          border-left-width: 1px;
+        }
+      }
+    }
+
+    .step.four {
+      transform: rotate(180deg);
+      top: 12rem;
+      left: $markerWidth;
+      position: relative;
+      order: -1;
+      z-index: 0;
+
+      .pseudo-marker {
+        transform: rotate(135deg);
+      }
+
+      .marker {
+        position: absolute;
+        z-index: 2;
+        left: 0.3rem;
+        top: 0.75rem;
+        transform: rotate(225deg);
+        background: transparent;
+        border: none;
+      }
+
+      .twist:after {
+        @include twist-style(7.875rem, 1.875rem, -3.9375rem);
+        top: 1px;
+      }
+
+      .twist:before {
+        @include twist-style(8rem, 2rem, -4rem, var(--grayscale-stroke-line));
+      }
+    }
+
+    .step.five {
+      position: relative;
+      margin-top: 4rem;
+      margin-left: $markerWidth;
+      margin-bottom: 2rem;
+
+      .marker-description-txt {
+        top: 2.5rem;
+        border-bottom-width: 0;
+        border-top-style: solid;
+      }
+
+      .marker-description-line {
+        bottom: 1.9rem;
+      }
+
+      .marker {
+        &:first-of-type {
+          border-left-width: 1px;
+        }
+
+        &:nth-of-type(n + 7) {
+          display: none;
+        }
+
+        &:nth-of-type(6) {
+          border-radius: 0 0.5rem 0.5rem 0;
+        }
+      }
+    }
+  }
+}

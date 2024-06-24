@@ -1,0 +1,9 @@
+<div class="on-screen-controls" [class.on-screen-controls__visible]="isVisible">
+  <app-playback-control
+    class="w-full"
+    [isPlaying]="isPlaying"
+    (togglePlay)="handleControlClick(togglePlay, $event)"
+    (goToNext)="handleControlClick(goToNext)"
+    (goToPrevious)="handleControlClick(goToPrevious)">
+  </app-playback-control>
+</div>

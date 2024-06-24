@@ -1,0 +1,3 @@
+<app-button-next *ngFor="let button of buttons; trackBy: trackByFn" class="btn" [icon]="button.icon" [background]="button.background" [iconColor]="button.iconColor" (btnClick)="homeBtnClick(button)">
+  {{ button.text | translate }}
+</app-button-next>

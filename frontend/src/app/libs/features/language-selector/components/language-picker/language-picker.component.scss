@@ -1,0 +1,81 @@
+.language-picker {
+  &-item {
+    border-bottom: 1px solid;
+    border-color: var(--grayscale-stroke-line);
+
+    &:last-child {
+      border: none;
+    }
+  }
+
+  .p-input-icon-left i {
+    top: auto;
+    margin-top: 0;
+    left: 18px;
+  }
+
+  .active {
+    color: var(--primary-tulip-500-base);
+
+    &-circle {
+      color: var(--primary-tulip-500-base);
+      position: absolute;
+      top: 33%;
+      font-size: 12px;
+      left: 25%;
+    }
+  }
+
+  .custom-dialog.p-dialog {
+    border-radius: 8px;
+  }
+
+  .p-input-icon-left .p-inputtext {
+    padding-left: 52px;
+    border-radius: 0;
+  }
+
+  .p-inputtext:enabled:focus,
+  .p-inputtext:enabled:hover {
+    box-shadow: none;
+    border-color: inherit;
+  }
+
+  .lang-name {
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  .p-dialog-header-icon .pi {
+    font-size: 17px;
+  }
+
+  .custom-dialog-header {
+    padding: 0 16px;
+
+    &__text {
+      font-size: 28px;
+      line-height: 38px;
+    }
+
+    app-icon {
+      color: var(--grayscale-body);
+    }
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 30px;
+    background-color: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #9a9caa;
+    border-radius: 5px;
+  }
+}
+

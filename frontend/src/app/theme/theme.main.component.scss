@@ -1,0 +1,18 @@
+:host {
+  .nav-bar-mobile {
+    display: none;
+  }
+
+
+  @media (max-width: 991px) {
+    .nav-bar-mobile {
+      display: flex;
+    }
+
+    .layout-main:not(.admin-page, .full-page-content) {
+      height: calc(100vh - 4.5rem);
+      min-height: 0;
+      overflow-y: auto;
+    }
+  }
+}

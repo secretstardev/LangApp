@@ -1,0 +1,8 @@
+<button class="btn" [style.background]="background" (click)="btnClick.emit()">
+  <div class="value">
+    <span class="round">
+      <app-icon [icon]="icon" [style.color]="iconColor" size="big"></app-icon>
+    </span>
+    <span class="text f-semibold"><ng-content></ng-content></span>
+  </div>
+</button>

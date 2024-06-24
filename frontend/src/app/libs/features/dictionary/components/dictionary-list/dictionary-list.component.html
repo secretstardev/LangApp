@@ -1,0 +1,34 @@
+<ng-container *ngIf="entities">
+  <ul *ngIf="!entities.isLoading && entities.data?.length">
+    <li *ngFor="let entity of entities.data; trackBy: trackByFn" class="{{ entity.type }}" [class.active]="selectable && entity.id === selectedId" (click)="entityClick.emit(entity)">
+      <div class="main">
+        <app-icon class="folder-icon" [icon]="entity.type | dictionaryListEntityIcon"></app-icon>
+        <span class="title f-xlarge f-semibold">{{ entity.name }}</span>
+      </div>
+      <button
+        *ngIf="entity.type === types.user && enabledRemove"
+        [tp]="'Delete' | translate"
+        pButton
+        class="btn-remove p-button-rounded p-button-text"
+        (click)="$event.stopPropagation(); onEntityDelete($event, entity)"
+      >
+        <app-icon icon="close-default"></app-icon>
+      </button>
+    </li>
+  </ul>
+
+  <ng-container *ngIf="!entities.isLoading && !entities.data?.length">
+    <app-message-with-image size="small" type="not-found"></app-message-with-image>
+  </ng-container>
+
+  <ng-container *ngIf="entities.isLoading">
+    <ul>
+      <p-skeleton width="100%" height="4rem"></p-skeleton>
+      <p-skeleton width="100%" height="4rem"></p-skeleton>
+      <p-skeleton width="100%" height="4rem"></p-skeleton>
+      <p-skeleton width="100%" height="4rem"></p-skeleton>
+      <p-skeleton width="100%" height="4rem"></p-skeleton>
+    </ul>
+  </ng-container>
+  <!--  <p-progressSpinner class="spinner" *ngIf="entities.isLoading"></p-progressSpinner>-->
+</ng-container>

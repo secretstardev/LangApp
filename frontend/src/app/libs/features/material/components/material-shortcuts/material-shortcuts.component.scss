@@ -1,0 +1,30 @@
+.shortcut {
+  background: var(--grayscale-placeholder) !important;
+  border-radius: 8px !important;
+
+  &-table {
+    th {
+      font-weight: 700 !important;
+      width: 60%;
+      color: var(--grayscale-body);
+    }
+
+    th, td {
+      border: none !important;
+      padding: 0.75rem 1.938rem !important;
+    }
+  }
+
+
+  .custom-dialog {
+    &-header {
+      &__close {
+        color: var(--grayscale-body);
+      }
+    }
+  }
+
+  .p-dialog-content {
+    border-radius: 8px;
+  }
+}

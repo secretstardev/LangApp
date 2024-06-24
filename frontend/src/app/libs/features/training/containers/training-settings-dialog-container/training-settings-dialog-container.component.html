@@ -1,0 +1,31 @@
+<div class="body">
+  <p class="options-title f-semibold">{{ 'StudySettings.OptionMainTitle' | translate }}</p>
+
+  <ul>
+    <li *ngFor="let cardType of mainOptions; let i = index">
+      <p-checkbox [value]="cardType.value" [label]="cardType.text | translate" [(ngModel)]="selectedMainOptions"></p-checkbox>
+    </li>
+  </ul>
+
+  <p class="options-title f-semibold">{{ 'StudySettings.OptionIntensityTitle' | translate }}</p>
+
+  <ul>
+    <li *ngFor="let cardType of intensityOptions; let i = index">
+      <p-checkbox [value]="cardType.value" [label]="cardType.text | translate" [(ngModel)]="selectedIntensityOptions"></p-checkbox>
+    </li>
+  </ul>
+
+  <p class="options-title f-semibold">{{ 'StudySettings.OptionAdditionalTitle' | translate }}</p>
+
+  <ul>
+    <li *ngFor="let cardType of additionalOptions; let i = index">
+      <p-checkbox [value]="cardType.value" [label]="cardType.text | translate" [(ngModel)]="selectedAdditionalOptions"></p-checkbox>
+    </li>
+  </ul>
+
+  <div class="p-d-flex p-jc-center" *ngIf="isLoading">
+    <p-progressSpinner [style]="{ width: '40px', height: '40px', 'margin-top': '20px' }"></p-progressSpinner>
+  </div>
+</div>
+
+<app-dialog-footer (clickCancel)="clickCancel()" (clickApply)="clickApply()"></app-dialog-footer>

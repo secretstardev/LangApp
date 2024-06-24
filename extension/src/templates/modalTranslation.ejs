@@ -1,0 +1,76 @@
+<% if (locals.response && locals.response.words) { %>
+    <!--<div id="modal-translate-header" style="display: flex; flex-flow: row nowrap; width: 100%; justify-content: space-between;">
+    </div>-->
+    <audio style="display: none;" id="audioplayer" controls></audio>
+    <div id="modal-translate-body" class="response" style="box-sizing: border-box; display: flex; flex-flow: column nowrap; width: 100%;" lang="ja-JP">
+        <a id="closeModal"><span></span></a>
+        <% locals.response.words.forEach((word, wordIndex) => { %>
+            <div class="word-variant" data-word="<%= JSON.stringify(word) %>">
+                <% for (let [i, reading] of word.readings.entries()) { %>
+                    <div class="reading-variant<%= reading.current ? ' reading-variant-current' : '' %><%= reading.currentMain ? ' reading-variant-current-main' : '' %>">
+
+                        <button class="word-audio" data-audiourls="<%= word.audioUrls %>">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.66602 8.33283V11.6662C1.66602 13.3328 2.49935 14.1662 4.16602 14.1662H5.35768C5.66602 14.1662 5.97435 14.2578 6.24102 14.4162L8.67435 15.9412C10.7743 17.2578 12.4993 16.2995 12.4993 13.8245V6.1745C12.4993 3.69117 10.7743 2.74117 8.67435 4.05783L6.24102 5.58283C5.97435 5.74117 5.66602 5.83283 5.35768 5.83283H4.16602C2.49935 5.83283 1.66602 6.66617 1.66602 8.33283Z" stroke="#050A1F" stroke-width="1.5"/>
+                                <path d="M15 6.66602C16.4833 8.64102 16.4833 11.3577 15 13.3327" stroke="#050A1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16.5254 4.58398C18.9337 7.79232 18.9337 12.209 16.5254 15.4173" stroke="#050A1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <svg width="24" height="24" viewBox="0 0 120 120" style="transform: rotate(-90deg) scale(1, -1)">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#e6e6e6" stroke-width="18" />
+                            <circle class="percent" cx="60" cy="60" r="50" fill="none" stroke="#00c853" stroke-width="18" stroke-dasharray="100" pathLength="100" stroke-dashoffset="<%= (Math.min(100, Math.round((reading.frequencyRank || 0) * 10)) - 100) %>" />
+                        </svg>
+
+
+                        <ruby>
+                            <% for (let f of reading.furigana) { %>
+                                <%= f.ruby %>
+                                <rt><%= f.rt || '' %></rt>
+                            <% } %>
+                        </ruby>
+
+                        <div class="buttons <%= wordIndex === 0 ? 'first' : '' %>">
+                            <button class="button-add">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 10H15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 15V5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                <% } %>
+
+                <div class="meanings-wrapper">
+                    <div class="meanings">
+                        <div class="meanings-img" style="background-image: url('<%= word.imageUrls || word.imageUrls?.[0] || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="160" fill="none"><rect width="200" height="160" fill="%23F1F6FF" rx="4"/><g clip-path="url(%23a)"><path fill="%23D5E0F3" d="M141.6 86.4v33.599a6.399 6.399 0 0 1-6.4 6.4H64.8a6.4 6.4 0 0 1-6.4-6.4v-33.6a3.21 3.21 0 0 1 3.2-3.2h19.2a3.221 3.221 0 0 1 2.56 1.28l2.88 3.84a3.22 3.22 0 0 0 2.56 1.28h22.4a3.223 3.223 0 0 0 2.56-1.28l2.88-3.84a3.221 3.221 0 0 1 2.56-1.28h19.2a3.21 3.21 0 0 1 3.2 3.2Z"/><path fill="%23A3B2D0" d="M138.4 83.2h-4.8a3.21 3.21 0 0 1 3.2 3.2v33.599a6.399 6.399 0 0 1-6.4 6.4h4.8a6.4 6.4 0 0 0 6.4-6.4v-33.6a3.214 3.214 0 0 0-3.2-3.2Z"/><path fill="%23ECEFF6" d="M136.8 52.256V83.2h-17.6a3.22 3.22 0 0 0-2.56 1.28l-2.88 3.84a3.219 3.219 0 0 1-2.56 1.28H88.8a3.221 3.221 0 0 1-2.56-1.28l-2.88-3.84a3.222 3.222 0 0 0-2.56-1.28H63.2V40a6.4 6.4 0 0 1 6.4-6.4h48.544a6.494 6.494 0 0 1 2.656.576V46.4a3.206 3.206 0 0 0 3.2 3.2h12.224c.377.834.573 1.74.576 2.656Z"/><path fill="%23DBE6FF" d="M136.224 49.6h-4.8c.377.834.574 1.74.576 2.656V83.2h4.8V52.256a6.489 6.489 0 0 0-.576-2.656Z"/><path fill="%23E8EDFC" d="M136.224 49.6H124a3.21 3.21 0 0 1-3.2-3.2V34.176c.695.319 1.329.758 1.872 1.296l12.256 12.256a6.538 6.538 0 0 1 1.296 1.872ZM85.6 108.8a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4ZM114.4 108.8a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4ZM116 57.6A17.6 17.6 0 1 1 98.4 40 17.462 17.462 0 0 1 116 57.6Z"/><path fill="%23FFD5D9" d="M98.4 40c-.803.006-1.605.067-2.4.182a17.596 17.596 0 0 1 14.906 14.175 17.591 17.591 0 0 1-8.73 18.625 17.352 17.352 0 0 1-6.133 2.048A17.592 17.592 0 1 0 98.4 40Z"/><path fill="%23E8EDFC" d="M117.792 76.992a4.8 4.8 0 0 1-6.784 0l-4.032-4.016a17.58 17.58 0 0 0 6.8-6.8l4.016 4.032a4.8 4.8 0 0 1 0 6.784Z"/><path fill="%23fff" d="M63.2 120V86.4a3.21 3.21 0 0 1 3.2-3.2H68V40a6.4 6.4 0 0 1 6.4-6.4h-4.8a6.4 6.4 0 0 0-6.4 6.4v43.2h-1.6a3.21 3.21 0 0 0-3.2 3.2V120a6.4 6.4 0 0 0 6.4 6.4h4.8a6.402 6.402 0 0 1-6.4-6.4Z"/><path fill="%23fff" d="M61.6 40h3.2v12.8h-3.2V40Z"/><path fill="%23BAC8E5" d="M63.2 48a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z"/><path fill="%23BAC8E5" d="M138.4 81.6V52.251a7.95 7.95 0 0 0-2.344-5.657l-12.25-12.25A7.94 7.94 0 0 0 118.149 32H69.6a8.01 8.01 0 0 0-8 8 1.6 1.6 0 0 0 3.2 0 4.8 4.8 0 0 1 4.8-4.8h48.549a4.8 4.8 0 0 1 1.051.125V46.4a4.8 4.8 0 0 0 4.8 4.8h11.075c.08.345.122.697.125 1.051V81.6h-16a4.822 4.822 0 0 0-3.84 1.92l-2.88 3.84a1.605 1.605 0 0 1-1.28.64H88.8a1.6 1.6 0 0 1-1.28-.64l-2.88-3.84a4.816 4.816 0 0 0-3.84-1.92h-16V52.8a1.6 1.6 0 1 0-3.2 0v28.8a4.8 4.8 0 0 0-4.8 4.8V120a8.01 8.01 0 0 0 8 8h70.4a8.01 8.01 0 0 0 8-8V86.4a4.8 4.8 0 0 0-4.8-4.8ZM124 48a1.6 1.6 0 0 1-1.6-1.6v-8.938L132.938 48H124Zm16 72a4.8 4.8 0 0 1-4.8 4.8H64.8A4.8 4.8 0 0 1 60 120V86.4a1.6 1.6 0 0 1 1.6-1.6h19.2a1.601 1.601 0 0 1 1.28.64l2.88 3.84a4.815 4.815 0 0 0 3.84 1.92h22.4a4.82 4.82 0 0 0 3.84-1.92l2.88-3.84a1.614 1.614 0 0 1 1.28-.64h19.2a1.6 1.6 0 0 1 1.6 1.6V120Z"/><path fill="%2390A8DD" d="M116 92.8a1.6 1.6 0 0 0 0 3.2 3.254 3.254 0 0 1 3.274 2.08 1.597 1.597 0 0 0 1.985 1.053 1.597 1.597 0 0 0 1.074-1.992 6.48 6.48 0 0 0-6.333-4.34ZM84 96a1.6 1.6 0 1 0 0-3.2 6.48 6.48 0 0 0-6.333 4.341 1.589 1.589 0 0 0 1.055 1.973c.155.05.317.075.48.074a1.616 1.616 0 0 0 1.528-1.108A3.253 3.253 0 0 1 84 96ZM64.8 115.199a1.6 1.6 0 0 0-1.6 1.6v3.2a1.6 1.6 0 1 0 3.2 0v-3.2a1.6 1.6 0 0 0-1.6-1.6ZM64.8 86.4a1.6 1.6 0 0 0-1.6 1.6v22.4a1.6 1.6 0 1 0 3.2 0V88a1.6 1.6 0 0 0-1.6-1.6ZM85.6 100.801a4.796 4.796 0 0 0-4.435 2.963 4.799 4.799 0 1 0 4.435-2.963Zm0 6.4a1.6 1.6 0 1 1 0-3.198 1.6 1.6 0 0 1 0 3.198ZM114.4 100.801a4.799 4.799 0 0 0-.936 9.508 4.796 4.796 0 0 0 5.736-4.708 4.8 4.8 0 0 0-4.8-4.8Zm0 6.4a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2ZM91.63 119.954a1.603 1.603 0 0 0 1.92-1.187c.016-.035.92-3.57 6.45-3.57 5.39 0 6.399 3.403 6.447 3.589a1.6 1.6 0 0 0 3.109-.758c-.057-.248-1.526-6.031-9.557-6.031-8.03 0-9.499 5.783-9.556 6.031a1.596 1.596 0 0 0 .62 1.666c.17.123.362.211.567.26Z"/><path fill="%23FF8289" d="M98.4 38.4a19.2 19.2 0 1 0 8.251 36.51l3.226 3.214a6.4 6.4 0 0 0 9.048-9.045l-3.214-3.227a19.162 19.162 0 0 0-1.063-18.514A19.16 19.16 0 0 0 98.4 38.4Zm0 35.2a16 16 0 1 1 16-16 16.017 16.017 0 0 1-16 16Zm18.261-2.26a3.199 3.199 0 0 1 .094 4.617 3.201 3.201 0 0 1-4.617-.097l-2.634-2.624a19.337 19.337 0 0 0 4.531-4.532l2.626 2.636Z"/><path fill="%23FF8289" d="M104.513 63.89a1.837 1.837 0 0 1-2.613 0l-3.592-3.58-3.583 3.58c-.72.73-1.905.73-2.615 0a1.838 1.838 0 0 1 0-2.614l3.582-3.58-3.582-3.591a1.843 1.843 0 0 1 0-2.622c.702-.722 1.883-.732 2.615 0l3.583 3.58 3.592-3.58c.72-.72 1.893-.72 2.613 0a1.847 1.847 0 0 1 0 2.622l-3.582 3.59 3.582 3.581c.733.72.733 1.892 0 2.614Z"/></g><defs><clipPath id="a"><path fill="%23fff" d="M52 32h96v96H52z"/></clipPath></defs></svg>' %>')"></div>
+                        <% for (let i = 0; i < word.meanings.length; i++) { %>
+                            <div class="meaning-variant">
+                                <svg width="24" height="24" viewBox="0 0 120 120" style="min-width: 24px; transform: rotate(-90deg) scale(1, -1)">
+                                    <circle cx="60" cy="60" r="50" fill="none" stroke="#e6e6e6" stroke-width="18" />
+                                    <circle class="percent" cx="60" cy="60" r="50" fill="none" stroke="#00c853" stroke-width="18" stroke-dasharray="100" pathLength="100" stroke-dashoffset="<%= (Math.min(100, Math.round((word.meanings[i].probabilityInList || 0) * 100)) - 100) %>" />
+                                </svg>
+                                <%= word.meanings[i].value %>
+                            </div>
+                        <% } %>
+
+
+                        <!--                        <a class="see-also-btn" data-entity-id="<%= word.id %>">See also-->
+                        <!--                            <% for (let [i, reading] of word.readings.entries()) { %>-->
+                        <!--                                <ruby>-->
+                        <!--                                    <% for (let f of reading.furigana) { %>-->
+                        <!--                                        <%= f.ruby %>-->
+                        <!--                                        <rt><%= f.rt || '' %></rt>-->
+                        <!--                                    <% } %>-->
+                        <!--                                </ruby>-->
+                        <!--                            <% } %>-->
+                        <!--                        </a>-->
+                    </div>
+                </div>
+
+                <button class="btn-more" style="display: none">More</button>
+            </div>
+        <% }) %>
+    </div>
+<% } %>

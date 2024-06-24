@@ -1,0 +1,8 @@
+<p class="f-small f-semibold mb-1">{{ 'Information' | translate }}</p>
+
+<ul>
+  <li *ngFor="let item of items; trackBy: trackByFn" class="f-xsmall">
+    <i class="square" [style.background-color]="item.color"><app-icon class="square-icon" *ngIf="item.icon" [icon]="item.icon"></app-icon></i>
+    <span class="title">{{ item.title | translate }}</span>
+  </li>
+</ul>

@@ -1,0 +1,37 @@
+.confirm-dialog {
+  display: flex;
+  flex-direction: column;
+
+  &-message {
+    padding: 0 0 32px 0;
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+
+    &__accept,&__deny {
+      padding: 8px 16px !important;
+    }
+
+    &__accept {
+      background: var(--primary-tulip-500-base);
+    }
+
+    &__deny {
+      background: var(--grayscale-label);
+      &:hover {
+        background: var(--grayscale-body) !important;
+      }
+    }
+  }
+
+  &.p-dialog, .p-dialog-content {
+    border-radius: 4px;
+  }
+
+  .custom-dialog-header__close {
+    color: var(--grayscale-body);
+  }
+}

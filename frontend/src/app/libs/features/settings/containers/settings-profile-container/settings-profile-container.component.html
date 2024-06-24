@@ -1,0 +1,12 @@
+<ng-container *ngIf="combinedObservable$ | async as obs">
+  <app-settings-profile-info
+    [user]="obs.user">
+  </app-settings-profile-info>
+  <app-settings-profile-form
+    [entity]="obs.user"
+    [timeZones]="obs.timeZones | timeZonesDropdown"
+    [languages]="obs.languages?.items"
+    [languageLevels]="obs.languageLevels"
+    (clickSave)="save($event)">
+  </app-settings-profile-form>
+</ng-container>

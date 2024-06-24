@@ -1,0 +1,84 @@
+:host {
+  display: flex;
+
+  .stat-calendar {
+    display: flex;
+    padding: 1rem 2rem;
+    border: 1px solid var(--grayscale-stroke-line);
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .legend {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-width: 0;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 0.25rem;
+    height: 1rem;
+  }
+
+  .days {
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-gap: 0.25rem 0.85rem;
+  }
+
+  .day {
+    height: 1rem;
+    width: 1rem;
+    background: var(--grayscale-placeholder);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--grayscale-white);
+    position: relative;
+  }
+
+  .date-locale {
+    position: absolute;
+    top: -1.75rem;
+    left: 0;
+  }
+
+  @media (max-width: 700px) {
+    .stat-calendar,
+    .legend {
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    & {
+      flex-direction: column;
+    }
+
+    .days {
+      grid-gap: 0.25rem 0.5rem;
+    }
+
+    .day {
+      height: 0.75rem;
+      width: 0.75rem;
+    }
+
+    .stat-calendar {
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .legend {
+      border-radius: 0 0 0.5rem 0.5rem;
+      border-top-width: 0;
+      border-left-width: 1px;
+    }
+  }
+}

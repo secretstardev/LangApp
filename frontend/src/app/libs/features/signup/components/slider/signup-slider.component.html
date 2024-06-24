@@ -1,0 +1,16 @@
+<div>
+  <div class="max-w-[560px]">
+    <div class="flex justify-between mb-1.5">
+      <span class="signup-slider-sidevalues">{{minValue | currency: currencyValue : 'symbol' : '1.0-0'}}</span>
+      <span class="signup-slider-sidevalues">{{maxValue | currency: currencyValue : 'symbol' : '1.0-0'}}</span>
+    </div>
+    <p-slider #slider
+              class="signup-slider"
+              [disabled]="isDisabled"
+              [min]="minValue"
+              [max]="maxValue"
+              [(ngModel)]="_value"
+              (onChange)="handleChange($event)">
+    </p-slider>
+  </div>
+</div>

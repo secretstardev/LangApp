@@ -1,0 +1,33 @@
+.action-btn:hover {
+  color: var(--primary-light-color) !important;
+}
+
+.action-btn:focus-visible {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+
+.card-m-t {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .buttons-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (min-width: 968px) {
+  .buttons-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+}

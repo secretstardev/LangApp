@@ -1,0 +1,59 @@
+<form class="filters flex flex-wrap" [formGroup]="mainForm">
+  <app-multiselect
+    styleClass="filters__dropdown items-center"
+    placeHolder="TopicsPlaceHolder"
+    filterKey="categoryId"
+    formControlName="categoryId"
+    [showClear]="true"
+    [options]="availableValues['categoryId'] | async"
+    [isExpandable]="isExpandable"
+    (controlExpanded)="controlExpanded.emit($event)">
+  </app-multiselect>
+  <app-dropdown
+    styleClass="filters__dropdown items-center"
+    placeholder="Japanese Level"
+    formControlName="level"
+    [options]="availableValues['level'] | async"
+    [showClear]="true"
+    [templates]="{selectedItem:'title-value', label: 'Japanese Level'}">
+  </app-dropdown>
+  <app-dropdown
+    styleClass="filters__dropdown items-center"
+    placeholder="Text length"
+    formControlName="length"
+    [options]="availableValues['length'] | async"
+    [showClear]="true">
+  </app-dropdown>
+  <app-dropdown
+    styleClass="filters__dropdown items-center"
+    placeholder="SortByPlaceHolder"
+    formControlName="sort"
+    [options]="availableValues['sort'] | async"
+    [showClear]="true"
+    [templates]="{selectedItem:'title-value', label: 'Sort By'}">
+  </app-dropdown>
+  <app-dropdown
+    styleClass="filters__dropdown items-center"
+    placeholder="Title in"
+    formControlName="titleLang"
+    [options]="availableValues['titleLang'] | async"
+    [showClear]="true"
+    [templates]="{selectedItem:'title-value'}">
+  </app-dropdown>
+  <app-dropdown
+    styleClass="filters__dropdown items-center"
+    placeholder="Study Status"
+    formControlName="isStudied"
+    [options]="availableValues['isStudied'] | async"
+    [showClear]="true"
+    [templates]="{selectedItem:'title-value'}">
+  </app-dropdown>
+  <app-search-field
+    class="flex flex-1"
+    styleClass="filters__search items-center"
+    iconSide="right"
+    formControlName="search"
+    [allowClear]="true"
+    [outlined]="true">
+  </app-search-field>
+</form>

@@ -1,0 +1,79 @@
+<div class="material-info">
+  <div class="material-info-title-container">
+    <h3>{{content?.title}}</h3>
+    <p class="material-info-title__translated">{{content?.titleTranslated}}</p>
+  </div>
+  <div class="material-info-active-block">
+    <div class="material-info-channel">
+      <div class="material-info-channel__thumbnail"></div>
+      <a class="material-info-channel__text"
+         [routerLink]="MATERIALS_ROUTE"
+         [queryParams]="{'filter[youtubeChannelId]':content?.dataJson?.youtubeVideo?.channel?.id}">
+        {{content?.dataJson?.youtubeVideo?.channel?.title}}
+      </a>
+    </div>
+    <div class="material-info-buttons">
+      <button
+        pButton
+        type="button"
+        class="material-info-buttons__outlined"
+        [label]="(content?.contentAttribute?.isStudied === ContentStudied.finished ? 'Material.View.MarkedStudied' : 'Material.View.MarkStudied') | translate"
+        [ngClass]="{ active: content?.contentAttribute?.isStudied === ContentStudied.finished }"
+        (click)="updateAttribute.emit({attribute: 'isStudied', value: content?.contentAttribute?.isStudied === ContentStudied.finished ? ContentStudied.not_started : ContentStudied.finished })"
+      ></button>
+      <button
+        pButton
+        type="button"
+        class="material-info-buttons__icons p-button-text"
+        [label]="(content?.contentAttribute?.isHidden ? 'Material.View.Hidden' : 'Material.View.Hide') | translate"
+        [ngClass]="{ active: content?.contentAttribute?.isHidden }"
+        (click)="updateAttribute.emit({attribute: 'isHidden', value: !content?.contentAttribute?.isHidden})"
+      >
+        <app-icon icon="eye-slash" size="small"></app-icon>
+      </button>
+      <button pButton
+              type="button"
+              class="material-info-buttons__icons p-button-text btn-mid"
+              label="{{'Material.View.Report' | translate}}"
+              (click)="openReport()">
+        <app-icon icon="danger" size="small"></app-icon>
+      </button>
+    </div>
+  </div>
+  <div class="material-info-details">
+    <div class="material-info-details-combined">
+      <div class="material-info-details-block">
+        <app-icon icon="calendar"></app-icon>
+        <span>{{content?.dataJson?.youtubeVideo?.published}}</span>
+      </div>
+      <div class="material-info-details-block">
+        <app-icon icon="Level"></app-icon>
+        <a class="material-info-details-level"
+           [routerLink]="MATERIALS_ROUTE"
+           [queryParams]="{'filter': ({level: content?.level?.toString()} | base64Encode) }">{{_languageLevels[content?.level] | translate}}</a>
+      </div>
+    </div>
+    <div class="material-info-details-block" *ngIf="content?.tagsJson?.length > 0">
+      <span class="material-info-details-text">{{'Material.View.Tags' | translate}}</span>
+      <div class="material-info-details-chips">
+        <a *ngFor="let tag of content.tagsJson"
+           class="material-info-details-chips-item"
+           [routerLink]="MATERIALS_ROUTE"
+           [queryParams]="{'filter': ({tags: tag} | base64Encode)}">
+          {{tag}}
+        </a>
+      </div>
+    </div>
+    <div class="material-info-details-block" *ngIf="content?.categories?.length > 0">
+      <span class="material-info-details-text">{{'Material.View.Categories' | translate}}</span>
+      <div class="material-info-details-chips">
+        <a *ngFor="let category of content.categories"
+           class="material-info-details-chips-item"
+           [routerLink]="MATERIALS_ROUTE"
+           [queryParams]="{'filter': ({categoryId: [category?.id]} | base64Encode)}">
+          {{category.title | translate}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

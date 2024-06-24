@@ -1,0 +1,21 @@
+.table-paginator {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 12px;
+  color: var(--grayscale-body);
+  gap: 24px;
+  &-status {
+
+  }
+  &-navigation-arrows {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+
+  app-icon {
+    cursor: pointer;
+  }
+}

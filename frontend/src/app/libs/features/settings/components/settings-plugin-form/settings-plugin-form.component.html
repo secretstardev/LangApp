@@ -1,0 +1,15 @@
+<form [formGroup]="mainForm" (ngSubmit)="submitClick()">
+  <div class="p-field">
+    <label id="radio-group-label">{{ 'Shows translation' | translate }}:</label>
+    <ng-container>
+      <div *ngFor="let option of options" class="p-field-checkbox">
+        <p-radioButton inputId="option-{{ option }}" name="clickModifier" [value]="option" formControlName="clickModifier"></p-radioButton>
+        <label for="option-{{ option }}">{{ option | translate }}</label>
+      </div>
+    </ng-container>
+  </div>
+
+<!--  <p-checkbox formControlName="processSubtitles" [binary]="true" [label]="'Show subtitle translation' | translate"></p-checkbox>-->
+
+  <button class="mt-9 btn-save" pButton type="submit">{{ 'Save' | translate }}</button>
+</form>

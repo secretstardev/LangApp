@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .menu-btn {
+    border: 1px solid var(--grayscale-stroke-line) !important;
+    background: white !important;
+    padding: 0;
+    height: 24px;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

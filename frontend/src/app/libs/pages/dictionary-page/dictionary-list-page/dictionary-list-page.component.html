@@ -1,0 +1,3 @@
+<app-page-header [enablePrevButton]="false" label="MyWords"></app-page-header>
+<app-dictionary-list-container class="mb-12" (entityClick)="dictionaryListClick($event)"></app-dictionary-list-container>
+<button class="create-btn" pButton (click)="toCreateList()">{{ 'CreateNewList' | translate }}</button>

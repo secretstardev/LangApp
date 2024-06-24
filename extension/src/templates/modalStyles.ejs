@@ -1,0 +1,248 @@
+<style>
+    @font-face {
+      font-family: "LangAppJapanese";
+      src: local("ヒラギノ角ゴ Pro W3"),
+      local("Hiragino Kaku Gothic Pro"),
+      local(Osaka),
+      local(メイリオ),
+      local(Meiryo),
+      local("ＭＳ Ｐゴシック"),
+      local("MS PGothic"),
+      local("ＭＳ ゴシック"),
+      local("MS Gothic"),
+      local("Noto Sans CJK JP"),
+      local(TakaoPGothic);
+      unicode-range: U+3000-30FF, U+FF00-FFEF, U+4E00-9FAF;
+    }
+
+    :host {
+        all: initial;
+        color: black;
+        font-size: 16px;
+        font-family: "LangAppJapanese", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    #modalOuter {
+        position: absolute;
+
+        /* Dynamically changes in JS */
+        width: 480px;
+        height: auto;
+        max-height: 60vh;
+
+        overflow: visible;
+        display: flex;
+        flex-flow: column;
+        /*background: rgb(255, 255, 255);
+        border-radius: 10px;
+        padding: 10px;
+        border: 1px solid rgb(0, 0, 0);*/
+
+        box-sizing: border-box;
+        z-index: 999999;
+        justify-content: flex-end;
+    }
+
+    #modalBody {
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        background: #FDFEFF;
+        box-shadow: 0px 4px 24px 0px #3C485329;
+        border: 1px solid #D9DFEB;
+        border-radius: 4px;
+        overflow-y: auto;
+    }
+
+    #closeModal {
+        cursor: pointer;
+        border: none;
+        padding: 4px;
+        font-size: 20px;
+        font-weight: 700;
+        position: sticky;
+        height: 24px;
+        width: 24px;
+        background: rgba(255, 255, 255, 0.9);
+        margin-top: -32px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        border-radius: 4px;
+        top: 23px;
+        right: 20px;
+        z-index: 2;
+        margin-left: auto;
+    }
+
+    .buttons {
+        margin-left: auto;
+        display: flex;
+        gap: 16px;
+    }
+
+    .buttons.first {
+        padding-right: 48px;
+    }
+
+    .button-add {
+        display: flex;
+        align-items: center;
+        background: #FF8289;
+        border: none;
+        color: white;
+        padding: 8px 12px 8px 8px;
+        border-radius: 8px;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .button-add svg {
+        pointer-events: none;
+    }
+
+    #closeModal span {
+        background: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18L18 6" stroke="%239A9CAA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 18L6 6" stroke="%239A9CAA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat;
+        display: block;
+        width: 24px;
+        height: 24px;
+        transition: all ease-in-out 0.2s;
+    }
+
+    #closeModal:hover span {
+        opacity: 0.8;
+    }
+
+    .word-variant {
+        border-bottom: 1px solid #D9DFEB;
+        padding: 16px;
+    }
+
+    .word-variant.hidden {
+        display: none;
+    }
+
+    .reading-variant {
+        font-weight: 600;
+        font-size: 32px;
+        display: none;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .reading-variant-uncommon {
+        opacity: 0.5;
+    }
+
+    .reading-variant-current-main {
+        display: flex;
+    }
+
+    /*.reading-variant-current {
+        color: green;
+    }*/
+
+    .meanings-wrapper {
+        margin-top: 16px;
+        display: flex;
+        gap: 8px;
+    }
+
+    .meanings-img {
+        width: 200px;
+        height: 160px;
+        background-size: cover;
+        background-position: 50%;
+        min-width: 200px;
+        border-radius: 4px;
+        float: right;
+    }
+
+    .meanings {
+        display: block;
+        width: 100%;
+    }
+
+    .meaning-variant {
+        margin: 0;
+        padding: 0.5rem 1rem;
+        border: 0 none;
+        color: #515C66;
+        transition: box-shadow 0.2s;
+        border-radius: 0;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .meaning-variant.hidden {
+        display: none;
+    }
+
+    .see-also-btn {
+        padding: 0 1rem;
+        color: #FF8289;
+        text-decoration: underline;
+        margin-top: 8px;
+        cursor: pointer;
+    }
+
+    .btn-more {
+        display: flex;
+        margin-top: 14px;
+        width: 100%;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        color: #FF8289;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .word-audio {
+        background: transparent;
+        border: none;
+        display: flex;
+        cursor: pointer;
+        height: 32px;
+        align-items: center;
+    }
+
+    .word-audio svg {
+        pointer-events: none;
+    }
+
+    @media (max-width: 480px) {
+        #modalOuter {
+            position: fixed;
+            bottom: 0;
+            top: auto !important;
+            height: 300px !important;
+            width: 100%;
+            max-height: none;
+        }
+        #modalBody {
+            border: none;
+        }
+
+        .reading-variant {
+            font-size: 28px;
+        }
+
+        .meaning-variant {
+            padding-left: 0;
+            font-size: 14px;
+        }
+
+        .meanings-img {
+            width: 140px;
+            min-width: 140px;
+            height: 112px;
+        }
+    }
+</style>

@@ -1,0 +1,7 @@
+<ul *ngIf="user">
+  <li *ngFor="let item of items; trackBy: trackByFn">
+    <i class="dot" [style.background-color]="item.color"></i>
+    <span class="title f-xsmall f-semibold" [style.color]="item.color">{{ item.title | translate }}</span>
+    <span class="description f-grayscale-body">({{ item.description | translate : { penaltyMinutes: user.dailyGoal / 60, penalty: user?.penaltyAmount | currency : user?.currency : 'symbol': '1.0-0' } }})</span>
+  </li>
+</ul>

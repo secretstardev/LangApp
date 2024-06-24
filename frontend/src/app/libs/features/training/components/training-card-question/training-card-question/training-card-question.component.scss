@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+
+  .left, .right {
+    flex-grow: 1;
+    flex-basis: 0;
+    overflow-y: auto;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .btn-question {
+    align-self: flex-start;
+    margin-top: auto;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+
+    .info-txt {
+      display: none;
+    }
+
+    .left, .right {
+      flex-grow: initial;
+      flex-basis: auto;
+      overflow: visible;
+    }
+
+    .left {
+      margin-bottom: 2rem;
+    }
+  }
+}

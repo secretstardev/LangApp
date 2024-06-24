@@ -1,0 +1,6 @@
+<ng-container *ngIf="dictionaryListStore.entities$ | async as resp">
+  <app-dropdown class="dropdown" [formControl]="control" [options]="resp.data" [pending]="resp.isLoading" placeholder="SelectList" size="big" (selectChange)="valueChange.emit($event.value)">
+    <ng-template #selectedItemTemplate let-dictionary> {{ dictionary.title }} <app-counter [count]="dictionary.total"></app-counter> </ng-template>
+    <ng-template #itemTemplate let-dictionary> {{ dictionary.title }} <app-counter [count]="dictionary.total"></app-counter> </ng-template>
+  </app-dropdown>
+</ng-container>

@@ -1,0 +1,11 @@
+<div class="flex flex-col gap-8">
+  <div #cardContainer class="square-card-container mb-[52px]"></div>
+  <button
+    color="primary"
+    pButton
+    class="square-form-button"
+    label="{{submitCardText | translate}}"
+    [disabled]="!buttonEnabled"
+    (click)="handlePaymentMethodSubmission($event)">
+  </button>
+</div>

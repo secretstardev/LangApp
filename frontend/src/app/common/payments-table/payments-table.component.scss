@@ -1,0 +1,22 @@
+// common tables
+table {
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+  padding-left: 24px !important;
+  padding-right: 0px !important;
+}
+
+th {
+  color: var(--grayscale-body);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+mat-form-field {
+  margin: 2px;
+}

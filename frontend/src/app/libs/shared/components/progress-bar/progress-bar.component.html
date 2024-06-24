@@ -1,0 +1,19 @@
+<svg *ngIf="type === 'circle'" class="circle" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(-90deg)" [tp]="tooltip">
+  <circle class="circle-fill {{fillColor}}" cx="60" cy="60" r="50" fill="none" stroke-width="18" />
+  <circle
+    class="percent"
+    cx="60"
+    cy="60"
+    r="50"
+    fill="none"
+    [attr.stroke]="'var(--grayscale-placeholder)'"
+    stroke-width="18"
+    stroke-dasharray="100"
+    pathLength="100"
+    [style.stroke-dashoffset]="-1 * value"
+  />
+</svg>
+
+<div *ngIf="type === 'rect'" class="rect" [tp]="tooltip | translate">
+  <span class="rect-fill {{fillColor}}" [style.width]="value + '%'"></span>
+</div>

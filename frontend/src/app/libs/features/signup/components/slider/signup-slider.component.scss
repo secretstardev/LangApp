@@ -1,0 +1,55 @@
+$baseFont: #050A1F;
+
+.signup-slider {
+  box-shadow: 2px 2px 2px 0 rgba(4, 16, 58, 0.16) inset;
+
+  &-sidevalues {
+    color: $baseFont;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  .tippy-content {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 24px;
+    color: white;
+    white-space: nowrap;
+  }
+
+  .tippy-box, .tippy-arrow {
+    background: $baseFont;
+    color: $baseFont;
+  }
+
+  .tippy-box {
+    border-radius: 8px;
+  }
+
+  .p-slider-horizontal .p-slider-range {
+    border-radius: 8px;
+  }
+
+  .p-slider {
+    background-color: var(--grayscale-placeholder);
+    box-shadow: 2px 2px 2px 0 rgba(4, 16, 58, 0.16) inset;
+    height: 6px;
+  }
+
+  .p-slider-handle {
+    top:0 !important;
+    height: 24px;
+    width: 24px;
+    background: var(--primary-tulip-500-base);
+    border-color: white;
+    border-width: 4px;
+    box-shadow: 0px 4px 12px rgba(5, 10, 31, 0.24);
+
+    &:hover,
+    &:focus {
+      background: var(--primary-tulip-500-base) !important;
+      border-color: var(--primary-tulip-50) !important;
+    }
+  }
+}

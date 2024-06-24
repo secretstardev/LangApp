@@ -1,0 +1,20 @@
+<h1>
+  <button *ngIf="enablePrevButton" pButton class="p-button-rounded p-button-text p-button-secondary" (click)="clickToPrevPage()"><app-icon icon="arrow-left"></app-icon></button>
+  <ng-container *ngIf="label">{{ label | translate }}</ng-container>
+  <ul *ngIf="breadCrumbsLabels && breadCrumbsLabels.length">
+    <li *ngFor="let breadCrumbsLabel of breadCrumbsLabels; let i = index">
+      <span>{{ breadCrumbsLabel.label | translate }}</span>
+
+      <button
+        *ngIf="breadCrumbsLabel.editable"
+        pButton
+        class="p-button-text p-icon-button"
+        type="button"
+        (click)="clickEdit.emit()">
+        <app-icon class="f-primary-base" icon="edit"></app-icon>
+      </button>
+
+      <app-icon class="list-icon" *ngIf="i !== breadCrumbsLabels.length - 1" icon="arrow-right"></app-icon>
+    </li>
+  </ul>
+</h1>

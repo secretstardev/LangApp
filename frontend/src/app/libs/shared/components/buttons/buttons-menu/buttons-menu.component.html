@@ -1,0 +1,13 @@
+<p-menu #menu [model]="items" [popup]="true" appendTo="body">
+  <ng-template pTemplate="item" let-item>
+    <div class="typography">
+      <button pButton class="item-button p-button-text p-button-secondary f-semibold" style="padding: 0.75rem 1.5rem; width: 100%">
+        <app-icon [icon]="item.icon" size="small" class="f-grayscale-title"></app-icon>
+        <span class="f-grayscale-title"> {{ item.label }}</span>
+      </button>
+    </div>
+  </ng-template>
+</p-menu>
+<button pButton type="button" (click)="menu.toggle($event)" class="p-button-text p-icon-button menu-btn">
+  <app-icon icon="more"></app-icon>
+</button>

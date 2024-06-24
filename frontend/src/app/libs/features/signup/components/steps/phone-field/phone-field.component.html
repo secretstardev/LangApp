@@ -1,0 +1,29 @@
+<div class="pt-[14px] pb-[24px] md:pb-[48px]">
+  <app-step-header [title]="'EnterPhoneTitle' | translate" (goBack)="goToPreviousStep()"></app-step-header>
+  <p translate class="text-[16px] leading-6 mt-1 mb-[12px] text-[#64697D]">EnterPhoneDescription</p>
+
+  <div class="p-field g-field">
+    <label [for]="fieldName">{{ 'Phone' | translate }}</label>
+    <div class="w-full">
+      <app-intl-tel-input
+        cssClass="p-inputtext p-component p-element"
+        [formControl]="control"
+        [options]="{
+        preferredCountries: [country],
+        nationalMode: true,
+        separateDialCode: true,
+        formatOnDisplay: true
+        }"></app-intl-tel-input>
+    </div>
+    <small class="p-invalid" *ngIf="checkError(fieldName)" [innerHTML]="getErrors(fieldName)"></small>
+  </div>
+  <div class="mt-2">
+    <a (click)="skipStep()" translate class="text-rose-400 text-[12px] font-semibold underline">Skip</a>
+  </div>
+</div>
+
+<div
+  class="left-0 bottom-0 p-0 w-full">
+  <button pButton label="{{ 'Continue' | translate }}" [disabled]="!control.dirty || control.pending || getErrors(fieldName) || !control.value?.e164Number"
+          class="p-button-wide max-w-[350px] sm:max-w-[330px]" (click)="completeStep()"></button>
+</div>

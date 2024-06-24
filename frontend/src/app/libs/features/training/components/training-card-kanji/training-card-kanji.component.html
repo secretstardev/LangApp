@@ -1,0 +1,27 @@
+<ng-container *ngIf="card">
+  <header>
+    <app-progress-bar [value]="card.frequencyRank" [tp]="'frequency-rank-tooltip-kanji' | translate : { value: card.frequencyRank | number : '1.0-0' }"></app-progress-bar>
+    <span class="word" [innerHTML]="card.value"></span>
+    <span class="word-translate f-xlarge">{{ card?.meanings | join }}</span>
+  </header>
+  <app-training-card-list leftTitle="KunReading" rightTitle="OnReading">
+    <ng-container left>
+      <app-training-card-kanji-reading
+        class="card-word"
+        *ngFor="let reading of card.kunReadings"
+        [card]="reading"
+        (clickMore)="clickMore.emit($event)"
+        (clickPlay)="clickPlay.emit($event)"
+      ></app-training-card-kanji-reading>
+    </ng-container>
+    <ng-container right>
+      <app-training-card-kanji-reading
+        class="card-word"
+        *ngFor="let reading of card.onReadings"
+        [card]="reading"
+        (clickMore)="clickMore.emit($event)"
+        (clickPlay)="clickPlay.emit($event)"
+      ></app-training-card-kanji-reading>
+    </ng-container>
+  </app-training-card-list>
+</ng-container>

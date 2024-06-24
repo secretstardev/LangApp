@@ -1,0 +1,15 @@
+<p>
+  {{ 'HideQuestion.Description' | translate }}
+</p>
+
+<ul>
+  <li *ngFor="let hidingReason of hidingReasons; let i = index" [class.hide]="!hidingReason.show">
+    <p-radioButton class="radio" value="{{ hidingReason?.value }}" label="{{ hidingReason?.text | translate }}" [(ngModel)]="selectedHidingReason"></p-radioButton>
+  </li>
+</ul>
+
+<div class="p-d-flex p-jc-center" *ngIf="isLoading">
+  <p-progressSpinner [style]="{ width: '40px', height: '40px', 'margin-top': '20px' }"></p-progressSpinner>
+</div>
+
+<app-dialog-footer [disabledApply]="!selectedHidingReason" (clickCancel)="clickCancel()" (clickApply)="clickApply()"></app-dialog-footer>

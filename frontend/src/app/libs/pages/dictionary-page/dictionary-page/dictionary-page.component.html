@@ -1,0 +1,8 @@
+<ng-container
+  *ngIf="{
+    list: dictionaryListStore.selectedEntity$ | async
+  } as obs"
+>
+  <app-page-header [enablePrevButton]="false" [breadCrumbsLabels]="obs.list | dictionaryPageHeader : isAllList" (clickEdit)="editEntity(obs.list)"></app-page-header>
+  <app-dictionary-container></app-dictionary-container>
+</ng-container>

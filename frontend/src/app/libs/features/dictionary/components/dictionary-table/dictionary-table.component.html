@@ -1,0 +1,23 @@
+<app-table [requestData]="dictionaries" [pagination]="pagination" (lazyLoad)="onLazyLoad($event)">
+  <ng-template #headerTemplate>
+    <tr app-dictionary-table-header-row [selectAll]="selectAll" [colspanCount]="colspanCount" (selectAllChange)="onSelectAllChange($event)"></tr>
+  </ng-template>
+
+  <ng-template #rowTemplate let-dictionary let-rowIndex="index">
+    <app-dictionary-table-body-row [dictionary]="dictionary" [rowIndex]="rowIndex" [selectionIds]="selectionIds" (selectionChange)="onSelectionChange(dictionary, $event)"></app-dictionary-table-body-row>
+  </ng-template>
+
+  <ng-template #footerTemplate>
+    <tr
+      *ngIf="selectionIds.length"
+      app-dictionary-table-footer-row
+      [isAllList]="isAllList"
+      [selectedCount]="selectionTotal"
+      [colspanCount]="colspanCount"
+      (moveToEntities)="onMoveToEntities()"
+      (copyToEntities)="onCopyToEntities()"
+      (entitiesDelete)="onEntitiesDelete($event)"
+      (importWords)="importWords.emit()"
+    ></tr>
+  </ng-template>
+</app-table>

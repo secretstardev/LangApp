@@ -1,0 +1,43 @@
+<p-sidebar
+  class="sub-page"
+  position="right"
+  [modal]="false"
+  [blockScroll]="true"
+  [showCloseIcon]="false"
+  [(visible)]="isVisible">
+  <ng-template pTemplate="header">
+    <div class="flex items-center gap-3">
+      <app-icon class="filter-panel-return" icon="arrow-left" (click)="toggleSubPanel()"></app-icon>
+      <div class="w-full h-[34px]">
+        <h3 class="text-black">{{_data?.field?.placeHolder | translate}}</h3>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <ng-container *ngTemplateOutlet="templates"></ng-container>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <a
+      pButton
+      class="sub-page-apply-button"
+      (click)="applyValues()">
+      {{'Continue' | translate}}
+    </a>
+  </ng-template>
+</p-sidebar>
+
+<ng-template #templates>
+  <ng-container [ngSwitch]="_data?.field.type">
+    <ng-container *ngSwitchCase="'multiSelect'">
+      <div class="sub-page flex flex-col gap-3 divide-y">
+        <ng-container *ngFor="let item of _data?.control?.options">
+          <p-checkbox class="pt-3 pl-4"
+                      [(ngModel)]="_value"
+                      [value]="item.value"
+                      [label]="item.label | translate">
+          </p-checkbox>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>

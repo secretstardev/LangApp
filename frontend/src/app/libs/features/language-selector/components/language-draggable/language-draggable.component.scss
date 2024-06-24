@@ -1,0 +1,13 @@
+.language-selector {
+  &-add-new {
+    padding: 0 4px !important;
+  }
+
+  .custom-dialog {
+    height: 100%;
+
+    &-header__close {
+      color: #657380;
+    }
+  }
+}

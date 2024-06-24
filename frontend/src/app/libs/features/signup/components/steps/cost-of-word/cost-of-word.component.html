@@ -1,0 +1,30 @@
+<div class="pt-[14px] pb-[91px] md:pb-[84px]">
+  <app-step-header size="big" [title]="'signup.costOfWord.title' | translate" (goBack)="goToPreviousStep()"></app-step-header>
+
+  <div class="mt-2">
+    <div class="flex flex-col gap-2">
+      <app-bullet-point [text]="'signup.costOfWord.bullet1' | translate"></app-bullet-point>
+      <app-bullet-point
+        [text]="'signup.costOfWord.bullet2' | translate : { value: control?.value | currency: currency : 'symbol' : '1.0-0'}">
+      </app-bullet-point>
+    </div>
+
+    <div class="mt-6">
+      <span translate class="block mb-3">signup.costOfWord.customizeFee</span>
+      <div>
+        <app-signup-slider
+          [formControl]="control"
+          [minValue]="minValue"
+          [maxValue]="maxValue"
+          [currencyValue]="currency">
+        </app-signup-slider>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="left-0 bottom-0 p-0 w-full">
+  <button pButton label="{{ 'Confirm' | translate }}" [disabled]="!control"
+          class="p-button-wide max-w-[350px] sm:max-w-[330px]" (click)="completeStep()"></button>
+</div>

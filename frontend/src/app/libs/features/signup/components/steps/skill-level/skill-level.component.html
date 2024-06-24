@@ -1,0 +1,13 @@
+<div class="pt-[14px] inline-flex flex-col items-start justify-start gap-[12px]">
+  <app-step-header [title]="'LanguageLevelTitle' | translate"
+                   (goBack)="goToPreviousStep()"></app-step-header>
+  <div class="self-stretch flex flex-col items-start justify-start gap-[16px] text-base">
+    <button *ngFor="let level of levels; index as i" pButton type="button"
+            [label]="level.label | translate"
+            class="p-button-spaced self-stretch overflow-hidden button-text-left"
+            [ngClass]="{ 'p-button-outlined': level.value !== control?.value }"
+            (click)="completeStep({field: 'languageLevel', value: level.value})">
+      <app-icon class="skill-level" [ngClass]="'level-icon-' + i" [icon]="'chart-b'" [size]="'custom'"></app-icon>
+    </button>
+  </div>
+</div>

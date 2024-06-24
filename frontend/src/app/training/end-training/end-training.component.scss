@@ -1,0 +1,37 @@
+@media screen and (max-width: 320px) {
+  .start-text {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 968px) {
+  .start-text {
+    width: 50%;
+    margin: 150px 0;
+  }
+}
+
+.start-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.action-btn:hover {
+  color: var(--primary-light-color) !important;
+}
+
+.action-btn:focus-visible {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
+}

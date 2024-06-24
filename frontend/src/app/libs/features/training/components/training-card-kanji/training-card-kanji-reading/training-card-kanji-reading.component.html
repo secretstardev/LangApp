@@ -1,0 +1,27 @@
+<app-training-card-word-use-in class="header" [kanji]="card.value" [progress]="card.frequencyPercent"></app-training-card-word-use-in>
+
+<ng-container *ngFor="let entity of card.exampleWords | slice : 0 : countExampleWordsToShow; trackBy: trackByFn">
+  <app-training-card-word-example
+    [kanji]="entity"
+    class="word-info"
+    (clickMore)="clickMore.emit($event)"
+    (clickPlay)="clickPlay.emit($event)"
+  ></app-training-card-word-example>
+  <app-training-card-word-example
+    *ngFor="let sentence of (entity.exampleSentences || []) | slice : 0 : (countExampleSentenceToShow.get(entity.wordId) || 1); trackBy: trackByFnSentence"
+    [sentence]="sentence"
+    class="word-info"
+    [showMore]="false"
+    [showTranslate]="true"
+    (clickMore)="clickMore.emit($event)"
+    (clickPlay)="clickPlay.emit($event)"
+  ></app-training-card-word-example>
+
+  <button *ngIf="(entity.exampleSentences || [])?.length >= (countExampleSentenceToShow.get(entity.wordId) || 1)" pButton class="p-button-outlined p-button-secondary btn-show-more big" (click)="updateCountExampleSentenceToShow(5, entity.wordId)">
+    {{ 'more-example-words-for' | translate : { value: entity.value } }}
+  </button>
+</ng-container>
+
+<button *ngIf="card.exampleWords?.length >= countExampleWordsToShow" pButton class="p-button-outlined p-button-secondary btn-show-more big" (click)="updateCountExampleWordsToShow(3)">
+  {{ 'more-example-words-for' | translate : { value: card.value } }}
+</button>

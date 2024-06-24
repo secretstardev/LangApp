@@ -1,0 +1,36 @@
+:host {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+
+    &.short {
+      .name-field {
+        width: 22.5rem;
+        max-width: 100%;
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .btn-save {
+    width: 20.5rem;
+    max-width: 100%;
+    justify-content: center;
+
+    &.short {
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+  }
+
+  .default-checkbox {
+    display: flex;
+    align-items: flex-start;
+    max-width: 420px;
+  }
+}

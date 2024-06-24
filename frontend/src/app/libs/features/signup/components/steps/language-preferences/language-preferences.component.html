@@ -1,0 +1,19 @@
+<div class="pt-[14px] pb-[24px] md:pb-[48px]">
+  <app-step-header [title]="'LanguageSelectionTitle' | translate"
+                   (goBack)="goToPreviousStep()">
+  </app-step-header>
+  <p translate class="text-[16px] leading-6 mt-1 text-[#64697D]">LanguageSelectionDescription</p>
+  <app-language-draggable
+    class="g-field block"
+    [formControl]="control"
+    [availableLanguages]="languages"
+    [selectedCodes]="selectedLanguages">
+  </app-language-draggable>
+  <small class="p-invalid mt-2 block" *ngIf="checkError(fieldName)" [innerHTML]="getErrors(fieldName)"></small>
+</div>
+
+<div class="left-0 bottom-0 p-0 w-full">
+  <button pButton label="{{ 'Continue' | translate }}"
+          [disabled]="control.value?.length < 1" class="p-button-wide max-w-[350px] sm:max-w-[330px]"
+          (click)="completeStep()"></button>
+</div>

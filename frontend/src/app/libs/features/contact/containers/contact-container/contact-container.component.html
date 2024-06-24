@@ -1,0 +1,19 @@
+<ng-container *ngIf="{
+  user: user$ | async,
+  submitResult: submitRequest$ | async
+} as obs">
+  <div class="container contact">
+    <div>
+      <h1>{{'Support.title' | translate}}</h1>
+      <div class="mb-2">
+        <p class="contact-description">{{'Support.description' | translate}}</p>
+        <div class="flex flex-row gap-1">
+          <p class="contact-description">{{'Support.contact-email' | translate}}</p>
+          <a href="mailto:{{config.EMAIL}}">{{config.EMAIL}}</a>
+        </div>
+      </div>
+      <app-contact-form [user]="obs.user" [result]="obs.submitResult" (formSubmit)="handleSubmit($event)"></app-contact-form>
+    </div>
+  </div>
+
+</ng-container>

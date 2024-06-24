@@ -1,0 +1,6 @@
+app-intl-tel-input.ng-dirty.ng-invalid intl-tel-input .p-inputtext {
+  border-color: #f44336;
+  &:enabled:focus-visible {
+    box-shadow: 0 0 0 0.2rem var(--primary-tulip-300);
+  }
+}

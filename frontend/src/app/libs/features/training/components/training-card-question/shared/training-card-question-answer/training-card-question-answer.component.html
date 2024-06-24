@@ -1,0 +1,27 @@
+<ul *ngIf="card">
+  <li *ngFor="let answer of card | trainingCardQuestionAnswer : !!drill.isFinished; let i = index; trackBy: trackByFn">
+    <span class="number f-small">{{ i + 1 }}.</span>
+    <button *ngIf="answer.audioUrls?.[0]" pButton class="p-icon-button p-button-text btn-volume" (click)="clickPlay.emit(answer.audioUrls[0])">
+      <app-icon icon="volume high"></app-icon>
+    </button>
+    <button
+      class="card-answer"
+      [class.correct]="currentAnswerIndex !== null && answer.isCorrectAnswer"
+      [class.incorrect]="currentAnswerIndex === i && drill?.isAnsweredCorrectly === false"
+      [disabled]="currentAnswerIndex !== null"
+      (click)="checkAnswer.emit(i)"
+    >
+      <div class="card-value" [innerHTML]="answer?.contentHtml ? answer?.contentHtml : ('select-audio-n' | translate : { value: i + 1 })"></div>
+    </button>
+  </li>
+  <li *ngIf="(card | trainingCardQuestionAnswer : !!drill)?.length + 1 as additionalIndex">
+    <span class="number f-small" [style.opacity]="currentAnswerIndex === null ? 1 : 0">{{ additionalIndex }}.</span>
+    <div *ngIf="currentAnswerIndex === null" class="card-answer isSmall" (click)="checkAnswer.emit(additionalIndex)">
+      <div class="card-value">{{ 'DontRemember' | translate }}</div>
+    </div>
+
+    <div *ngIf="currentAnswerIndex !== null" class="card-answer isSmall" (click)="nextQuestion.emit()">
+      <div class="card-value">{{ 'Continue' | translate }}</div>
+    </div>
+  </li>
+</ul>

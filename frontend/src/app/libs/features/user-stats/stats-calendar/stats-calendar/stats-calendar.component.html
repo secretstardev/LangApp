@@ -1,0 +1,33 @@
+<div class="stat-calendar">
+  <div class="header"></div>
+  <div *ngIf="lang$ | async as currentLang" class="days">
+    <ng-container *ngFor="let day of days; let i = index; trackBy: trackByFnDay">
+      <div
+        class="day"
+        *ngLet="day | statsCalendarActivities : activities as activity"
+        [tp]="
+          !activity
+            ? (activity | statsCalendarTooltip | translate : { date: day | date : format : '' : currentLang })
+            : (activity
+              | statsCalendarTooltip
+              | translate
+                : {
+                    penalty: activity.penalty_amount | currency : activity?.currency : 'symbol' : '1.0-0',
+                    penaltyMinutes: activity.goal_seconds / 60 | number : '1.0-0',
+                    minutes: activity.total_seconds / 60 | number : '1.0-0',
+                    date: day | date : format : '' : currentLang,
+                    differenceMinutes: (activity.goal_seconds - activity.total_seconds) / 60 | number : '1.0-0',
+                  })
+        "
+        [style.background-color]="activity?.total_seconds | statsCalendarDayColor : activity?.goal_seconds"
+      >
+        <app-icon class="square-icon" *ngIf="(activity?.total_seconds | statsCalendarDayColor : activity?.goal_seconds) === missedColor" icon="info-circle"></app-icon>
+        <div *ngIf="i % 7 === 0 && (day | statsCalendarMonth : firstStatisticDay : lastStatisticDay : i)" class="date-locale f-small f-semibold f-grayscale-title">
+          <app-date-locale [date]="day" format="MMM"></app-date-locale>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<app-stats-calendar-legend class="legend"></app-stats-calendar-legend>

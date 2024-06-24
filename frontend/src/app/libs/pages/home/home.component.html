@@ -1,0 +1,42 @@
+<ng-container
+  *ngIf="{
+    user: user$ | async,
+    activities: activities$ | async,
+    currentActivity: currentActivity$ | async,
+    learningMinutes: learningMinutes$ | async,
+    goalMinutes: goalMinutes$ | async,
+    userStats: userStats$ | async
+  } as obs"
+>
+  <header *ngIf="obs.user">
+    <h1>{{ 'WelcomeBack' | translate : { name: obs.user.name } }}</h1>
+    <app-date-locale class="f-grayscale-body" [date]="currentDate" format="d MMM y"></app-date-locale>
+  </header>
+
+  <main>
+    <section>
+      <p class="f-xlarge f-semibold mb-3">{{ 'WhatNext' | translate }}</p>
+      <app-home-next-list (clickHomeNextButton)="clickHomeNextButton($event)"></app-home-next-list>
+    </section>
+
+    <section>
+      <p class="f-xlarge f-semibold mb-3"
+         *ngIf="obs.learningMinutes !== null else loading">{{ 'StudyMinutes' | translate : { minutes: obs.learningMinutes } }}</p>
+      <app-home-study-message-box [learningMinutes]="obs.learningMinutes" [goalMinutes]="obs.goalMinutes"
+                                  [user]="obs.user"></app-home-study-message-box>
+      <app-timeline [activity]="obs.currentActivity" [user]="obs.user"></app-timeline>
+    </section>
+
+    <section class="stats-section">
+      <div class="stats">
+        <p class="f-xlarge f-semibold mb-3">{{ 'Stats' | translate }}</p>
+        <app-user-stats-info [userStats]="obs.userStats"></app-user-stats-info>
+      </div>
+      <app-stats-calendar [activities]="obs.activities" [user]="obs.user"></app-stats-calendar>
+    </section>
+  </main>
+</ng-container>
+
+<ng-template #loading>
+  <p-skeleton class="loading mb-3" height="30px"/>
+</ng-template>

@@ -1,0 +1,19 @@
+.base-payment-component {
+  &-buttons {
+    &__addnew {
+      padding: 12px 32px;
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 480px) {
+  .base-payment-component {
+    &-buttons {
+      &__addnew {
+        width: fit-content;
+        max-width: 350px;
+      }
+    }
+  }
+}

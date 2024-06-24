@@ -1,0 +1,13 @@
+<app-dictionary-select class="dictionary-select" (valueChange)="selectDictionary.emit($event)"></app-dictionary-select>
+
+<section class="top">
+  <div class="total">
+    <span class="f-small f-semibold f-primary-base"> {{ 'CardsLeft' | translate : { count: drillsLength - completedDrillsLength } }} </span>
+    <span class="f-xsmall f-grayscale-body">({{ 'CardsStudiedToday' | translate : { value: completedDrillsLength, valueLength: drillsLength } }})</span>
+  </div>
+  <div class="actions">
+    <button pButton class="p-icon-button p-button-text p-button-secondary btn-action" (click)="clickSetting.emit()"><app-icon icon="setting"></app-icon></button>
+    <button pButton class="p-icon-button p-button-text p-button-secondary btn-action" (click)="hideQuestion.emit()"><app-icon icon="eye-slash"></app-icon></button>
+  </div>
+</section>
+<app-progress-bar [value]="drillsLength | completeDrillsProgress: completedDrillsLength" type="rect" fillColor="primary"></app-progress-bar>

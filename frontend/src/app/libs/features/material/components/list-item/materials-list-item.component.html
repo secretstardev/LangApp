@@ -1,0 +1,47 @@
+<div class="card p-3.5 flex flex-wrap md:flex-nowrap border relative">
+  <app-icon class="cross top-0 right-0 m-4 absolute cursor-pointer" icon="close-thin" size="big"
+            (click)="removeFromFeed()"></app-icon>
+  <a class="image w-full md:w-[340px] p-shadow-1 rounded"
+       [routerLink]="routerLink"
+       [ngStyle]="{ 'background-image': data?.imageUrl ? 'url(' + data?.imageUrl + ')' : null }"
+       [ngClass]="{ 'p-skeleton': !data?.id }">
+    <div class="relative h-full">
+      <div class="flex items-center justify-between w-full absolute left-0 bottom-0">
+        <span *ngIf="data?.level" class="chip ml-2 mb-2 text-black f-xsmall">{{'N' + data?.level}}</span>
+        <div *ngIf="data?.dataJson?.duration" class="flex-1 flex justify-end">
+          <span class="mr-2 text-white f-xsmall">{{data?.dataJson?.duration | formatDuration}}</span>
+        </div>
+      </div>
+      <div class="shadow-inner"></div>
+    </div>
+  </a>
+  <div class="materials-list-item-content right md:ml-4 px-4 flex flex-col justify-between">
+    <div class="pb-2">
+      <p-skeleton *ngIf="!data?.id" height="2rem" styleClass="mb-2"></p-skeleton>
+      <a class="materials-list-item-title"
+         [title]="data | localizedTitle:locale"
+         [routerLink]="routerLink"
+         [lang]="locale === localizedTitleValue ? 'en' : 'ja'">{{ data | localizedTitle:locale }}</a>
+    </div>
+    <div>
+      <div class="flex gap-4">
+        <ng-container *ngTemplateOutlet="fields"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #fields>
+  <ng-container *ngFor="let field of config">
+    <ng-container [ngSwitch]="field.type">
+      <ng-container *ngSwitchCase="'button'">
+        <a
+          pButton
+          [class]="field.customClass"
+          [label]="(field.mobileText ? (isMobile ? field.mobileText : field.text) : field.text) | translate"
+          (click)="buttonAction(field.actionName)">
+        </a>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-template>

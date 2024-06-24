@@ -1,0 +1,17 @@
+.message-error {
+  color: var(--grayscale-title);
+  background: var(--states-error-50);
+  border-radius: 8px;
+  padding: 16px 24px;
+
+  .message-box {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .close {
+    color: var(--states-error-500-base);
+  }
+}

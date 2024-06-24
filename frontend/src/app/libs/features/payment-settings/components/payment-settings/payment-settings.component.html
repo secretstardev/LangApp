@@ -1,0 +1,161 @@
+<div class="payment-settings">
+  <div class="description">
+    <h1>{{'Payment settings' | translate}}</h1>
+  </div>
+  <div class="payment-settings-status-description">
+    <span class="f-bold">{{'Subscription status' | translate}}</span>
+    <span class="f-grayscale"
+          *ngIf="user.tariff === Tariff.FREE"
+          [innerHTML]="'payment.registration.descriptionFree' | translate : { value: user?.penaltyAmount | currency: user?.currency : 'symbol': '1.0-0' }">
+    </span>
+    <span class="f-grayscale"
+          *ngIf="user.tariff !== Tariff.FREE"
+          [innerHTML]="'payment.registration.descriptionTemplate' | translate : { value: user?.tariffAmount | currency: user?.currency : 'symbol': '1.0-0', period: user?.tariffPeriod | penaltyPeriod}">
+    </span>
+  </div>
+
+  <ng-container *ngIf="_paymentMethods; else loadingSpinner">
+    <p-messages severity="success"
+                *ngIf="_paymentMethods && _paymentMethods.length > 0 && user?.isPaid && !user?.isServicePaused">
+      <ng-template pTemplate>
+        <div>
+          <span class="f-semibold f-large">{{'Subscriptions.Headers.OK' | translate}}</span>
+          <p
+            [innerHTML]="'Subscriptions.ActiveSubscriptionUntil' | translate: { until: user?.paidUntilDateTime | date: 'medium' : user?.timezone : session.language }"></p>
+        </div>
+      </ng-template>
+    </p-messages>
+    <p-messages severity="info"
+                class="payment-settings-status-info__container"
+                *ngIf="_paymentMethods && _paymentMethods.length > 0 && user?.isPaid && user?.isServicePaused">
+      <ng-template pTemplate>
+        <div>
+          <span class="f-semibold f-large">{{'Subscriptions.Headers.Disabled' | translate}}</span>
+          <p
+            [innerHTML]="'Subscriptions.ActiveSubscriptionPaused' | translate: { until: user?.paidUntilDateTime | date: 'medium' : user?.timezone : session.language }"></p>
+        </div>
+      </ng-template>
+    </p-messages>
+    <p-messages severity="info"
+                class="payment-settings-status-info__container"
+                *ngIf="(!_paymentMethods || _paymentMethods.length == 0) && user?.isPaid && !user?.isServicePaused">
+      <ng-template pTemplate>
+        <div>
+          <span class="f-semibold f-large">{{'Subscriptions.Headers.AddPayment' | translate}}</span>
+          <p
+            [innerHTML]="'Subscriptions.ActiveSubscriptionPaymentMethod' | translate: { until: user?.paidUntilDateTime | date: 'medium' : user?.timezone  : session.language }"></p>
+        </div>
+      </ng-template>
+    </p-messages>
+    <p-messages severity="info"
+                class="payment-settings-status-info__container"
+                *ngIf="!user?.isPaid && user?.paidUntilDateTime != '2000-01-01 00:00:00'">
+      <ng-template pTemplate>
+        <div>
+          <span class="f-semibold f-large">{{'Subscriptions.Headers.Ended' | translate}}</span>
+          <p
+            [innerHTML]="'Subscriptions.EndedSubscriptionUntil' | translate: { until: user?.paidUntilDateTime | date: 'medium' : user?.timezone  : session.language }"></p>
+        </div>
+      </ng-template>
+    </p-messages>
+    <p-messages severity="info"
+                class="payment-settings-status-info__container"
+                *ngIf="!user?.isPaid && user?.paidUntilDateTime == '2000-01-01 00:00:00'">
+      <ng-template pTemplate>
+        <div>
+          <span class="f-semibold f-large">{{'Subscriptions.Headers.Start' | translate}}</span>
+          <p [innerHTML]="'Subscriptions.FirstSubscription' | translate"></p>
+        </div>
+      </ng-template>
+    </p-messages>
+    <p-messages severity="error"
+                *ngIf="!tryingToProlong && _paymentMethods && _paymentMethods.length > 0 && !user?.isPaid">
+      <ng-template pTemplate>
+        <div>
+          <span class="f-semibold f-large">{{'Subscriptions.Headers.Failed' | translate}}</span>
+          <p>{{'Subscriptions.FailedProlong' | translate}}.</p>
+          <button pButton color="primary" (click)="prolongSubscription.emit()"
+                  label="{{ 'Subscriptions.Buttons.TryAgain' | translate }}"></button>
+        </div>
+      </ng-template>
+    </p-messages>
+
+    <div>
+      <span class="f-xlarge f-bold payment-settings-billing__header">{{'Billing settings' | translate}}</span>
+      <button pButton (click)="updateIsPaused()"
+              [label]="user.isServicePaused ? ('Enable subscription' | translate) : ('Disable subscription' | translate)"
+              [ngClass]="user.isServicePaused ? 'p-button-success' : 'p-button-secondary'">
+        <app-icon [icon]="user.isServicePaused ? 'check' : 'slash'"></app-icon>
+      </button>
+    </div>
+
+    <div *ngIf="enableBalanceTopup">
+      <form [formGroup]="paymentForm">
+        <div class="p-fluid">
+          <div class="p-field g-field">
+            <label for="amount">{{ 'Amount' | translate }}</label>
+            <input id="amount" formControlName="amount" pInputText type="text"
+                   placeholder="{{ 'Amount' | translate }}"/>
+          </div>
+        </div>
+
+        <p-message *ngIf="!paymentForm.valid" severity="error" [text]="getError()"></p-message>
+
+        <div class="p-mt-3">
+          <button pButton color="primary" [disabled]="!paymentForm.valid" (click)="onPayment()"
+                  label="{{ 'Pay' | translate }}"></button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="showPaymentMethods && _paymentMethods && _paymentMethods.length > 0" class="g-field mt-4">
+      <span class="f-xlarge f-bold payment-settings-billing__header">{{ 'Your payment methods' | translate }}</span>
+      <div class="flex flex-col gap-4 payment-settings-methods-card">
+        <p-toolbar *ngFor="let method of paymentMethodsDetails">
+          <div class="flex flex-row gap-3 items-center">
+            <app-icon class="payment-settings-methods-card__icon" [icon]="method.icon"></app-icon>
+            <div class="flex flex-col payment-settings-methods-card__text">
+              <div class="p-toolbar-group-left">
+                {{ method.cardNumber }}
+              </div>
+              <div>Expiry {{method.expiry}}</div>
+            </div>
+          </div>
+
+          <div class="p-toolbar-group-right">
+            <button pButton
+                    class="payment-settings-methods-delete__button"
+                    label="{{ 'Delete' | translate }}"
+                    (click)="deletePaymentMethod($event, method.id)">
+              <app-icon icon="trash"></app-icon>
+            </button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <span class="f-xlarge f-bold payment-settings-billing__header"
+            *ngIf="newCardInputActive">{{'Add new payment method' | translate}}</span>
+      <app-base-payment [user]="user"
+                        [paymentMethods]="_paymentMethods"
+                        (activated)="updateEditMode($event)"
+                        (paymentMethodsUpdated)="updatePaymentMethods.emit($event)"></app-base-payment>
+    </div>
+
+  </ng-container>
+  <ng-template #loadingSpinner>
+    <div class="flex justify-center">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </ng-template>
+</div>
+<div class="mt-8 lg:mt-10" *ngIf="rows && rows.length > 0">
+  <span class="f-xlarge f-bold mb-3">{{'Transactions history' | translate}}</span>
+  <app-payments-table
+    [pageSize]="50"
+    [isShowComment]="true"
+    [moneyTitle]="'Amount' | translate"
+    [rows]="rows"
+    [isPaginator]="true">
+  </app-payments-table>
+</div>

@@ -1,0 +1,13 @@
+<div class="flex items-center">
+  <a *ngIf="allowBack" (click)="goBack.emit()" class="back-button self-start md:self-center pt-[5px] md:pt-0 shrink-0 mr-3">
+    <app-icon icon="arrow-left"></app-icon>
+  </a>
+  <ng-container [ngSwitch]="size">
+    <ng-container *ngSwitchCase="'big'">
+      <h1 class="title m-0 md:text-[32px] leading-snug text-gray-900">{{title}}</h1>
+    </ng-container>
+    <ng-container *ngSwitchCase="'normal'">
+      <h4 class="title m-0 md:text-[32px] leading-snug text-gray-900">{{title}}</h4>
+    </ng-container>
+  </ng-container>
+</div>

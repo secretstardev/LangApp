@@ -1,0 +1,21 @@
+<div class="flex flex-col justify-between h-screen tablet-screen">
+  <div>
+    <div class="w-full invisible xl:visible">
+      <a class="layout-topbar-logo" id="logolink"
+        style="cursor: pointer; outline: none; margin: 24px 0px 0px 32px; width: 110px; display: block" routerLink="/">
+        <img src="assets/images/logo.svg" alt="LangApp Japanese" />
+      </a>
+    </div>
+
+    <ul class="layout-menu">
+      <li app-menuitem *ngFor="let item of model; trackBy: trackByIdentify; let i = index" [item]="item" [index]="i"
+        [root]="true"></li>
+
+      <!-- <li class="absolute bottom-2" app-menuitem *ngFor="let item of otherModel; trackBy: trackByIdentify; let i = index" [item]="item" [index]="i" [root]="true"></li> -->
+    </ul>
+  </div>
+  <ul class="layout-menu">
+    <li app-menuitem *ngFor="let item of otherModel; trackBy: trackByIdentify; let i = index" [item]="item" [index]="i"
+      [root]="true"></li>
+  </ul>
+</div>

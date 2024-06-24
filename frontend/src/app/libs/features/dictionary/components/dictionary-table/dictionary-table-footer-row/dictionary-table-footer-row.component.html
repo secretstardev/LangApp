@@ -1,0 +1,24 @@
+<td [attr.colspan]="colspanCount">
+  <div class="footer-wrapper">
+    <p class="words-counter">{{ 'WordSelected' | translate : { count: selectedCount } }}</p>
+    <div class="actions">
+      <ng-container *ngIf="isAllList">
+        <button pButton (click)="copyToEntities.emit()">
+          <app-icon icon="move to"></app-icon>
+          {{ 'CopyTo' | translate }}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!isAllList">
+        <button class="btn-item" pButton (click)="moveToEntities.emit()">
+          <app-icon icon="move to"></app-icon>
+          {{ 'MoveTo' | translate }}
+        </button>
+        <button class="btn-item" pButton class="p-button-secondary" (click)="entitiesDelete.emit($event)">
+          <app-icon icon="trash"></app-icon>
+          {{ 'Delete' | translate }}
+        </button>
+        <app-buttons-menu class="button-menu" (copyTo)="copyToEntities.emit()" (importWords)="importWords.emit()"></app-buttons-menu>
+      </ng-container>
+    </div>
+  </div>
+</td>

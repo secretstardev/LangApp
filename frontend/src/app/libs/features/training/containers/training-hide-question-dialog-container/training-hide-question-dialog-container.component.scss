@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  width: 390px;
+  max-width: 100%;
+  flex-direction: column;
+
+  ul {
+    display: flex;
+    gap: 0.625rem;
+    flex-direction: column;
+  }
+
+  li {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .hide {
+    display: none;
+  }
+}

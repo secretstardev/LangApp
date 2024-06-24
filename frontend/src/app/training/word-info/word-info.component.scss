@@ -1,0 +1,19 @@
+@media screen and (max-width: 768px) {
+  .word-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .margin-m {
+    margin-left: 28px;
+  }
+}
+
+@media screen and (min-width: 968px) {
+  .word-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}

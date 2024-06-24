@@ -1,0 +1,26 @@
+<ng-container *ngIf="user?.tariff !== Tariff.FREE">
+  <ng-container *ngIf="learningMinutes !== null else loading">
+    <app-message-info *ngIf="learningMinutes >= goalMinutes"
+                      class="mb-6">{{ 'StudyMessages.PaidCongratulations' | translate }}</app-message-info>
+    <app-message-info *ngIf="learningMinutes < goalMinutes" class="mb-6" type="error">{{
+      'StudyMessages.PaidAlmostThere' | translate : { minutes: user.dailyGoal / 60 - learningMinutes }
+      }}</app-message-info>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="user?.tariff === Tariff.FREE">
+  <ng-container *ngIf="learningMinutes !== null else loading">
+    <app-message-info *ngIf="learningMinutes >= goalMinutes"
+                      class="mb-6">{{ 'StudyMessages.Congratulations' | translate }}</app-message-info>
+    <app-message-info *ngIf="learningMinutes < goalMinutes" class="mb-6" type="error">{{
+      'StudyMessages.AlmostThere' | translate : {
+        minutes: user.dailyGoal / 60 - learningMinutes,
+        penalty: user?.penaltyAmount | currency : user?.currency : 'symbol': '1.0-0'
+      }
+      }}</app-message-info>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <p-skeleton class="loading mb-6" height="100%"/>
+</ng-template>

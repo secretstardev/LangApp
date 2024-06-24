@@ -1,0 +1,8 @@
+<ul class="nav-links">
+  <li *ngFor="let item of items" class="nav-item">
+    <a [routerLink]="item.link" routerLinkActive="active">
+      <app-icon [icon]="item.icon"></app-icon>
+      <span class="f-xxsmall font-semibold">{{item.title | translate}}</span>
+    </a>
+  </li>
+</ul>

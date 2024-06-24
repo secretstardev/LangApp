@@ -1,0 +1,5 @@
+<span class="p-input-icon-left big">
+  <app-icon class="input-icon" icon="search"></app-icon>
+  <input class="search" [placeholder]="placeholder" type="text" pInputText [(ngModel)]="value" (keyup.enter)="onFilterChange.emit(value)" />
+  <app-icon size="small" class="icon-clear" icon="close-default" (click)="value = ''"></app-icon>
+</span>

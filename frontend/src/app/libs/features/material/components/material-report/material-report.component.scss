@@ -1,0 +1,29 @@
+.material-report {
+  display: flex;
+  flex-direction: column;
+
+  &-submit {
+    display: flex;
+    margin-left: auto;
+    margin-top: 32px;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: var(--primary-tulip-500-base);
+  }
+
+  textarea {
+    resize: none;
+    width: 100%;
+    height: 200px;
+  }
+
+  .custom-dialog {
+    &-header {
+      &__close {
+        color: #64697D;
+      }
+    }
+  }
+}

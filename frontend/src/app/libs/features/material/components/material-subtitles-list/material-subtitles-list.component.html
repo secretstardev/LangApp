@@ -1,0 +1,47 @@
+<div class="material-subtitles-list p-col-12 p-md-4 right-text-parent">
+  <div class="right-text p-0" #subtitleList>
+    <div class="p-d-flex p-ai-center subtitle material-subtitles-list__item"
+         id="sub{{i}}"
+         *ngFor="let html of _subtitles; let i=index"
+         [class.__active]="currentSubtitleIndexes.includes(i)">
+      <div *ngIf="currentSubtitleIndexes.includes(i)">
+        <ng-container *ngTemplateOutlet="activeTemplate; context: { html, i }"></ng-container>
+      </div>
+      <div *ngIf="!currentSubtitleIndexes.includes(i)">
+        <ng-container *ngTemplateOutlet="inactiveTemplate; context: { html, i }"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #activeTemplate let-html="html" let-i="i">
+  <div class="flex flex-row items-center">
+    <div class="p-mr-2">
+    <span *ngIf="isPlaying" style="color: #c7c7c7; cursor: pointer" (click)="pauseSubtitle.emit()">
+      <app-icon icon="pause1"></app-icon>
+    </span>
+      <span *ngIf="!isPlaying" style="color: #c7c7c7; cursor: pointer" (click)="selectSubtitle(html, i)">
+      <app-icon icon="playing"></app-icon>
+    </span>
+    </div>
+    <ng-container *ngTemplateOutlet="subtitleTemplate; context: { html: html }"></ng-container>
+  </div>
+</ng-template>
+<ng-template #inactiveTemplate let-html="html" let-i="i">
+  <div class="flex flex-row items-center">
+    <div class="p-mr-2">
+    <span style="color: #c7c7c7; cursor: pointer" (click)="selectSubtitle(html, i)">
+      <app-icon icon="playing"></app-icon>
+    </span>
+    </div>
+    <ng-container *ngTemplateOutlet="subtitleTemplate; context: { html: html }"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #subtitleTemplate let-html="html">
+  <div class="material-subtitles-list__item-text">
+    <div onclickTranslation>
+      {{html?.text}}
+    </div>
+  </div>
+</ng-template>

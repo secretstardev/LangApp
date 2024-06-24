@@ -1,0 +1,142 @@
+version: "3.8"
+services:
+  redis:
+    image: redis:6-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+
+  db:
+    #image: postgres:12-alpine
+    image: groonga/pgroonga:latest-alpine-12-slim
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST:-db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_HOST_AUTH_METHOD: ${POSTGRES_HOST_AUTH_METHOD:-trust}
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./docker/db/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./:/app:delegated
+    ports:
+      - "${LISTEN_HOST:-127.0.0.1}:${POSTGRES_PORT:-5432}:5432"
+
+  web:
+    image: langapp-web
+    build:
+      context: ./
+      dockerfile: ./docker/web/Dockerfile
+      target: "dev"
+      args:
+        BASE_IMAGE: "php-nginx-dev"
+    ports:
+      - "${LISTEN_HOST:-127.0.0.1}:${HTTP_PORT:-8080}:80"
+      - "${LISTEN_HOST:-127.0.0.1}:${HTTPS_PORT:-443}:80"
+      - "127.0.0.1:${UNISON_PORT:-5000}:5000"
+    volumes:
+      - composer-cache:/root/.composer/cache
+      # - ./:/app:delegated
+      - ${MOUNT_PATH_APP:-app-web}:/app
+      - ./docker/web/nginx/vhost.conf:/opt/docker/etc/nginx/vhost.conf:ro
+      - ./docker/web/nginx/vhost-dev.conf:/opt/docker/etc/nginx/vhost-dev.conf:ro
+      - ./docker/web/php/php.ini:/opt/docker/etc/php/php.ini:ro
+      - ./docker/web/supervisord/postfix.conf:/opt/docker/etc/supervisor.d/postfix.conf:ro
+      - ./docker/web/supervisord/juman.conf:/opt/docker/etc/supervisor.d/juman.conf:ro
+      - ./docker/web/provision/entrypoint.d/app.sh:/opt/docker/provision/entrypoint.d/app.sh:ro
+      - ${MOUNT_PATH_NODE_MODULES_FRONTEND:-node-modules}:${NODE_MODULES_MOUNT:-/app/frontend/node_modules}
+      - ${MOUNT_PATH_NODE_MODULES_BACKEND:-node-modules-backend}:${NODE_MODULES_BACKEND_MOUNT:-/app/backend-ts/node_modules}
+      - ${MOUNT_PATH_NODE_MODULES_EXTENSION:-node-modules-extension}:${NODE_MODULES_EXTENSION_MOUNT:-/app/extension/node_modules}
+      - npm-cache:/root/.npm
+      - ./docker/web/etc/cron.hourly:/etc/cron.hourly:ro
+    environment:
+      PHP_DISPLAY_ERRORS: "1"
+      PHP_DEBUGGER: "xdebug"
+      POSTGRES_HOST: ${POSTGRES_HOST:-db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      REDIS_SERVICE_HOST: ${REDIS_SERVICE_HOST:-redis}
+      PHP_IDE_CONFIG: ${PHP_IDE_CONFIG:-serverName=_}
+    # Can be activated when docker-compose will support "host-gateway" value
+    # Currently:
+    # on Windows and macOS host.docker.internal added automatically by Docker Desktop
+    # on Linux host.docker.internal added in entrypoint.sh
+    #extra_hosts:
+    #  - host.docker.internal:host-gateway
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #     PGADMIN_CONFIG_SERVER_MODE: 0
+  #     PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 0
+  #     GUNICORN_ACCESS_LOGFILE: /dev/null
+  #   volumes:
+  #     - pgadmin:/var/lib/pgadmin
+  #     - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+  #     - ./docker/pgadmin/.pgpass:/pgadmin4/.pgpass
+  #   ports:
+  #     - "${LISTEN_HOST:-127.0.0.1}:${PGADMIN_PORT:-5001}:80"
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - "${LISTEN_HOST:-127.0.0.1}:${ADMINER_PORT:-5002}:8080"
+
+  arena:
+    image: mixmaxhq/arena
+    ports:
+      - "${LISTEN_HOST:-127.0.0.1}:${ARENA_PORT:-5003}:4567"
+    volumes:
+      - ./docker/arena/index.json:/opt/arena/index.json
+
+  # es:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/es/Dockerfile
+  #   environment:
+  #     - node.name=es
+  #     - cluster.name=es-docker-cluster
+  #     - discovery.type=single-node
+  #     - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - es-data-1:/usr/share/elasticsearch/data
+  #   ports:
+  #     - "${LISTEN_HOST:-127.0.0.1}:${ELASTICSEARCH_PORT:-9200}:9200"
+
+  # kibana:
+  #   image: docker.elastic.co/kibana/kibana:7.14.0
+  #   environment:
+  #     #SERVER_NAME: kibana
+  #     ELASTICSEARCH_HOSTS: '["http://es:9200"]'
+  #   ports:
+  #     - "${LISTEN_HOST:-127.0.0.1}:${KIBANA_PORT:-5004}:5601"
+
+  swagger:
+    image: swaggerapi/swagger-ui:v5.11.0
+    environment:
+      SWAGGER_JSON: /app/openapi.yaml
+    volumes:
+      - ./openapi.yaml:/app/openapi.yaml
+    ports:
+      - "${LISTEN_HOST:-127.0.0.1}:${SWAGGER_PORT:-5005}:8080"
+
+volumes:
+  app-web:
+  db-data:
+  pgadmin:
+  composer-cache:
+  npm-cache:
+  node-modules:
+  node-modules-backend:
+  node-modules-extension:
+  redis-data:
+  es-data-1:
